@@ -4,7 +4,8 @@ import { select } from '$lib/utils/stores'
 import { getDeep, mergeDeep, setDeep } from './deep'
 import { writable, get } from 'svelte/store'
 import { persisted } from 'svelte-persisted-store'
-import { defaultOptions, type Options } from './options'
+import { mergeOptions, type Options } from './options'
+import type { DeepPartial } from './utils'
 
 export type { SettingsFromBlueprint, SettingsBlueprint } from './types'
 
@@ -22,7 +23,7 @@ export { performMigrations } from './migrate'
  * Having multiple instances would break reactivity.
  * You can re-export the initialized settings for use in your app.
  */
-export function useSettings<T extends SettingsBlueprint>(blueprint: T, options: Options) {
+export function useSettings<T extends SettingsBlueprint>(blueprint: T, options: DeepPartial<Options>) {
   type Settings = SettingsFromBlueprint<T>
 
   const settingsOverrides = persisted('settings', {})
@@ -41,7 +42,7 @@ export function useSettings<T extends SettingsBlueprint>(blueprint: T, options: 
     resetSetting,
     defaults: settingsDefaults,
     blueprint,
-    options: mergeDeep(defaultOptions, options) as Options,
+    options: mergeOptions(options),
   }
 
   return settings

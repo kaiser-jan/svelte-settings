@@ -41,7 +41,7 @@
                   <b class="text-text mt-1">{commit.scope}</b>
                 {/if}
                 <a href={commit.commitUrl} target="_blank" class="flex text-sm">
-                  {commit.subject.trim()}
+                  {commit.subject?.trim()}
                   <!-- {commit.hash} -->
                 </a>
               {/each}

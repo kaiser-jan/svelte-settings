@@ -1,8 +1,6 @@
 <script lang="ts">
-  import { Button } from '$lib/components/ui/button'
   import { CircleCheckIcon, CircleXIcon } from '@lucide/svelte'
   import type { ActionItem } from '../../types'
-  import LoaderPulsatingRing from '$lib/components/ui/LoaderPulsatingRing.svelte'
   import { toReadable } from '$lib/utils/stores'
   import { getOptionsContext } from '$lib/context.js'
 
@@ -13,6 +11,7 @@
   let { item }: Props = $props()
 
   const options = getOptionsContext()
+  const { Button, LoaderPulsatingRing } = options.components
 
   let disabled = $derived(toReadable(item.disabled))
 

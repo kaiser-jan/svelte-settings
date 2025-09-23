@@ -27,7 +27,7 @@
 <button
   class={cn(
     options.style.category.classes,
-    'relative flex h-fit min-h-12 shrink-0 flex-wrap items-center justify-between gap-x-3 gap-y-1 overflow-hidden rounded-md px-4 py-2',
+    'relative flex h-fit min-h-12 shrink-0 flex-wrap items-center justify-between gap-x-3 gap-y-1 overflow-hidden rounded-md px-4 py-2 whitespace-normal',
   )}
   onclick={() => {
     if (item.action) return item.action

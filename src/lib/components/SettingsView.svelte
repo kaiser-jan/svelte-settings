@@ -1,13 +1,10 @@
 <script lang="ts">
-  import type { ConfigItem, SettingsPage } from '../types'
-  import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js'
+  import type { SettingsPage } from '../types'
   import { useSwipe, type SwipeCustomEvent } from 'svelte-gestures'
   import { SettingsIcon } from '@lucide/svelte'
-  import { onMount, setContext } from 'svelte'
-  import { pushState, replaceState } from '$app/navigation'
-  import { page } from '$app/state'
+  import { onMount } from 'svelte'
   import { getPageComponent, isWrapper } from '../registry'
-  import { debounce, throttle } from '$lib/utils/common'
+  import { throttle } from '$lib/utils/common'
   import ItemPageRenderer from './pages/ItemPageRenderer.svelte'
   import type { InitializedSettings } from '..'
   import { setSettingsContext } from '../context'
@@ -23,6 +20,7 @@
 
   setSettingsContext(settings)
   setOptionsContext(settings.options)
+  const { Breadcrumb } = settings.options.components
 
   const settingsPath = queryParam<string[]>('settings-path', ssp.array())
 

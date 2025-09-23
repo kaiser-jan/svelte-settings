@@ -1,6 +1,6 @@
 <script lang="ts">
+  import { getOptionsContext } from '$lib/context'
   import type { TextSetting } from '../../types'
-  import Input from '$lib/components/ui/input/input.svelte'
 
   interface Props {
     item: TextSetting
@@ -9,6 +9,9 @@
   }
 
   let { item, value, onchange }: Props = $props()
+
+  const options = getOptionsContext()
+  const { Input } = options.components
 </script>
 
 <Input bind:value placeholder={item.placeholder} onblur={(e) => onchange((e.target as HTMLInputElement).value)} />

@@ -1,6 +1,6 @@
 <script lang="ts">
+  import { getOptionsContext } from '$lib/context'
   import type { BooleanSetting } from '../../types'
-  import Switch from '$lib/components/ui/switch/switch.svelte'
 
   interface Props {
     item: BooleanSetting
@@ -9,6 +9,8 @@
   }
 
   let { item, value, onchange }: Props = $props()
+  const options = getOptionsContext()
+  const { Switch } = options.components
 </script>
 
 <Switch

@@ -1,8 +1,7 @@
 <script lang="ts">
   import type { MultiSelectSetting } from '../../types'
-  import { Checkbox } from '$lib/components/ui/checkbox'
-  import { Label } from '$lib/components/ui/label'
   import { toReadable } from '$lib/utils/stores'
+  import { getOptionsContext } from '$lib/context'
 
   interface Props {
     item: MultiSelectSetting
@@ -11,6 +10,8 @@
   }
 
   let { item, value, onchange }: Props = $props()
+  const options = getOptionsContext()
+  const { Checkbox, Label } = options.components
 
   let disabled = toReadable(item.disabled)
 </script>

@@ -1,3 +1,4 @@
+import type { SettingsBlueprint } from '$lib'
 import {
   CheckSquareIcon,
   DatabaseIcon,
@@ -25,7 +26,14 @@ export const settingsConfig = [
     icon: SettingsIcon,
     type: 'page',
     children: [
-      { id: 'boolean', type: 'boolean', label: 'boolean', icon: ToggleLeftIcon, default: false },
+      {
+        id: 'boolean',
+        type: 'boolean',
+        label: 'boolean',
+        icon: ToggleLeftIcon,
+        default: false,
+        description: 'Lorem ipsum dolor sit amet, just a loooong description',
+      },
       {
         id: 'number_step',
         type: 'number',
@@ -62,6 +70,7 @@ export const settingsConfig = [
         label: 'action',
         icon: RefreshCwIcon,
         action: () => {},
+        description: 'An action which completes instantly.',
       },
       // {
       // 	id: 'action_disabled',
@@ -95,7 +104,6 @@ export const settingsConfig = [
         icon: CheckSquareIcon,
         options: ['email', 'push', 'sms'] as string[],
         default: ['email', 'push'] as string[],
-        allowReorder: true,
       },
     ],
   },
@@ -148,4 +156,4 @@ export const settingsConfig = [
       },
     ],
   },
-] as const
+] as const satisfies SettingsBlueprint

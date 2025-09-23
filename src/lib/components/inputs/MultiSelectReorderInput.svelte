@@ -2,7 +2,6 @@
   import type { MultiSelectSetting } from '../../types'
   import { toReadable } from '$lib/utils/stores'
   import ReorderableList from '../ui/ReorderableList.svelte'
-  import { Label } from '$lib/components/ui/label'
   import { ChevronRightIcon } from '@lucide/svelte'
 
   interface Props {

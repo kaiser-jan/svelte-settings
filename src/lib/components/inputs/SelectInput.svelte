@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { SelectSetting } from '../../types'
-  import * as Select from '$lib/components/ui/select'
   import { toReadable } from '$lib/utils/stores'
+  import { getOptionsContext } from '$lib/context'
 
   interface Props {
     item: SelectSetting
@@ -10,6 +10,8 @@
   }
 
   let { item, value, onchange }: Props = $props()
+  const options = getOptionsContext()
+  const { Select } = options.components
 
   let disabled = toReadable(item.disabled)
 </script>

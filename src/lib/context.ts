@@ -1,5 +1,6 @@
 import { getContext, setContext } from 'svelte'
-import type { InitializedSettings, Options } from './index.ts'
+import type { InitializedSettings } from './index.ts'
+import type { Options } from './options.js'
 
 const settingsKey = {}
 

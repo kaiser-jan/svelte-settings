@@ -1,9 +1,6 @@
 <script lang="ts">
-  import * as Popover from '$lib/components/ui/popover'
   import { GripHorizontalIcon, PlusIcon, Trash2Icon } from '@lucide/svelte'
   import { dragHandle, dragHandleZone } from 'svelte-dnd-action'
-  import Label from '$lib/components/ui/label/label.svelte'
-  import Button from '$lib/components/ui/button/button.svelte'
   import { cn } from '$lib/utils'
   import type { Readable } from 'svelte/store'
   import { getOptionsContext } from '$lib/context.js'
@@ -19,6 +16,7 @@
   let { disabled, selectedOptions, allOptions, labels, onchange }: Props = $props()
 
   const options = getOptionsContext()
+  const { Label, Button, Popover } = options.components
 
   let items = $state(selectedOptions.map((v) => ({ id: v })))
 
@@ -56,7 +54,9 @@
         <GripHorizontalIcon data-vaul-no-drag />
       </div>
 
-      <Label for={listItem.id} class="text-left leading-4">{labels?.[listItem.id] ?? listItem.id}</Label>
+      <Label for={listItem.id} class="text-left leading-4">
+        {labels?.[listItem.id] ?? listItem.id}
+      </Label>
 
       <Button
         size="icon"

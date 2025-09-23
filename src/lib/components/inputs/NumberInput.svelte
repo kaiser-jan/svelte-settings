@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Input } from '$lib/components/ui/input'
+  import { getOptionsContext } from '$lib/context'
   import type { NumberSetting } from '../../types'
 
   interface Props {
@@ -9,6 +9,8 @@
   }
 
   let { item, value, onchange }: Props = $props()
+  const options = getOptionsContext()
+  const { Input } = options.components
 </script>
 
 <div class="inline-flex flex-row items-baseline gap-1">

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { Button } from '$lib/components/ui/button'
   import { getOptionsContext } from '$lib/context.js'
   import type { BasePage } from '$lib/types'
   import { ChevronRightIcon } from '@lucide/svelte'
@@ -13,6 +12,7 @@
   let { path, item, onnavigate }: Props = $props()
 
   const options = getOptionsContext()
+  const { Button } = options.components
 </script>
 
 <Button

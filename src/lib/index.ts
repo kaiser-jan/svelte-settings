@@ -4,7 +4,7 @@ import { select } from '$lib/utils/stores'
 import { getDeep, mergeDeep, setDeep } from './deep'
 import { writable, get } from 'svelte/store'
 import { persisted } from 'svelte-persisted-store'
-import { buttonVariants } from './components/ui/button'
+import { defaultOptions, type Options } from './options'
 
 export type { SettingsFromBlueprint, SettingsBlueprint } from './types'
 
@@ -15,30 +15,6 @@ export { default as SettingsView } from './components/SettingsView.svelte'
 export * as migration from './utils/migration'
 
 export { performMigrations } from './migrate'
-
-export type Options = {
-  style: {
-    button: {
-      category: string
-      action: string
-    }
-    category: {
-      classes: string
-    }
-  }
-}
-
-const defaultOptions: Options = {
-  style: {
-    button: {
-      category: 'outline',
-      action: 'default',
-    },
-    category: {
-      classes: buttonVariants({ variant: 'outline', class: 'text-base' }),
-    },
-  },
-}
 
 /**
  * Creates an instance of svelte-settings following the given blueprint.
@@ -65,7 +41,7 @@ export function useSettings<T extends SettingsBlueprint>(blueprint: T, options: 
     resetSetting,
     defaults: settingsDefaults,
     blueprint,
-    options: mergeDeep(defaultOptions, options),
+    options: mergeDeep(defaultOptions, options) as Options,
   }
 
   return settings

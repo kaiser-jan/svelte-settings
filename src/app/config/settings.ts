@@ -7,6 +7,7 @@ import {
   GlobeIcon,
   GridIcon,
   HashIcon,
+  HistoryIcon,
   InfoIcon,
   LayersIcon,
   LayoutIcon,
@@ -104,6 +105,16 @@ export const settingsConfig = [
         icon: CheckSquareIcon,
         options: ['email', 'push', 'sms'] as string[],
         default: ['email', 'push'] as string[],
+      },
+      {
+        id: 'changelog',
+        type: 'changelog',
+        label: 'Changelog',
+        icon: HistoryIcon,
+        changelog: async () => {
+          const module = await import('changelog.json')
+          return module.default
+        },
       },
     ],
   },

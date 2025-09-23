@@ -1,0 +1,52 @@
+{
+  "releases": [
+    {
+      "version": "0.0.0",
+      "date": "2025-09-23",
+      "commitGroups": [
+        {
+          "title": "Bug Fixes",
+          "type": "fix",
+          "commits": [
+            {
+              "hash": "fake",
+              "subject": "what has been fixed",
+              "scope": "scope",
+              "commitUrl": "https://github.com/kaiser-jan/weather-pwa"
+            }
+          ]
+        },
+        {
+          "title": "Features",
+          "type": "feat",
+          "commits": [
+            {
+              "hash": "fake",
+              "subject": "new feature without scope",
+              "commitUrl": "https://github.com/kaiser-jan/weather-pwa"
+            },
+            {
+              "hash": "fake",
+              "subject": "new feature with scope",
+              "scope": "scope",
+              "commitUrl": "https://github.com/kaiser-jan/weather-pwa"
+            },
+            {
+              "hash": "fake",
+              "subject": "second feature with same scope",
+              "scope": "scope",
+              "commitUrl": "https://github.com/kaiser-jan/weather-pwa"
+            },
+            {
+              "hash": "fake",
+              "subject": "feature with other scope",
+              "scope": "other-scope",
+              "commitUrl": "https://github.com/kaiser-jan/weather-pwa"
+            }
+          ]
+        }
+      ],
+      "compareUrl": "https://github.com/kaiser-jan/weather-pwa"
+    }
+  ]
+}

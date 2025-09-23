@@ -1,5 +1,6 @@
 import type { Icon } from '@lucide/svelte'
 import type { Readable } from 'svelte/store'
+import type { Changelog } from './types/changelog'
 
 // TODO: pass the settings type as ctx
 export type VisibilityCallback = (ctx: Record<string, unknown>) => boolean
@@ -86,6 +87,7 @@ export type ListSettingPage = BaseConfigItem & {
 }
 export type ChangelogPage = BaseConfigItem & {
   type: 'changelog'
+  changelog: Changelog | Readable<Changelog> | (() => Promise<Changelog>)
 }
 
 export type SettingsPage = BasePage | ListSettingPage | ChangelogPage

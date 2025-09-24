@@ -1,6 +1,9 @@
 {
   "name": "svelte-settings",
   "version": "0.0.1",
+  "repository": {
+    "url": "https://github.com/kaiser-jan/svelte-settings"
+  },
   "scripts": {
     "dev": "vite dev",
     "build": "vite build && npm run prepack",

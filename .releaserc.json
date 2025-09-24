@@ -19,6 +19,7 @@
     ],
     ["semantic-release-json-changelog-generator", { "changelogName": "changelog.json" }],
     ["@semantic-release/changelog"],
+    ["@semantic-release/npm", { "pkgRoot": "dist", "npmPublish": false }],
     [
       "@semantic-release/git",
       {

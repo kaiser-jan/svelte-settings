@@ -1,6 +1,93 @@
 {
   "releases": [
     {
+      "version": "1.0.0",
+      "date": "2025-09-24",
+      "commitGroups": [
+        {
+          "title": "ci",
+          "type": "ci",
+          "commits": [
+            {
+              "hash": "b3f03f9",
+              "subject": "semantic release and publish to npm",
+              "commitUrl": "https://github.com/kaiser-jan/svelte-settings/commit/b3f03f9"
+            }
+          ]
+        },
+        {
+          "title": "refactor",
+          "type": "refactor",
+          "commits": [
+            {
+              "hash": "1d583ba",
+              "subject": "add extensions to relative imports",
+              "commitUrl": "https://github.com/kaiser-jan/svelte-settings/commit/1d583ba"
+            }
+          ]
+        },
+        {
+          "title": "docs",
+          "type": "docs",
+          "commits": [
+            {
+              "hash": "deba7fc",
+              "subject": "basic documentation",
+              "scope": "readme",
+              "commitUrl": "https://github.com/kaiser-jan/svelte-settings/commit/deba7fc"
+            }
+          ]
+        },
+        {
+          "title": "fix",
+          "type": "fix",
+          "commits": [
+            {
+              "hash": "91b07f5",
+              "subject": "make some properties optional/nullable",
+              "scope": "changelog",
+              "commitUrl": "https://github.com/kaiser-jan/svelte-settings/commit/91b07f5"
+            },
+            {
+              "hash": "32a7747",
+              "subject": "correctly merge user options with defaults",
+              "scope": "options",
+              "commitUrl": "https://github.com/kaiser-jan/svelte-settings/commit/32a7747"
+            }
+          ]
+        },
+        {
+          "title": "feat",
+          "type": "feat",
+          "commits": [
+            {
+              "hash": "8b82f6a",
+              "subject": "re-implement changelog",
+              "scope": "changelog",
+              "commitUrl": "https://github.com/kaiser-jan/svelte-settings/commit/8b82f6a"
+            },
+            {
+              "hash": "00138e4",
+              "subject": "allow overriding shadcn-svelte components",
+              "scope": "customization",
+              "commitUrl": "https://github.com/kaiser-jan/svelte-settings/commit/00138e4"
+            }
+          ]
+        },
+        {
+          "title": false,
+          "type": null,
+          "commits": [
+            {
+              "hash": "8ac913e",
+              "subject": null,
+              "commitUrl": "https://github.com/kaiser-jan/svelte-settings/commit/8ac913e"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "version": "0.0.0",
       "date": "2025-09-23",
       "commitGroups": [

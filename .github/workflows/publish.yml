@@ -30,6 +30,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
+          registry-url: 'https://registry.npmjs.org'
       - name: Install Bun
         run: curl -fsSL https://bun.sh/install | bash
       - name: Add Bun to PATH
@@ -48,11 +49,11 @@ jobs:
         run: git restore .
 
       - name: Build
-        if: steps.semantic.outputs.new_release_published == 'true'
+        # if: steps.semantic.outputs.new_release_published == 'true'
         run: bun run build
 
       - name: Publish to NPM
-        if: steps.semantic.outputs.new_release_published == 'true'
+        # if: steps.semantic.outputs.new_release_published == 'true'
         run: bun x npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

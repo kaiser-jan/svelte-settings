@@ -10,13 +10,13 @@ export interface Release {
 
 export interface CommitGroup {
   title: string
-  type: string
+  type: string | null // e.g. reverts
   commits: Commit[]
 }
 
 export interface Commit {
   hash: string
-  subject: string
-  scope: string | undefined
+  subject: string | null // e.g. reverts
+  scope?: string | undefined
   commitUrl: string
 }

@@ -1,4 +1,4 @@
-import type { SettingsBlueprintItem } from './types'
+import type { SettingsBlueprintItem } from './types.js'
 
 export function extractDefaults(items: SettingsBlueprintItem[]): Record<string, unknown> {
   const result: Record<string, any> = {}

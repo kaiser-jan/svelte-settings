@@ -1,7 +1,7 @@
 <script lang="ts">
   import { getInputComponent } from '../../registry'
   import type { SettingsInput } from '../../types'
-  import { getSettingsContext } from '$lib/context'
+  import { getSettingsContext } from '$lib/context.js'
   import { cn } from '$lib/utils.js'
   import { getOptionsContext } from '$lib/context.js'
 

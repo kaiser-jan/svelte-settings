@@ -1,4 +1,4 @@
-import type { SettingsMigrations } from './utils/migration'
+import type { SettingsMigrations } from './utils/migration.js'
 
 export function performMigrations({ migrations, remigrate }: { migrations: SettingsMigrations; remigrate?: boolean }) {
   console.debug('Checking for settings migrations...')

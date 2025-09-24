@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { GroupWrapper } from '$lib/types'
+  import type { GroupWrapper } from '$lib/types.js'
   import BasicPageRenderer from '../pages/BasicPageRenderer.svelte'
 
   interface Props {

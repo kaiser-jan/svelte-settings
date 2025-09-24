@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { getOptionsContext } from '$lib/context'
-  import type { ChangelogPage } from '$lib/types'
-  import { toReadable } from '$lib/utils/stores'
+  import { getOptionsContext } from '$lib/context.js'
+  import type { ChangelogPage } from '$lib/types.js'
+  import { toReadable } from '$lib/utils/stores.js'
   import { DateTime } from 'luxon'
 
   interface Props {

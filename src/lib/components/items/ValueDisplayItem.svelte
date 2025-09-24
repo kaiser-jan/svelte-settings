@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { getOptionsContext } from '$lib/context'
-  import { cn } from '$lib/utils'
-  import { toReadable } from '$lib/utils/stores'
+  import { getOptionsContext } from '$lib/context.js'
+  import { cn } from '$lib/utils.js'
+  import { toReadable } from '$lib/utils/stores.js'
   import type { ValueDisplayItem } from '../../types'
 
   interface Props {

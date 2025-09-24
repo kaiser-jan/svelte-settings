@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getOptionsContext } from '$lib/context.js'
-  import type { DescriptionItem } from '$lib/types'
+  import type { DescriptionItem } from '$lib/types.js'
   import { cn } from '$lib/utils.js'
 
   interface Props {

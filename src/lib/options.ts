@@ -1,15 +1,15 @@
-import { Button, buttonVariants } from './components/ui/button'
+import { Button, buttonVariants } from './components/ui/button/index.js'
 import Label from '$lib/components/ui/label/label.svelte'
 import Input from '$lib/components/ui/input/input.svelte'
 import Switch from '$lib/components/ui/switch/switch.svelte'
 import LoaderPulsatingRing from '$lib/components/ui/LoaderPulsatingRing.svelte'
-import { Checkbox } from '$lib/components/ui/checkbox'
-import * as Popover from '$lib/components/ui/popover'
+import { Checkbox } from '$lib/components/ui/checkbox/index.js'
+import * as Popover from '$lib/components/ui/popover/index.js'
 import * as Accordion from '$lib/components/ui/accordion/index.js'
-import * as Select from '$lib/components/ui/select'
+import * as Select from '$lib/components/ui/select/index.js'
 import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js'
-import type { DeepPartial } from './utils'
-import { mergeDeep } from './deep'
+import type { DeepPartial } from './utils.js'
+import { mergeDeep } from './deep.js'
 
 export type Options = {
   components: {

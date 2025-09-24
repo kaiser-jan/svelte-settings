@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { SettingsNested } from '../../types'
-  import { getItemComponent } from '$lib/registry'
+  import { getItemComponent } from '$lib/registry.js'
 
   interface Props {
     path: string[]

@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { SettingsNested } from '../../types'
-  import { getItemComponent } from '$lib/registry'
-  import { getSettingsContext } from '$lib/context'
+  import { getItemComponent } from '$lib/registry.js'
+  import { getSettingsContext } from '$lib/context.js'
 
   interface Props {
     path: string[]

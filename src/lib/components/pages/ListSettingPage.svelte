@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { getOptionsContext } from '$lib/context'
-  import type { ListSettingPage } from '$lib/types'
-  import { cn } from '$lib/utils'
+  import { getOptionsContext } from '$lib/context.js'
+  import type { ListSettingPage } from '$lib/types.js'
+  import { cn } from '$lib/utils.js'
   import { ChevronRightIcon, GripHorizontalIcon } from '@lucide/svelte'
   import { dragHandle, dragHandleZone } from 'svelte-dnd-action'
 

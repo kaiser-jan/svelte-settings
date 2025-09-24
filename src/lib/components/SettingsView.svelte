@@ -4,7 +4,7 @@
   import { SettingsIcon } from '@lucide/svelte'
   import { onMount } from 'svelte'
   import { getPageComponent, isWrapper } from '../registry'
-  import { throttle } from '$lib/utils/common'
+  import { throttle } from '$lib/utils/common.js'
   import ItemPageRenderer from './pages/ItemPageRenderer.svelte'
   import type { InitializedSettings } from '..'
   import { setSettingsContext } from '../context'

@@ -1,6 +1,6 @@
 import type { Component } from 'svelte'
 
-import type { SettingsBlueprintItem, SettingsInput, SettingsItem, SettingsPage, SettingsWrapper } from './types'
+import type { SettingsBlueprintItem, SettingsInput, SettingsItem, SettingsPage, SettingsWrapper } from './types.js'
 
 import BasicPageRenderer from './components/pages/BasicPageRenderer.svelte'
 import ChangelogPage from './components/pages/ChangelogPage.svelte'

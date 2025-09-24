@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { DescriptionItem } from '$lib/types'
+  import type { DescriptionItem } from '$lib/types.js'
   import { LockIcon } from '@lucide/svelte'
 
   interface Props {

@@ -1,6 +1,6 @@
 import type { Icon } from '@lucide/svelte'
 import type { Readable } from 'svelte/store'
-import type { Changelog } from './types/changelog'
+import type { Changelog } from './types/changelog.js'
 
 // TODO: pass the settings type as ctx
 export type VisibilityCallback = (ctx: Record<string, unknown>) => boolean

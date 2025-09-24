@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getOptionsContext } from '$lib/context.js'
-  import type { BasePage } from '$lib/types'
+  import type { BasePage } from '$lib/types.js'
   import { ChevronRightIcon } from '@lucide/svelte'
 
   interface Props {

@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { MultiSelectSetting } from '../../types'
-  import { toReadable } from '$lib/utils/stores'
+  import { toReadable } from '$lib/utils/stores.js'
   import ReorderableList from '../ui/ReorderableList.svelte'
 
   interface Props {

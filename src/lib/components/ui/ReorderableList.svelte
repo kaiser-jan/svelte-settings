@@ -1,7 +1,7 @@
 <script lang="ts">
   import { GripHorizontalIcon, PlusIcon, Trash2Icon } from '@lucide/svelte'
   import { dragHandle, dragHandleZone } from 'svelte-dnd-action'
-  import { cn } from '$lib/utils'
+  import { cn } from '$lib/utils.js'
   import type { Readable } from 'svelte/store'
   import { getOptionsContext } from '$lib/context.js'
 

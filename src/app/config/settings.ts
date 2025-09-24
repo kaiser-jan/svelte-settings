@@ -1,4 +1,4 @@
-import type { SettingsBlueprint } from '$lib'
+import type { SettingsBlueprint } from '$lib/index.js'
 import {
   CheckSquareIcon,
   DatabaseIcon,

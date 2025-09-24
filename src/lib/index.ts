@@ -1,21 +1,21 @@
-import { extractDefaults } from './extractDefaults'
-import type { SettingsBlueprint, SettingsFromBlueprint } from './types'
-import { select } from '$lib/utils/stores'
-import { getDeep, mergeDeep, setDeep } from './deep'
+import { extractDefaults } from './extractDefaults.js'
+import type { SettingsBlueprint, SettingsFromBlueprint } from './types.js'
+import { select } from '$lib/utils/stores.js'
+import { getDeep, mergeDeep, setDeep } from './deep.js'
 import { writable, get } from 'svelte/store'
 import { persisted } from 'svelte-persisted-store'
-import { mergeOptions, type Options } from './options'
-import type { DeepPartial } from './utils'
+import { mergeOptions, type Options } from './options.js'
+import type { DeepPartial } from './utils.js'
 
-export type { SettingsFromBlueprint, SettingsBlueprint } from './types'
+export type { SettingsFromBlueprint, SettingsBlueprint } from './types.js'
 
 export type InitializedSettings = ReturnType<typeof useSettings>
 
 export { default as SettingsView } from './components/SettingsView.svelte'
 
-export * as migration from './utils/migration'
+export * as migration from './utils/migration.js'
 
-export { performMigrations } from './migrate'
+export { performMigrations } from './migrate.js'
 
 /**
  * Creates an instance of svelte-settings following the given blueprint.

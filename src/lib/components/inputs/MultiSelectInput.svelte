@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { MultiSelectSetting } from '../../types'
-  import { toReadable } from '$lib/utils/stores'
-  import { getOptionsContext } from '$lib/context'
+  import { toReadable } from '$lib/utils/stores.js'
+  import { getOptionsContext } from '$lib/context.js'
 
   interface Props {
     item: MultiSelectSetting

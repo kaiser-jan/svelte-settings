@@ -1,58 +1,125 @@
-# Svelte library
+# WIP - Svelte Settings
 
-Everything you need to build a Svelte library, powered by [`sv`](https://npmjs.com/package/sv).
+> [!WARNING]
+> This project is a work in progress. Do not use it in any of your projects yet.
 
-Read more about creating a library [in the docs](https://svelte.dev/docs/kit/packaging).
+Automatic user interface and reactive store for settings described in a single config object - all of that with full type support.
+Based on [shadcn-svelte](https://www.shadcn-svelte.com/) with support for providing your own components which follow the same structure (for passing in your customized components).
 
-## Creating a project
+## Features
 
-If you're seeing this, you've probably already done this step. Congrats!
+- Single source of truth TypeScript config
+- Automatic UI
+- LocalStorage for persistence
+- Reactive store for the setting values
+- Support for subscribing only to a subset of settings (`.select`)
+- Migration based on descriptive migration steps
+- Type support for using the setting values
 
-```sh
-# create a new project in the current directory
-npx sv create
+## Roadmap
 
-# create a new project in my-app
-npx sv create my-app
+- [ ] Support for custom storage adapters
+- [ ] More settings types
+  - [ ] Nested objects
+  - [ ] Date/Time
+  - [ ] Duration
+  - [ ] Color
+  - [ ] Icons
+
+## Usage
+
+##### Define your settings
+
+in e.g. `$lib/config/settings.ts`:
+
+```typescript
+import type { SettingsBlueprint } from 'svelte-settings'
+
+export const settingsConfig = [
+  {
+    id: 'general',
+    label: 'General',
+    icon: SettingsIcon,
+    type: 'page',
+    children: [
+      {
+        id: 'language',
+        label: 'Language',
+        icon: LanguagesIcon,
+        type: 'select',
+        options: ['en', 'de'] as string[],
+        default: 'en',
+      },
+      {
+        id: 'highContrast',
+        label: 'High Contrast',
+        description: 'Use colors with higher contrast for better readability.',
+        type: 'boolean',
+        icon: ListOrderedIcon,
+        default: false,
+      },
+    ],
+  },
+] as const satisfies SettingsBlueprint
 ```
 
-## Developing
+##### Initialize svelte-settings
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+in e.g. `$lib/stores/settings.ts`:
 
-```sh
-npm run dev
+```typescript
+import { useSettings, type SettingsFromBlueprint } from 'svelte-settings'
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+import { settingsConfig } from '$lib/config/settings'
+
+export const settings = useSettings(settingsConfig, {})
+export type Settings = SettingsFromBlueprint<typeof settingsConfig>
 ```
 
-Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
+##### Use the settings in your application
 
-## Building
-
-To build your library:
-
-```sh
-npm pack
+```typescript
+import { settings } from `$lib/stores/settings`
+const highContrast = $settings.general.highContrast
 ```
 
-To create a production version of your showcase app:
+### Advanced Usage
 
-```sh
-npm run build
+#### Migration
+
+##### Define the migration steps
+
+in e.g. `$lib/config/settings-migrations.ts`:
+
+```typescript
+import { copy, renameArrayEntry, type SettingsMigrations } from 'svelte-settings/migration'
+
+export const SETTINGS_MIGRATIONS: SettingsMigrations = [
+  // each list represents a new version with multiple migration steps
+  [],
+  [
+    {
+      description: 'Copy general.highContrast to general.differentiateWithoutColor',
+      callback: (settings) => copy(settings, ['general', 'highContrast'], ['general', 'differentiateWithoutColor']),
+    },
+    {
+      description: 'Rename language codes to short form',
+      callback: (settings) => {
+        renameArrayEntry(settings, ['general', 'language'], 'english', 'en')
+        renameArrayEntry(settings, ['general', 'language'], 'german', 'de')
+      },
+    },
+  ],
+]
 ```
 
-You can preview the production build with `npm run preview`.
+##### Tell svelte-settings to perform the necessary migrations
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+in `hooks.client.ts`:
 
-## Publishing
+```typescript
+import { performMigrations } from 'svelte-settings'
+import { SETTINGS_MIGRATIONS } from '$lib/config/settings-migrations'
 
-Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
-
-To publish your library to [npm](https://www.npmjs.com):
-
-```sh
-npm publish
+performMigrations({ migrations: SETTINGS_MIGRATIONS }) [ ] Search
 ```

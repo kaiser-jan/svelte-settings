@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { SettingsNested } from '../../types'
+  import type { SettingsNested } from '../../types.js'
   import { getItemComponent } from '$lib/registry.js'
   import { getSettingsContext } from '$lib/context.js'
 

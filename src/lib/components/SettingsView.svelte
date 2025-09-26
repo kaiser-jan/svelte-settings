@@ -1,13 +1,13 @@
 <script lang="ts">
-  import type { SettingsPage } from '../types'
+  import type { SettingsPage } from '../types.js'
   import { useSwipe, type SwipeCustomEvent } from 'svelte-gestures'
   import { SettingsIcon } from '@lucide/svelte'
   import { onMount } from 'svelte'
-  import { getPageComponent, isWrapper } from '../registry'
+  import { getPageComponent, isWrapper } from '../registry.js'
   import { throttle } from '$lib/utils/common.js'
   import ItemPageRenderer from './pages/ItemPageRenderer.svelte'
-  import type { InitializedSettings } from '..'
-  import { setSettingsContext } from '../context'
+  import type { InitializedSettings } from '../index.js'
+  import { setSettingsContext } from '../context.js'
   import { get } from 'svelte/store'
   import { queryParam, ssp } from 'sveltekit-search-params'
   import { setOptionsContext } from '$lib/context.js'
@@ -18,11 +18,11 @@
 
   let { settings }: Props = $props()
 
+  const settingsPath = queryParam<string[]>('settings-path', ssp.array())
+
   setSettingsContext(settings)
   setOptionsContext(settings.options)
   const { Breadcrumb } = settings.options.components
-
-  const settingsPath = queryParam<string[]>('settings-path', ssp.array())
 
   type Page = SettingsPage & { path: readonly string[] }
 
@@ -73,17 +73,15 @@
     return _pages
   })
 
-  function navigateToPath(additionalPath: string[]) {
-    console.log(additionalPath)
+  function openSubpath(additionalPath: string[]) {
     const newPath = [...(get(settingsPath) ?? []), ...additionalPath]
     settingsPath.set(newPath)
-    console.info(newPath)
   }
 
-  const navigateToPathThrottled = throttle(navigateToPath, 200)
+  /** Disable navigation while animating to the next page */
+  const openSubpathThrottled = throttle(openSubpath, 200)
 
   let scrollContainer: HTMLDivElement
-  let test = $state<string>()
 
   $effect(() => {
     if (pages.length) {
@@ -92,11 +90,9 @@
   })
 
   function updateScroll() {
-    let gap = parseInt(getComputedStyle(scrollContainer).gap, 10)
-    if (isNaN(gap)) gap = 0
-    scrollContainer.style.left =
-      -1 * (pages.length - 1) * (scrollContainer.parentElement!.getBoundingClientRect().width + gap) + 'px'
-    test = `${gap} ${scrollContainer.parentElement?.getBoundingClientRect().width}`
+    const gap = parseInt(getComputedStyle(scrollContainer).gap, 10) || 0
+    const pageWidth = scrollContainer.parentElement!.getBoundingClientRect().width + gap
+    scrollContainer.style.left = `${-1 * (pages.length - 1) * pageWidth}px`
   }
 
   function handleSwipe(event: SwipeCustomEvent) {
@@ -110,6 +106,21 @@
     }
   }
 
+  async function navigateToPage(page: Page) {
+    const currentLength = get(settingsPath)?.length ?? 0
+    const targetLength = page.path.length
+    let moveBackBy = currentLength - targetLength
+
+    // NOTE: wrappers are not added to history
+    for (let i = targetLength - 1; i <= currentLength - 1; i++) {
+      if (pages[i] && isWrapper(pages[i]) && i !== targetLength) moveBackBy -= 1
+    }
+
+    // avoid reloading
+    if (moveBackBy === 0) return
+    history.go(-moveBackBy)
+  }
+
   onMount(() => {
     window.addEventListener('resize', updateScroll)
 
@@ -119,7 +130,6 @@
   })
 </script>
 
-<!-- <FailSafeContainer name="Settings" class="flex min-h-0 grow flex-col gap-4 overflow-x-visible p-4 pb-0"> -->
 <Breadcrumb.Root>
   <Breadcrumb.List>
     {#each pages as settingsPage, index (settingsPage.id)}
@@ -127,30 +137,13 @@
         <Breadcrumb.Separator />
       {/if}
       <Breadcrumb.Item>
-        <Breadcrumb.Link
-          onclick={async () => {
-            const currentLength = get(settingsPath)?.length ?? 0
-            const targetLength = settingsPage.path.length
-            let moveBackBy = currentLength - targetLength
-
-            // NOTE: wrappers are not added to history
-            for (let i = targetLength - 1; i <= currentLength - 1; i++) {
-              if (pages[i] && isWrapper(pages[i]) && i !== targetLength) moveBackBy -= 1
-            }
-
-            // avoid reloading
-            if (moveBackBy === 0) return
-            history.go(-moveBackBy)
-          }}>{settingsPage.label}</Breadcrumb.Link
-        >
+        <Breadcrumb.Link onclick={() => navigateToPage(settingsPage)}>
+          {settingsPage.label}
+        </Breadcrumb.Link>
       </Breadcrumb.Item>
     {/each}
   </Breadcrumb.List>
 </Breadcrumb.Root>
-
-<!-- {path} -->
-<!-- <br /> -->
-<!-- {pages.map((p) => p.path).join(';')} -->
 
 <div
   class="relative grow"
@@ -169,8 +162,8 @@
         <PageComponent
           item={settingsPage}
           path={(get(settingsPath) ?? []).slice(0, i)}
-          value={settings.readSetting(settingsPage.path).value as Record<string, unknown>[]}
-          onnavigate={navigateToPathThrottled}
+          value={settings.readSetting(settingsPage.path).value}
+          onnavigate={openSubpathThrottled}
           onchange={(v) => {
             if ($settingsPath) settings.writeSetting($settingsPath, v)
           }}
@@ -179,4 +172,3 @@
     {/each}
   </div>
 </div>
-<!-- </FailSafeContainer> -->

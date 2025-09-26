@@ -18,13 +18,15 @@ Based on [shadcn-svelte](https://www.shadcn-svelte.com/) with support for provid
 
 ## Roadmap
 
-- [ ] Support for custom storage adapters
+- [ ] Desktop Support / Responsiveness
 - [ ] More settings types
   - [ ] Nested objects
   - [ ] Date/Time
   - [ ] Duration
   - [ ] Color
   - [ ] Icons
+- [ ] Search
+- [ ] Support for custom storage adapters
 
 ## Usage
 
@@ -121,5 +123,5 @@ in `hooks.client.ts`:
 import { performMigrations } from 'svelte-settings'
 import { SETTINGS_MIGRATIONS } from '$lib/config/settings-migrations'
 
-performMigrations({ migrations: SETTINGS_MIGRATIONS }) [ ] Search
+performMigrations({ migrations: SETTINGS_MIGRATIONS })
 ```

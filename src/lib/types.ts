@@ -110,7 +110,9 @@ export type SettingsFromBlueprint<T extends readonly SettingsBlueprintItem[]> = 
         ? O[number]
         : never
       : K extends { type: 'multiselect'; options: infer O }
-        ? O
+        ? O extends readonly unknown[]
+          ? O[number][]
+          : never
         : K extends { default: infer D }
           ? D
           : never

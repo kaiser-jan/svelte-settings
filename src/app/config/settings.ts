@@ -103,8 +103,8 @@ export const settingsConfig = [
         type: 'multiselect',
         label: 'multiselect',
         icon: CheckSquareIcon,
-        options: ['email', 'push', 'sms'] as string[],
-        default: ['email', 'push'] as string[],
+        options: ['email', 'push', 'sms'],
+        default: ['email', 'push'],
       },
       {
         id: 'changelog',

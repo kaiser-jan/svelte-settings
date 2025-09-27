@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/kaiser-jan/svelte-settings/compare/v1.0.0...v1.0.1) (2025-09-27)
+
+
+### Bug Fixes
+
+* **deps:** correctly split dependencies and devDependencies ([b3984f8](https://github.com/kaiser-jan/svelte-settings/commit/b3984f8670b81299c8515552b897e1fb3655af55))
+
 # 1.0.0 (2025-09-24)
 
 

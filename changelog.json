@@ -1,6 +1,70 @@
 {
   "releases": [
     {
+      "version": "1.0.1",
+      "date": "2025-09-27",
+      "commitGroups": [
+        {
+          "title": "fix",
+          "type": "fix",
+          "commits": [
+            {
+              "hash": "b3984f8",
+              "subject": "correctly split dependencies and devDependencies",
+              "scope": "deps",
+              "commitUrl": "https://github.com/kaiser-jan/svelte-settings/commit/b3984f8"
+            }
+          ]
+        },
+        {
+          "title": "refactor",
+          "type": "refactor",
+          "commits": [
+            {
+              "hash": "a0beded",
+              "subject": "minor cleanup and simplification",
+              "scope": "SettingsView",
+              "commitUrl": "https://github.com/kaiser-jan/svelte-settings/commit/a0beded"
+            }
+          ]
+        },
+        {
+          "title": "ci",
+          "type": "ci",
+          "commits": [
+            {
+              "hash": "57c2524",
+              "subject": "add npm registry url",
+              "commitUrl": "https://github.com/kaiser-jan/svelte-settings/commit/57c2524"
+            },
+            {
+              "hash": "53da2fc",
+              "subject": "add repository url for npm provenance",
+              "commitUrl": "https://github.com/kaiser-jan/svelte-settings/commit/53da2fc"
+            },
+            {
+              "hash": "56da5d0",
+              "subject": "update package.json version to match latest tag",
+              "commitUrl": "https://github.com/kaiser-jan/svelte-settings/commit/56da5d0"
+            },
+            {
+              "hash": "0e05344",
+              "subject": "add npm for updating package.json version",
+              "scope": "semantic-release",
+              "commitUrl": "https://github.com/kaiser-jan/svelte-settings/commit/0e05344"
+            },
+            {
+              "hash": "ca6cd3f",
+              "subject": "remove incorrect pkgRoot",
+              "scope": "semantic-release",
+              "commitUrl": "https://github.com/kaiser-jan/svelte-settings/commit/ca6cd3f"
+            }
+          ]
+        }
+      ],
+      "compareUrl": "https://github.com/kaiser-jan/svelte-settings/compare/v1.0.0...v1.0.1"
+    },
+    {
       "version": "1.0.0",
       "date": "2025-09-24",
       "commitGroups": [

@@ -30,6 +30,16 @@ Based on [shadcn-svelte](https://www.shadcn-svelte.com/) with support for provid
 
 ## Usage
 
+##### Tell TailwindCSS about svelte-settings
+
+Add the following to your `.css` file, e.g. `tailwind.css`:
+
+```css
+@source "../../node_modules/svelte-settings";
+```
+
+Adapt the path to correctly point to the install of `svelte-settings`.
+
 ##### Define your settings
 
 in e.g. `$lib/config/settings.ts`:

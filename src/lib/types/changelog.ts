@@ -9,7 +9,7 @@ export interface Release {
 }
 
 export interface CommitGroup {
-  title: string
+  title: string | boolean
   type: string | null // e.g. reverts
   commits: Commit[]
 }

@@ -32,7 +32,7 @@
           <div class="flex flex-col">
             <h2 class="text-lg font-bold">
               <!-- e.g. Bug Fixes, Features -->
-              {commitGroup.title}
+              {commitGroup.title ?? 'Other'}
               <!-- {commitGroup.type} -->
             </h2>
             <div class="text-text-muted flex flex-col gap-0.5">

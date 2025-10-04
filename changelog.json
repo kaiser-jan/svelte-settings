@@ -1,6 +1,73 @@
 {
   "releases": [
     {
+      "version": "1.1.0",
+      "date": "2025-10-04",
+      "commitGroups": [
+        {
+          "title": "ui",
+          "type": "ui",
+          "commits": [
+            {
+              "hash": "fca13c9",
+              "subject": "replace background with border",
+              "scope": "description",
+              "commitUrl": "https://github.com/kaiser-jan/svelte-settings/commit/fca13c9"
+            }
+          ]
+        },
+        {
+          "title": "feat",
+          "type": "feat",
+          "commits": [
+            {
+              "hash": "660d951",
+              "subject": "add optional url attribute",
+              "scope": "value",
+              "commitUrl": "https://github.com/kaiser-jan/svelte-settings/commit/660d951"
+            }
+          ]
+        },
+        {
+          "title": "types",
+          "type": "types",
+          "commits": [
+            {
+              "hash": "8c97bf3",
+              "subject": "commitGroup.title can be false",
+              "scope": "changelog",
+              "commitUrl": "https://github.com/kaiser-jan/svelte-settings/commit/8c97bf3"
+            }
+          ]
+        },
+        {
+          "title": "fix",
+          "type": "fix",
+          "commits": [
+            {
+              "hash": "46d2d27",
+              "subject": "multiselect incorrectly using full options array as type",
+              "scope": "types",
+              "commitUrl": "https://github.com/kaiser-jan/svelte-settings/commit/46d2d27"
+            }
+          ]
+        },
+        {
+          "title": "docs",
+          "type": "docs",
+          "commits": [
+            {
+              "hash": "c8acd4b",
+              "subject": "mention required tailwind setup",
+              "scope": "readme",
+              "commitUrl": "https://github.com/kaiser-jan/svelte-settings/commit/c8acd4b"
+            }
+          ]
+        }
+      ],
+      "compareUrl": "https://github.com/kaiser-jan/svelte-settings/compare/v1.0.1...v1.1.0"
+    },
+    {
       "version": "1.0.1",
       "date": "2025-09-27",
       "commitGroups": [

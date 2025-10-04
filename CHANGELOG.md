@@ -1,3 +1,15 @@
+# [1.1.0](https://github.com/kaiser-jan/svelte-settings/compare/v1.0.1...v1.1.0) (2025-10-04)
+
+
+### Bug Fixes
+
+* **types:** multiselect incorrectly using full options array as type ([46d2d27](https://github.com/kaiser-jan/svelte-settings/commit/46d2d27f481d105b94043eef31da43c3e5c9032b))
+
+
+### Features
+
+* **value:** add optional url attribute ([660d951](https://github.com/kaiser-jan/svelte-settings/commit/660d9510e5642278c1b522221f876b54f3881142))
+
 ## [1.0.1](https://github.com/kaiser-jan/svelte-settings/compare/v1.0.0...v1.0.1) (2025-09-27)
 
 

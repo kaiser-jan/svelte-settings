@@ -57,6 +57,7 @@ export type DescriptionItem = BaseConfigItem & {
 export type ValueDisplayItem = BaseConfigItem & {
   type: 'value'
   value: string | undefined | Readable<string | undefined> | (() => Promise<string | undefined>)
+  url?: string
 }
 export type ActionItem = BaseConfigItem & {
   type: 'action'

@@ -19,6 +19,7 @@ Based on [shadcn-svelte](https://www.shadcn-svelte.com/) with support for provid
 ## Roadmap
 
 - [ ] Desktop Support / Responsiveness
+- [ ] Conditional Visibility (only show setting if other settings allow)
 - [ ] More settings types
   - [ ] Nested objects
   - [ ] Date/Time
@@ -27,6 +28,7 @@ Based on [shadcn-svelte](https://www.shadcn-svelte.com/) with support for provid
   - [ ] Icons
 - [ ] Search
 - [ ] Support for custom storage adapters
+- [ ] Setting Insert (show setting inputs outside of SettingsView)
 
 ## Usage
 

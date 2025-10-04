@@ -18,6 +18,7 @@ import {
   ToggleLeftIcon,
   TypeIcon,
   ZapIcon,
+  GithubIcon,
 } from '@lucide/svelte'
 
 export const settingsConfig = [
@@ -72,6 +73,15 @@ export const settingsConfig = [
         icon: RefreshCwIcon,
         action: () => {},
         description: 'An action which completes instantly.',
+      },
+      {
+        id: 'value',
+        type: 'value',
+        label: 'Repo',
+        value: 'svelte-settings',
+        icon: GithubIcon,
+        description: 'A label value pair with an optional url.',
+        url: 'https://github.com/kaiser-jan/svelte-settings',
       },
       // {
       // 	id: 'action_disabled',

@@ -18,6 +18,7 @@ Based on [shadcn-svelte](https://www.shadcn-svelte.com/) with support for provid
 
 ## Roadmap
 
+- [ ] Consistent Styling (e.g. `text-text-muted`, `bg-foreground`)
 - [ ] Desktop Support / Responsiveness
 - [ ] Conditional Visibility (only show setting if other settings allow)
 - [ ] More settings types

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getOptionsContext } from '$lib/context.js'
-  import type { BooleanSetting } from '../../types'
+  import type { BooleanSetting } from '$lib/types.js'
 
   interface Props {
     item: BooleanSetting

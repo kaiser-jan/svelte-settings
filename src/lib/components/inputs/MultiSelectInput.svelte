@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { MultiSelectSetting } from '../../types'
+  import type { MultiSelectSetting } from '$lib/types.js'
   import { toReadable } from '$lib/utils/stores.js'
   import { getOptionsContext } from '$lib/context.js'
 

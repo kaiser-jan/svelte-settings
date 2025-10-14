@@ -2,7 +2,7 @@
   import { getOptionsContext } from '$lib/context.js'
   import { cn } from '$lib/utils.js'
   import { toReadable } from '$lib/utils/stores.js'
-  import type { ValueDisplayItem } from '../../types.js'
+  import type { ValueDisplayItem } from '$lib/types.js'
   import { ExternalLinkIcon } from '@lucide/svelte'
 
   interface Props {

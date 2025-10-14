@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getOptionsContext } from '$lib/context.js'
-  import type { NumberSetting } from '../../types'
+  import type { NumberSetting } from '$lib/types.js'
 
   interface Props {
     item: NumberSetting

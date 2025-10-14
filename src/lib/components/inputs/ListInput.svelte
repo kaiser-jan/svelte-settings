@@ -1,6 +1,6 @@
 <script lang="ts">
   import { ChevronRightIcon } from '@lucide/svelte'
-  import type { ListSettingPage } from '../../types'
+  import type { ListSettingPage } from '$lib/types.js'
 
   interface Props {
     item: ListSettingPage

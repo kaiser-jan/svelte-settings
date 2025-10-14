@@ -1,14 +1,9 @@
 <script lang="ts">
-  import { dragHandle, dragHandleZone } from 'svelte-dnd-action'
-  import { cn } from '$lib/utils.js'
-  import type { VariantListSettingPage } from '../../types.js'
+  import type { VariantListSettingPage } from '$lib/types.js'
   import { toReadable } from '$lib/utils/stores.js'
-  import ReorderableList from '$lib/components/ui/ReorderableList.svelte'
-  import { ChevronRightIcon, GripHorizontalIcon, type SettingsIcon } from '@lucide/svelte'
-  import { getOptionsContext } from '$lib/context.js'
+  import { getOptionsContext, getSettingsContext } from '$lib/context.js'
   import { getItemComponent } from '$lib/registry.js'
-  import { settings } from '../../../app/stores/settings.js'
-  import SelectInput from '../inputs/SelectInput.svelte'
+  import SelectInput from '$lib/components/inputs/SelectInput.svelte'
 
   type Item = { id: string; label?: string; icon?: string }
 
@@ -22,6 +17,7 @@
 
   let { item, value, path, onchange, onnavigate }: Props = $props()
 
+  const settings = getSettingsContext()
   const options = getOptionsContext()
   const { Label, Button, Popover, Select } = options.components
 

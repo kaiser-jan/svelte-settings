@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { SelectSetting } from '../../types'
+  import type { SelectSetting } from '$lib/types.js'
   import { toReadable } from '$lib/utils/stores.js'
   import { getOptionsContext } from '$lib/context.js'
 

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getOptionsContext } from '$lib/context.js'
-  import type { TextSetting } from '../../types'
+  import type { TextSetting } from '$lib/types.js'
 
   interface Props {
     item: TextSetting

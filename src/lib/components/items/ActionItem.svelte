@@ -1,6 +1,6 @@
 <script lang="ts">
   import { CircleCheckIcon, CircleXIcon } from '@lucide/svelte'
-  import type { ActionItem } from '../../types'
+  import type { ActionItem } from '$lib/types.js'
   import { toReadable } from '$lib/utils/stores.js'
   import { getOptionsContext } from '$lib/context.js'
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { SettingsNested } from '../../types'
+  import type { SettingsNested } from '$lib/types.js'
   import { getItemComponent } from '$lib/registry.js'
 
   interface Props {

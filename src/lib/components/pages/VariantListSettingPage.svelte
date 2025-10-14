@@ -1,9 +1,8 @@
 <script lang="ts">
   import { dragHandle, dragHandleZone } from 'svelte-dnd-action'
   import { cn } from '$lib/utils.js'
-  import type { VariantListSettingPage } from '../../types.js'
+  import type { VariantListSettingPage } from '$lib/types.js'
   import { toReadable } from '$lib/utils/stores.js'
-  import ReorderableList from '../ui/ReorderableList.svelte'
   import { ChevronRightIcon, GripHorizontalIcon, PlusIcon, type SettingsIcon } from '@lucide/svelte'
   import { getOptionsContext } from '$lib/context.js'
   import { onMount } from 'svelte'

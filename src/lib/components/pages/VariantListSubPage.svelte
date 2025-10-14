@@ -1,7 +1,7 @@
 <script lang="ts">
   import { dragHandle, dragHandleZone } from 'svelte-dnd-action'
   import { cn } from '$lib/utils.js'
-  import type { ItemListSettingPage } from '../../types.js'
+  import type { VariantListSettingPage } from '../../types.js'
   import { toReadable } from '$lib/utils/stores.js'
   import ReorderableList from '$lib/components/ui/ReorderableList.svelte'
   import { ChevronRightIcon, GripHorizontalIcon, type SettingsIcon } from '@lucide/svelte'
@@ -14,7 +14,7 @@
 
   interface Props {
     path: string[]
-    item: ItemListSettingPage
+    item: VariantListSettingPage
     value: any
     onchange: (v: Item) => void
     onnavigate: (target: string[]) => void

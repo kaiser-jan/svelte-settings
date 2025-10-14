@@ -1,5 +1,5 @@
 import type { SettingsBlueprint } from '$lib/index.js'
-import type { ItemListSettingPage } from '$lib/types.js'
+import type { VariantListSettingPage } from '$lib/types.js'
 import {
   CheckSquareIcon,
   DatabaseIcon,
@@ -39,7 +39,7 @@ import {
 export const settingsConfig = [
   {
     id: 'attributes',
-    type: 'item-list',
+    type: 'variant-list',
     label: 'Attributes',
     icon: TagIcon,
     typeField: 'type',
@@ -107,7 +107,7 @@ export const settingsConfig = [
         icon: SmileIcon,
       },
     ],
-    childItemsCallback: (page: ItemListSettingPage, value: any, id: string) => {
+    childItemsCallback: (page: VariantListSettingPage, value: any, id: string) => {
       if (!value || !value[page.typeField]) return undefined
       const option = page.options.find((i) => i.id === value[page.typeField])
       const optionItems = option?.items.find((i) => i.id === id)

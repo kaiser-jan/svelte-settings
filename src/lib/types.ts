@@ -91,8 +91,8 @@ export type ListSettingPage = BaseConfigItem & {
   nameProperty: string
   children: OptionalProp<SettingsBlueprintItem, 'default'>[]
 }
-export type ItemListSettingPage = BaseConfigItem & {
-  type: 'item-list'
+export type VariantListSettingPage = BaseConfigItem & {
+  type: 'variant-list'
   default: Record<string, unknown>
   typeField: string
   base: Omit<SettingsBlueprintItem, 'default'>[]
@@ -103,7 +103,7 @@ export type ChangelogPage = BaseConfigItem & {
   changelog: Changelog | Readable<Changelog> | (() => Promise<Changelog>)
 }
 
-export type SettingsPage = BasePage | ListSettingPage | ItemListSettingPage | ChangelogPage
+export type SettingsPage = BasePage | ListSettingPage | VariantListSettingPage | ChangelogPage
 export type SettingsWrapper = GroupWrapper
 export type SettingsItem = DescriptionItem | ValueDisplayItem | ActionItem | NotImplementedSetting
 export type SettingsInput = TextSetting | SelectSetting | MultiSelectSetting | BooleanSetting | NumberSetting

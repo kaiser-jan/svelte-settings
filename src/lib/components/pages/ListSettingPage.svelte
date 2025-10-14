@@ -14,13 +14,15 @@
 
   let { item, value, onchange, onnavigate }: Props = $props()
   const options = getOptionsContext()
+
+  const { Button } = options.components
 </script>
 
 <div
   class="flex grow flex-col flex-nowrap gap-0 py-1"
   data-vaul-no-drag
   use:dragHandleZone={{
-    items: value,
+    items: value ?? [],
     flipDurationMs: 300,
   }}
   onconsider={(e) => {
@@ -54,5 +56,17 @@
       {/if}
       <ChevronRightIcon class="ml-auto" />
     </button>
+  {:else}
+    No items! TODO: add button
+    <Button
+      variant={options.style.button.action}
+      onclick={() => {
+        value = [...(value ?? []), { id: 'tset' }]
+        onchange(value)
+        onnavigate([value.length - 1])
+      }}
+    >
+      add
+    </Button>
   {/each}
 </div>

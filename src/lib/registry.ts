@@ -5,6 +5,8 @@ import type { SettingsBlueprintItem, SettingsInput, SettingsItem, SettingsPage, 
 import BasicPageRenderer from './components/pages/BasicPageRenderer.svelte'
 import ChangelogPage from './components/pages/ChangelogPage.svelte'
 import ListSettingPage from './components/pages/ListSettingPage.svelte'
+import ItemListSettingPage from './components/pages/ItemListSettingPage.svelte'
+import ItemListSubPage from './components/pages/ItemListSubPage.svelte'
 
 import BasicItemRenderer from './components/items/BasicItemRenderer.svelte'
 import ActionItem from './components/items/ActionItem.svelte'
@@ -36,6 +38,7 @@ type SettingComponentInput = Component<
   {
     item: any
     value: any
+    wasChanged: boolean
     fullscreen?: boolean
     onchange: (v: any) => void
     onnavigate: (path: string[]) => void
@@ -66,6 +69,7 @@ export function isInput(item: SettingsBlueprintItem): item is SettingsInput {
 const pages: Record<SettingsPage['type'], SettingComponent> = {
   changelog: ChangelogPage,
   list: ListSettingPage,
+  'item-list': ItemListSettingPage,
   page: BasicPageRenderer,
 }
 export function getPageComponent(type: SettingsPage['type']): SettingComponentInput {
@@ -73,6 +77,16 @@ export function getPageComponent(type: SettingsPage['type']): SettingComponentIn
 }
 export function isPage(item: SettingsBlueprintItem): item is SettingsPage {
   return item.type in pages
+}
+
+const subpages: Record<string, SettingComponent> = {
+  'item-list': ItemListSubPage,
+}
+export function getSubpageComponent(type: SettingsPage['type']): SettingComponentInput {
+  return subpages[type]
+}
+export function isSubpage(item: SettingsBlueprintItem): boolean {
+  return item.type in subpages
 }
 
 const items: Record<SettingsItem['type'], SettingComponent> = {

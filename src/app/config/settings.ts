@@ -1,4 +1,5 @@
 import type { SettingsBlueprint } from '$lib/index.js'
+import type { ItemListSettingPage } from '$lib/types.js'
 import {
   CheckSquareIcon,
   DatabaseIcon,
@@ -19,9 +20,168 @@ import {
   TypeIcon,
   ZapIcon,
   GithubIcon,
+  ChevronsDownIcon,
+  ChevronsUpIcon,
+  ListIcon,
+  PencilLineIcon,
+  SlidersVerticalIcon,
+  SmileIcon,
+  TagIcon,
+  TextInitialIcon,
+  ChartNoAxesGanttIcon,
+  CloudSunIcon,
+  UserIcon,
+  PinIcon,
+  BrainIcon,
+  KeyIcon,
 } from '@lucide/svelte'
 
 export const settingsConfig = [
+  {
+    id: 'attributes',
+    type: 'item-list',
+    label: 'Attributes',
+    icon: TagIcon,
+    typeField: 'type',
+
+    default: {
+      project: {
+        id: 'project',
+        label: 'Project',
+        icon: 'folder',
+        type: 'select',
+        options: [
+          {
+            id: 'task-track',
+            label: 'Task Track',
+            icon: 'chart-no-axes-gantt',
+          },
+          {
+            id: 'weather-pwa',
+            label: 'Weather PWA',
+            icon: 'cloud-sun',
+          },
+          {
+            id: 'svelte-settings',
+            label: 'Svelte Settings',
+            icon: 'settings',
+          },
+        ],
+      },
+      people: {
+        id: 'people',
+        label: 'With',
+        icon: 'user',
+        type: 'text',
+      },
+      location: {
+        id: 'location',
+        label: 'At',
+        icon: 'pin',
+        type: 'text',
+      },
+      'mental-load': {
+        id: 'mental-load',
+        label: 'Mental Load',
+        icon: 'brain',
+        type: 'ordinal',
+      },
+    },
+    base: [
+      {
+        id: 'id',
+        label: 'Unique ID',
+        type: 'text',
+        icon: KeyIcon,
+      },
+      {
+        id: 'label',
+        label: 'Label',
+        type: 'text',
+        icon: PencilLineIcon,
+      },
+      {
+        id: 'icon',
+        label: 'icon',
+        type: 'text',
+        icon: SmileIcon,
+      },
+    ],
+    childItemsCallback: (page: ItemListSettingPage, value: any, id: string) => {
+      if (!value || !value[page.typeField]) return undefined
+      const option = page.options.find((i) => i.id === value[page.typeField])
+      const optionItems = option?.items.find((i) => i.id === id)
+      return optionItems
+    },
+    options: [
+      {
+        id: 'text',
+        label: 'Text',
+        icon: TextInitialIcon,
+        items: [],
+      },
+      {
+        id: 'scalar',
+        label: 'Scalar Number',
+        icon: HashIcon,
+        items: [],
+      },
+      {
+        id: 'ordinal',
+        label: 'Ordinal Number',
+        icon: SlidersVerticalIcon,
+        items: [
+          {
+            id: 'min',
+            label: 'Minimum',
+            icon: ChevronsDownIcon,
+            type: 'number',
+          },
+          {
+            id: 'max',
+            label: 'Maximum',
+            icon: ChevronsUpIcon,
+            type: 'number',
+          },
+        ],
+      },
+      {
+        id: 'select',
+        label: 'Select',
+        icon: ListIcon,
+        items: [
+          {
+            id: 'options',
+            label: 'Options',
+            icon: ListIcon,
+            type: 'list',
+            nameProperty: 'label',
+            default: [],
+            children: [
+              {
+                id: 'id',
+                label: 'Unique ID',
+                type: 'text',
+                icon: KeyIcon,
+              },
+              {
+                id: 'label',
+                label: 'Label',
+                type: 'text',
+                icon: PencilLineIcon,
+              },
+              {
+                id: 'icon',
+                label: 'icon',
+                type: 'text',
+                icon: SmileIcon,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
   {
     id: 'primitives',
     label: 'Primitives',

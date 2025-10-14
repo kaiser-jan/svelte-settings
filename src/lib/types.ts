@@ -72,6 +72,11 @@ export type NotImplementedSetting = BaseConfigItem & {
 }
 
 type OptionalProp<T, K extends PropertyKey> = T extends Record<K, unknown> ? Omit<T, K> & Partial<Pick<T, K>> : T
+
+// HACK: using just Omit<SettingsBlueprintItem, 'default'> causes ts to narrow down the type to BaseConfigItem,
+// meaning all specific fields get lost
+type MakeDefaultOptional<T> = T extends { default: any } ? Omit<T, 'default'> & { default?: T['default'] } : T
+
 export type GroupWrapper = BaseConfigItem & {
   type: 'group'
   children: SettingsBlueprintItem[]
@@ -86,12 +91,19 @@ export type ListSettingPage = BaseConfigItem & {
   nameProperty: string
   children: OptionalProp<SettingsBlueprintItem, 'default'>[]
 }
+export type ItemListSettingPage = BaseConfigItem & {
+  type: 'item-list'
+  default: Record<string, unknown>
+  typeField: string
+  base: Omit<SettingsBlueprintItem, 'default'>[]
+  options: (BaseConfigItem & { items: MakeDefaultOptional<SettingsBlueprintItem>[] })[]
+}
 export type ChangelogPage = BaseConfigItem & {
   type: 'changelog'
   changelog: Changelog | Readable<Changelog> | (() => Promise<Changelog>)
 }
 
-export type SettingsPage = BasePage | ListSettingPage | ChangelogPage
+export type SettingsPage = BasePage | ListSettingPage | ItemListSettingPage | ChangelogPage
 export type SettingsWrapper = GroupWrapper
 export type SettingsItem = DescriptionItem | ValueDisplayItem | ActionItem | NotImplementedSetting
 export type SettingsInput = TextSetting | SelectSetting | MultiSelectSetting | BooleanSetting | NumberSetting

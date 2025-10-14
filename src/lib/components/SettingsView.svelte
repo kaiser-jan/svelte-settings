@@ -3,7 +3,7 @@
   import { useSwipe, type SwipeCustomEvent } from 'svelte-gestures'
   import { SettingsIcon } from '@lucide/svelte'
   import { onMount } from 'svelte'
-  import { getPageComponent, isWrapper } from '../registry.js'
+  import { getPageComponent, getSubpageComponent, isSubpage, isWrapper } from '../registry.js'
   import { throttle } from '$lib/utils/common.js'
   import ItemPageRenderer from './pages/ItemPageRenderer.svelte'
   import type { InitializedSettings } from '../index.js'
@@ -24,7 +24,7 @@
   setOptionsContext(settings.options)
   const { Breadcrumb } = settings.options.components
 
-  type Page = SettingsPage & { path: readonly string[] }
+  type Page = SettingsPage & { path: readonly string[]; isSubpage?: boolean }
 
   const BASE_PAGE = {
     id: 'settings',
@@ -42,7 +42,35 @@
 
     for (const [index, key] of $settingsPath.entries()) {
       const lastPage = _pages[_pages.length - 1]
+
+      if (isSubpage(lastPage)) {
+        const value = settings.readSetting($settingsPath.slice(0, index)).value as Record<string, unknown>[]
+        let page = {
+          ...lastPage,
+          id: key,
+          label: key,
+          isSubpage: true,
+          path: $settingsPath.slice(0, index + 1),
+        }
+
+        // TODO: this requires knowledge of value
+        const override = lastPage.childItemsCallback(lastPage, value, key)
+        if (override) {
+          console.warn('override')
+          page = {
+            ...page,
+            ...override,
+            // type: 'page',
+            isSubpage: false,
+          }
+          console.log(page)
+        }
+        _pages.push(page)
+        continue
+      }
+
       if (!('children' in lastPage)) {
+        settingsPath.set($settingsPath.slice(0, index))
         return _pages
       }
 
@@ -154,7 +182,10 @@
     bind:this={scrollContainer}
   >
     {#each pages as settingsPage, i (settingsPage.id)}
-      {@const PageComponent = getPageComponent(settingsPage.type) ?? ItemPageRenderer}
+      {@const value = settings.readSetting(settingsPage.path)}
+      {@const PageComponent =
+        (settingsPage.isSubpage ? getSubpageComponent(settingsPage.type) : getPageComponent(settingsPage.type)) ??
+        ItemPageRenderer}
       <div
         class="flex h-full w-full shrink-0 flex-col gap-2 overflow-hidden overflow-y-auto"
         class:pointer-events-none={i !== pages.length - 1}
@@ -162,7 +193,8 @@
         <PageComponent
           item={settingsPage}
           path={(get(settingsPath) ?? []).slice(0, i)}
-          value={settings.readSetting(settingsPage.path).value}
+          value={value.value}
+          wasChanged={value.changed}
           onnavigate={openSubpathThrottled}
           onchange={(v) => {
             if ($settingsPath) settings.writeSetting($settingsPath, v)

@@ -50,6 +50,7 @@
       {value}
       {onnavigate}
       {fullscreen}
+      wasChanged={hasChanged}
       onchange={(v: unknown) => {
         settings.writeSetting(path, v)
         hasChanged = true

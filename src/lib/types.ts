@@ -95,6 +95,7 @@ export type VariantListSettingPage = BaseConfigItem & {
   type: 'variant-list'
   default: Record<string, unknown>
   typeField: string
+  itemLabel: string
   base: Omit<SettingsBlueprintItem, 'default'>[]
   options: (BaseConfigItem & { items: MakeDefaultOptional<SettingsBlueprintItem>[] })[]
 }

@@ -43,27 +43,26 @@
     for (const [index, key] of $settingsPath.entries()) {
       const lastPage = _pages[_pages.length - 1]
 
+      // TODO: unify with list setting; make more readable
       if (isSubpage(lastPage)) {
-        const value = settings.readSetting($settingsPath.slice(0, index)).value as Record<string, unknown>[]
+        const parentValue = settings.readSetting($settingsPath.slice(0, index)).value as Record<string, unknown>
+        const value = parentValue[$settingsPath[index]] as Record<string, unknown>
         let page = {
           ...lastPage,
           id: key,
-          label: key,
+          label: value['label'] ?? key,
           isSubpage: true,
           path: $settingsPath.slice(0, index + 1),
         }
 
-        // TODO: this requires knowledge of value
-        const override = lastPage.childItemsCallback(lastPage, value, key)
+        const override = lastPage.childItemsCallback(lastPage, parentValue, key)
         if (override) {
-          console.warn('override')
           page = {
             ...page,
             ...override,
             // type: 'page',
             isSubpage: false,
           }
-          console.log(page)
         }
         _pages.push(page)
         continue

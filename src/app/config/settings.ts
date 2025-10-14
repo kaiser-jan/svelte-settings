@@ -43,44 +43,47 @@ export const settingsConfig = [
     label: 'Attributes',
     icon: TagIcon,
     typeField: 'type',
-
+    itemLabel: 'Attribute',
     default: {
-      project: {
+      '87da052f-5ed2-4199-8689-b819d903c407': {
         id: 'project',
         label: 'Project',
         icon: 'folder',
         type: 'select',
         options: [
           {
+            uuid: '12137092-f527-4f65-b642-a0ff7d9bd489',
             id: 'task-track',
             label: 'Task Track',
             icon: 'chart-no-axes-gantt',
           },
           {
+            uuid: '09cf1ba7-eb85-4f6a-b6c1-0bfebcbcb267',
             id: 'weather-pwa',
             label: 'Weather PWA',
             icon: 'cloud-sun',
           },
           {
+            uuid: '2e7650a7-66ad-4841-8c98-1ce296f5c4ef',
             id: 'svelte-settings',
             label: 'Svelte Settings',
             icon: 'settings',
           },
         ],
       },
-      people: {
+      '4164793a-8a75-4467-a2f5-a9bf500cf55b': {
         id: 'people',
         label: 'With',
         icon: 'user',
         type: 'text',
       },
-      location: {
+      '2b88a78c-aee6-49e5-8484-cef73b7c2b17': {
         id: 'location',
         label: 'At',
         icon: 'pin',
         type: 'text',
       },
-      'mental-load': {
+      '20f3d304-3ad7-48cc-9db6-c7b75da56664': {
         id: 'mental-load',
         label: 'Mental Load',
         icon: 'brain',
@@ -90,7 +93,8 @@ export const settingsConfig = [
     base: [
       {
         id: 'id',
-        label: 'Unique ID',
+        label: 'Alias ID',
+        description: 'This id is not used for internal storage, just as an alternative to the label in the UI.',
         type: 'text',
         icon: KeyIcon,
       },

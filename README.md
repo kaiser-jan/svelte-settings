@@ -138,3 +138,26 @@ import { SETTINGS_MIGRATIONS } from '$lib/config/settings-migrations'
 
 performMigrations({ migrations: SETTINGS_MIGRATIONS })
 ```
+
+## Writeup
+
+### Settings
+
+#### Variant List
+
+A dynamic list where each item's structure depends on its selected type.
+The type is chosen via `typeField` and determines the item's properties.
+TODO: should typeField even be configurable?
+
+##### Internal Structure
+
+As the name `Variant List` implies, the settings is visually represented by a reorderable list.
+But using an array internally has a few drawbacks:
+Nearly all settings are stored in a Record format, which makes the (partial) actual values easily traversable. Introducing an array would mean either accessing by index (which gets mixed up by reordering) or using `.find` on the `id` field, which would require adaptation of the deep read and write.
+In the long run this calls for trouble, as the value-accessing methods do not know if they are accessing a record or an array. E.g. when writing a property for a list item which is not yet written to the settings.
+TODO: should the same logic be applied to the regular List Setting?
+
+However, this means that we need to store items under a key, which makes it hard to make this key/id user-configurable.
+This leads to the next question: Should the unique id be user-editable?
+While it would allow for easier manual referencing, it introduces a lot of complexity and potential problems when a user changes the id: We would need to change the id references in all existing entries. Also, a uniqueness check would be necessary.
+Therefore, using a UUID with a label (and possibly an alias-id) seems more future-proof.

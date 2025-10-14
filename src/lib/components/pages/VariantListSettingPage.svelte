@@ -4,7 +4,7 @@
   import type { VariantListSettingPage } from '../../types.js'
   import { toReadable } from '$lib/utils/stores.js'
   import ReorderableList from '../ui/ReorderableList.svelte'
-  import { ChevronRightIcon, GripHorizontalIcon, type SettingsIcon } from '@lucide/svelte'
+  import { ChevronRightIcon, GripHorizontalIcon, PlusIcon, type SettingsIcon } from '@lucide/svelte'
   import { getOptionsContext } from '$lib/context.js'
   import { onMount } from 'svelte'
 
@@ -54,12 +54,12 @@
     onchange(value)
   }}
 >
-  {#each Object.values(value) as listItem, listIndex (listItem.id)}
+  {#each Object.entries(value) as [listItemKey, listItem] (listItemKey)}
     <!-- svelte-ignore a11y_click_events_have_key_events -->
     <!-- svelte-ignore a11y_no_static_element_interactions -->
     <div
       class={cn('flex flex-row items-center gap-2', options.style.category.classes, 'justify-start')}
-      onclick={() => onnavigate([listItem.id])}
+      onclick={() => onnavigate([listItemKey])}
       data-vaul-no-drag
     >
       <!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -76,3 +76,9 @@
     </div>
   {/each}
 </div>
+<!-- <Button variant={options.style.button.action} onclick={() => { -->
+<!--   value -->
+<!-- }}> -->
+<!--   <PlusIcon /> -->
+<!--   Add {item.itemLabel} -->
+<!-- </Button> -->

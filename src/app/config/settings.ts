@@ -46,58 +46,48 @@ export const settingsConfig = [
     itemLabel: 'Attribute',
     default: {
       '87da052f-5ed2-4199-8689-b819d903c407': {
-        id: 'project',
+        id: '87da052f-5ed2-4199-8689-b819d903c407',
         label: 'Project',
         icon: 'folder',
         type: 'select',
         options: [
           {
-            uuid: '12137092-f527-4f65-b642-a0ff7d9bd489',
-            id: 'task-track',
+            id: '12137092-f527-4f65-b642-a0ff7d9bd489',
             label: 'Task Track',
             icon: 'chart-no-axes-gantt',
           },
           {
-            uuid: '09cf1ba7-eb85-4f6a-b6c1-0bfebcbcb267',
-            id: 'weather-pwa',
+            id: '09cf1ba7-eb85-4f6a-b6c1-0bfebcbcb267',
             label: 'Weather PWA',
             icon: 'cloud-sun',
           },
           {
-            uuid: '2e7650a7-66ad-4841-8c98-1ce296f5c4ef',
-            id: 'svelte-settings',
+            id: '2e7650a7-66ad-4841-8c98-1ce296f5c4ef',
             label: 'Svelte Settings',
             icon: 'settings',
           },
         ],
       },
       '4164793a-8a75-4467-a2f5-a9bf500cf55b': {
-        id: 'people',
+        id: '4164793a-8a75-4467-a2f5-a9bf500cf55b',
         label: 'With',
         icon: 'user',
         type: 'text',
       },
       '2b88a78c-aee6-49e5-8484-cef73b7c2b17': {
-        id: 'location',
+        id: '2b88a78c-aee6-49e5-8484-cef73b7c2b17',
         label: 'At',
         icon: 'pin',
         type: 'text',
       },
       '20f3d304-3ad7-48cc-9db6-c7b75da56664': {
-        id: 'mental-load',
+        id: '20f3d304-3ad7-48cc-9db6-c7b75da56664',
         label: 'Mental Load',
         icon: 'brain',
         type: 'ordinal',
       },
     },
     base: [
-      {
-        id: 'id',
-        label: 'Alias ID',
-        description: 'This id is not used for internal storage, just as an alternative to the label in the UI.',
-        type: 'text',
-        icon: KeyIcon,
-      },
       {
         id: 'label',
         label: 'Label',
@@ -106,7 +96,7 @@ export const settingsConfig = [
       },
       {
         id: 'icon',
-        label: 'icon',
+        label: 'Icon',
         type: 'text',
         icon: SmileIcon,
       },
@@ -160,14 +150,9 @@ export const settingsConfig = [
             icon: ListIcon,
             type: 'list',
             nameProperty: 'label',
+            itemLabel: 'Option',
             default: [],
             children: [
-              {
-                id: 'id',
-                label: 'Unique ID',
-                type: 'text',
-                icon: KeyIcon,
-              },
               {
                 id: 'label',
                 label: 'Label',

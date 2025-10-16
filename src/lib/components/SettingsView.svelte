@@ -46,6 +46,7 @@
       // TODO: unify with list setting; make more readable
       if (isSubpage(lastPage)) {
         const parentValue = settings.readSetting($settingsPath.slice(0, index)).value as Record<string, unknown>
+        if (!parentValue) return _pages
         const value = parentValue[$settingsPath[index]] as Record<string, unknown>
         let page = {
           ...lastPage,

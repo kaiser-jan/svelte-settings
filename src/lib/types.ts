@@ -91,6 +91,7 @@ export type BasePage = BaseConfigItem & {
 }
 export type ListSettingPage = BaseConfigItem & {
   type: 'list'
+  itemLabel?: string
   default: Array<unknown>
   nameProperty: string
   children: OptionalProp<SettingsBlueprintItem, 'default'>[]
@@ -99,7 +100,7 @@ export type VariantListSettingPage = BaseConfigItem & {
   type: 'variant-list'
   default: Record<string, unknown>
   typeField: string
-  itemLabel: string
+  itemLabel?: string
   base: Omit<SettingsBlueprintItem, 'default'>[]
   options: (BaseConfigItem & { items: MakeDefaultOptional<SettingsBlueprintItem>[] })[]
 }

@@ -2,6 +2,7 @@
   import { getOptionsContext } from '$lib/context.js'
   import type { ListSettingPage } from '$lib/types.js'
   import { cn } from '$lib/utils.js'
+  import { createUUID } from '$lib/utils/common.js'
   import { ChevronRightIcon, GripHorizontalIcon } from '@lucide/svelte'
   import { dragHandle, dragHandleZone } from 'svelte-dnd-action'
 
@@ -18,45 +19,58 @@
   const { Button } = options.components
 </script>
 
-<div
-  class="flex grow flex-col flex-nowrap gap-0 py-1"
-  data-vaul-no-drag
-  use:dragHandleZone={{
-    items: value ?? [],
-    flipDurationMs: 300,
-  }}
-  onconsider={(e) => {
-    value = e.detail.items
-  }}
-  onfinalize={(e) => {
-    console.log('finalize')
-    console.log(e.detail.items)
-    value = e.detail.items
-    onchange(value)
-  }}
->
-  {#each value as listItem, listIndex (listItem.id)}
-    <button
-      class={cn(
-        options.style.category.classes,
-        'flex w-full flex-row items-center gap-2 px-3 py-2 not-last:border-b-2 first:rounded-t-md last:rounded-b-md',
-      )}
-      onclick={() => {
-        onnavigate([listIndex.toString()])
-      }}
-      data-vaul-no-drag
-    >
-      <!-- svelte-ignore a11y_click_events_have_key_events -->
-      <!-- svelte-ignore a11y_no_static_element_interactions -->
-      <div use:dragHandle onclick={(e) => e.stopPropagation()} data-vaul-no-drag>
-        <GripHorizontalIcon data-vaul-no-drag />
-      </div>
-      {#if item.nameProperty && item.nameProperty in listItem}
-        {listItem[item.nameProperty]}
-      {/if}
-      <ChevronRightIcon class="ml-auto" />
-    </button>
-  {:else}
-    No items! TODO: add button
-  {/each}
+<div class="flex flex-col gap-2">
+  <div
+    class="flex grow flex-col flex-nowrap gap-0 py-1"
+    data-vaul-no-drag
+    use:dragHandleZone={{
+      items: value ?? [],
+      flipDurationMs: 300,
+    }}
+    onconsider={(e) => {
+      value = e.detail.items
+    }}
+    onfinalize={(e) => {
+      console.log('finalize')
+      console.log(e.detail.items)
+      value = e.detail.items
+      onchange(value)
+    }}
+  >
+    {#each value as listItem, listIndex (listItem.id)}
+      <button
+        class={cn(
+          options.style.category.classes,
+          'flex w-full flex-row items-center gap-2 px-3 py-2 not-last:border-b-2 first:rounded-t-md last:rounded-b-md',
+        )}
+        onclick={() => {
+          onnavigate([listIndex.toString()])
+        }}
+        data-vaul-no-drag
+      >
+        <!-- svelte-ignore a11y_click_events_have_key_events -->
+        <!-- svelte-ignore a11y_no_static_element_interactions -->
+        <div use:dragHandle onclick={(e) => e.stopPropagation()} data-vaul-no-drag>
+          <GripHorizontalIcon data-vaul-no-drag />
+        </div>
+        {#if item.nameProperty && item.nameProperty in listItem}
+          {listItem[item.nameProperty]}
+        {/if}
+        <ChevronRightIcon class="ml-auto" />
+      </button>
+    {:else}
+      Nothing here yet!
+    {/each}
+  </div>
+
+  <Button
+    variant={options.style.button.action}
+    onclick={() => {
+      value = [...(value ?? []), { id: createUUID() }]
+      onchange(value)
+      onnavigate([value.length - 1])
+    }}
+  >
+    Add {item.itemLabel ?? 'Item'}
+  </Button>
 </div>

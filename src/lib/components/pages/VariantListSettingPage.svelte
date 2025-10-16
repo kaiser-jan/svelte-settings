@@ -6,6 +6,7 @@
   import { ChevronRightIcon, GripHorizontalIcon, PlusIcon, type SettingsIcon } from '@lucide/svelte'
   import { getOptionsContext } from '$lib/context.js'
   import { onMount } from 'svelte'
+  import { createUUID } from '$lib/utils/common.js'
 
   type Item = { id: string; label?: string; icon?: string }
 
@@ -75,9 +76,19 @@
     </div>
   {/each}
 </div>
-<!-- <Button variant={options.style.button.action} onclick={() => { -->
-<!--   value -->
-<!-- }}> -->
-<!--   <PlusIcon /> -->
-<!--   Add {item.itemLabel} -->
-<!-- </Button> -->
+<Button
+  variant={options.style.button.action}
+  onclick={() => {
+    const uuid = createUUID()
+    onchange({
+      ...value,
+      [uuid]: {
+        id: uuid,
+      },
+    })
+    onnavigate([uuid])
+  }}
+>
+  <PlusIcon />
+  Add {item.itemLabel}
+</Button>

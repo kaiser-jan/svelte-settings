@@ -58,15 +58,5 @@
     </button>
   {:else}
     No items! TODO: add button
-    <Button
-      variant={options.style.button.action}
-      onclick={() => {
-        value = [...(value ?? []), { id: 'tset' }]
-        onchange(value)
-        onnavigate([value.length - 1])
-      }}
-    >
-      add
-    </Button>
   {/each}
 </div>

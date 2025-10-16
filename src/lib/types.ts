@@ -24,7 +24,11 @@ export type TextSetting = BaseConfigItem & {
 
 export type SelectSetting = BaseConfigItem & {
   type: 'select'
-  options: readonly string[]
+  options: readonly {
+    id: string
+    label: string
+    icon?: typeof Icon
+  }[]
   default: string
 }
 
@@ -120,12 +124,12 @@ export type SettingsFromBlueprint<T extends readonly SettingsBlueprintItem[]> = 
   [K in T[number] as K['id']]: K extends { type: 'group' | 'page'; children: infer C }
     ? SettingsFromBlueprint<C & readonly SettingsBlueprintItem[]>
     : K extends { type: 'select'; options: infer O }
-      ? O extends readonly unknown[]
-        ? O[number]
+      ? O extends readonly { id: string }[]
+        ? O[number]['id']
         : never
       : K extends { type: 'multiselect'; options: infer O }
-        ? O extends readonly unknown[]
-          ? O[number][]
+        ? O extends readonly { id: infer I }[]
+          ? I[]
           : never
         : K extends { default: infer D }
           ? D

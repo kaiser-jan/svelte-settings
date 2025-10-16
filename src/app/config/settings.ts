@@ -269,7 +269,16 @@ export const settingsConfig = [
         type: 'select',
         label: 'select',
         icon: GlobeIcon,
-        options: ['en', 'de'] as string[],
+        options: [
+          {
+            id: 'en',
+            label: 'English',
+          },
+          {
+            id: 'de',
+            label: 'German',
+          },
+        ] as const,
         default: 'en',
       },
       {

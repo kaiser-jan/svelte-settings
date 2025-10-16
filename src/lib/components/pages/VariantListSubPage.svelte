@@ -1,17 +1,18 @@
 <script lang="ts">
-  import type { VariantListSettingPage } from '$lib/types.js'
+  import type { SelectSetting, VariantListSettingPage } from '$lib/types.js'
   import { toReadable } from '$lib/utils/stores.js'
   import { getOptionsContext, getSettingsContext } from '$lib/context.js'
   import { getItemComponent } from '$lib/registry.js'
   import SelectInput from '$lib/components/inputs/SelectInput.svelte'
-
-  type Item = { id: string; label?: string; icon?: string }
+  import { ComponentIcon } from '@lucide/svelte'
+  import type { ItemSerialized } from '$lib/types/ui.js'
+  import SettingsItemContainer from '$lib/components/ui/SettingsItemContainer.svelte'
 
   interface Props {
     path: string[]
     item: VariantListSettingPage
     value: any
-    onchange: (v: Item) => void
+    onchange: (v: ItemSerialized) => void
     onnavigate: (target: string[]) => void
   }
 
@@ -25,56 +26,32 @@
 
   let type = $derived(item.options.find((i) => i.id === value?.[item.typeField]))
   let subItems = $derived(item.options.find((i) => i.id === type?.id)?.items ?? [])
+
+  // TODO: hide change indicator for list items, it makes no sense here
+
+  const TYPE_ITEM: SelectSetting = {
+    type: 'select',
+    id: item.typeField,
+    label: 'Type',
+    icon: ComponentIcon,
+    options: item.options,
+    default: undefined as any,
+  }
 </script>
 
-<SelectInput
-  value={item.options.find((i) => i.id === value?.[item.typeField]).id}
-  onchange={(v) => {
-    const type = item.options.find((i) => i.id === v)
-    if (!value) value = {}
-    value = { ...value, [item.typeField]: type.id }
-    console.log('new', value)
-    onchange(value)
-  }}
-  item={{
-    type: 'select',
-    options: item.options.map((o) => o.id),
-  }}
-/>
-
-<Select.Root
-  type="single"
-  value={item.options.find((i) => i.id === value?.[item.typeField])}
-  onValueChange={(v) => {
-    const type = item.options.find((i) => i.id === v)
-    if (!value) value = {}
-    value = { ...value, [item.typeField]: type.id }
-    console.log('new', value)
-    onchange(value)
-  }}
-  disabled={$disabled}
->
-  <Select.Trigger class="w-full">
-    {#if type && type.icon}
-      <span class="flex items-center gap-2">
-        <type.icon />
-        {type.label}
-      </span>
-    {:else}
-      Click to select type
-    {/if}
-  </Select.Trigger>
-  <Select.Content>
-    <Select.Group>
-      {#each item.options as itemType (itemType.id)}
-        <Select.Item value={itemType.id} label={itemType.label}>
-          <itemType.icon />
-          {itemType.label}
-        </Select.Item>
-      {/each}
-    </Select.Group>
-  </Select.Content>
-</Select.Root>
+<SettingsItemContainer item={TYPE_ITEM} changed={false}>
+  <SelectInput
+    value={item.options.find((i) => i.id === value?.[item.typeField])?.id}
+    onchange={(v) => {
+      const type = v
+      if (!value) value = {}
+      value = { ...value, [item.typeField]: type }
+      console.log('new', value)
+      onchange(value)
+    }}
+    item={TYPE_ITEM}
+  />
+</SettingsItemContainer>
 
 {#each [...item.base, ...subItems] as child (child.id)}
   {@const ItemComponent = getItemComponent(child)}

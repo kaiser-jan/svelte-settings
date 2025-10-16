@@ -14,4 +14,9 @@
   const { Input } = options.components
 </script>
 
-<Input bind:value placeholder={item.placeholder} onblur={(e) => onchange((e.target as HTMLInputElement).value)} />
+<Input
+  bind:value
+  placeholder={item.placeholder}
+  onblur={(e) => onchange((e.target as HTMLInputElement).value)}
+  class="w-fit min-w-30"
+/>

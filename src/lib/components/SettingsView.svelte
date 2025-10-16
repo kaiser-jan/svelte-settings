@@ -50,7 +50,7 @@
         let page = {
           ...lastPage,
           id: key,
-          label: value['label'] ?? key,
+          label: value?.['label'] ?? key,
           isSubpage: true,
           path: $settingsPath.slice(0, index + 1),
         }

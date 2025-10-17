@@ -28,8 +28,18 @@
   onMount(() => {
     // HACK: write the defaults to the settings so editing one does not remove the other defaults
     if (!wasChanged) {
-      onchange(value)
+      onchange(itemRecord)
     }
+  })
+
+  /** 
+  HACK: Keep an internal copy of the value prop, so changing it in the parent still leads to updates.
+  Otherwise, if we reassign to value, the reactivity is broken.
+  */
+  let itemRecord: Record<string, Item> = $state(value)
+  $effect(() => {
+    // filter out undefined, which are temporarily there because of deletion
+    itemRecord = Object.fromEntries(Object.entries(value).filter(([_, v]) => v !== undefined))
   })
 </script>
 
@@ -37,7 +47,7 @@
   class={cn('flex w-full flex-col gap-2', $disabled ? 'opacity-50' : '')}
   data-vaul-no-drag
   use:dragHandleZone={{
-    items: Object.values(value),
+    items: Object.values(itemRecord),
     flipDurationMs: 300,
     dragDisabled: $disabled,
     dropTargetStyle: {},
@@ -45,16 +55,17 @@
   onconsider={(e) => {
     const updated: Record<string, Item> = {}
     e.detail.items.forEach((i) => (updated[i.id] = i))
-    value = updated
+    itemRecord = updated
   }}
   onfinalize={(e) => {
+    // TODO: only after reordering does the SettingsView (incl. Breadcrumbs) get reactive to e.g. label changes of the items
     const updated: Record<string, Item> = {}
     e.detail.items.forEach((i) => (updated[i.id] = i))
-    value = updated
-    onchange(value)
+    itemRecord = updated
+    onchange(updated)
   }}
 >
-  {#each Object.entries(value) as [listItemKey, listItem] (listItemKey)}
+  {#each Object.entries(itemRecord) as [listItemKey, listItem] (listItemKey ?? 'in-deletion')}
     <!-- svelte-ignore a11y_click_events_have_key_events -->
     <!-- svelte-ignore a11y_no_static_element_interactions -->
     <div
@@ -68,8 +79,8 @@
         <GripHorizontalIcon data-vaul-no-drag />
       </div>
 
-      <Label for={listItem.id} class="text-left leading-4">
-        {listItem.label ?? listItem.id}
+      <Label for={listItem?.id} class="text-left leading-4">
+        {listItem?.label ?? listItem?.id}
       </Label>
 
       <ChevronRightIcon class="ml-auto" />
@@ -81,7 +92,7 @@
   onclick={() => {
     const uuid = createUUID()
     onchange({
-      ...value,
+      ...itemRecord,
       [uuid]: {
         id: uuid,
       },

@@ -4,7 +4,7 @@
   import { getOptionsContext, getSettingsContext } from '$lib/context.js'
   import { getItemComponent } from '$lib/registry.js'
   import SelectInput from '$lib/components/inputs/SelectInput.svelte'
-  import { ComponentIcon } from '@lucide/svelte'
+  import { ComponentIcon, Trash2Icon } from '@lucide/svelte'
   import type { ItemSerialized } from '$lib/types/ui.js'
   import SettingsItemContainer from '$lib/components/ui/SettingsItemContainer.svelte'
 
@@ -59,3 +59,16 @@
     <ItemComponent path={[...path, child.id]} item={child} {onnavigate} />
   {/if}
 {/each}
+
+<Button
+  variant="destructive"
+  class="mt-auto"
+  onclick={() => {
+    onchange(undefined)
+    // TODO: merge with other navigation
+    history.back()
+  }}
+>
+  <Trash2Icon />
+  Delete {item.itemLabel ?? 'Item'}
+</Button>

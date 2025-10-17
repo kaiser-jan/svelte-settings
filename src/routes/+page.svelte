@@ -15,6 +15,6 @@
   })
 </script>
 
-<div class="flex h-dvh min-h-0 grow flex-col gap-4 overflow-x-visible p-4 pb-0">
+<div class="flex h-dvh min-h-0 grow flex-col gap-4 overflow-x-visible p-4">
   <SettingsView {settings} />
 </div>

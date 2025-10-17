@@ -87,7 +87,9 @@
     </div>
   {/each}
 </div>
+
 <Button
+  class="mt-2"
   variant={options.style.button.action}
   onclick={() => {
     const uuid = createUUID()

@@ -3,6 +3,7 @@
   import type { ActionItem } from '$lib/types.js'
   import { toReadable } from '$lib/utils/stores.js'
   import { getOptionsContext } from '$lib/context.js'
+  import SettingsItemContainer from '../ui/SettingsItemContainer.svelte'
 
   interface Props {
     item: ActionItem
@@ -35,9 +36,11 @@
   })
 </script>
 
-<Button
+<SettingsItemContainer
+  {item}
+  clickable
+  hideLabel
   variant={item.variant ?? options.style.button.action}
-  class="relative flex min-h-12 flex-wrap items-center justify-between gap-x-3 gap-y-1 overflow-hidden rounded-md px-4 py-2 text-base"
   disabled={loading || $disabled}
   onclick={() => {
     promise = Promise.resolve(item.action()) as Promise<unknown>
@@ -47,9 +50,9 @@
     {#if promise}
       {#await promise}
         <LoaderPulsatingRing className="size-4" />
-      {:then _}
+      {:then}
         <CircleCheckIcon />
-      {:catch _}
+      {:catch}
         <CircleXIcon />
       {/await}
     {:else}
@@ -58,4 +61,4 @@
 
     {item.label}
   </span>
-</Button>
+</SettingsItemContainer>

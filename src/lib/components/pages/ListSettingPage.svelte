@@ -19,9 +19,9 @@
   const { Button } = options.components
 </script>
 
-<div class="flex flex-col gap-2">
+<div class="flex flex-col gap-4">
   <div
-    class="flex grow flex-col flex-nowrap gap-0 py-1"
+    class="flex grow flex-col flex-nowrap gap-2 py-1"
     data-vaul-no-drag
     use:dragHandleZone={{
       items: value ?? [],

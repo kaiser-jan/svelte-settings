@@ -34,6 +34,7 @@ import {
   PinIcon,
   BrainIcon,
   KeyIcon,
+  XIcon,
 } from '@lucide/svelte'
 
 export const settingsConfig = [
@@ -214,7 +215,7 @@ export const settingsConfig = [
         placeholder: 'https://api.example.com',
         default: '',
       },
-      // { id: 'value', type: 'value', label: 'value', icon: SunMoonIcon, value: themeState },
+
       {
         id: 'action',
         type: 'action',
@@ -225,6 +226,14 @@ export const settingsConfig = [
       },
       {
         id: 'value',
+        type: 'value',
+        label: 'value',
+        icon: SunMoonIcon,
+        value: 'value',
+        url: 'https://weather.kjan.dev',
+      },
+      {
+        id: 'value-url',
         type: 'value',
         label: 'Repo',
         value: 'svelte-settings',
@@ -249,6 +258,14 @@ export const settingsConfig = [
     icon: SlidersHorizontalIcon,
     type: 'page',
     children: [
+      {
+        id: 'not-implemented',
+        label: 'Not Implemented',
+        icon: XIcon,
+        type: 'not-implemented',
+        description:
+          'This setting is already present in the config, but there is not yet a fitting setting type to make it changeable.',
+      },
       {
         id: 'select',
         type: 'select',

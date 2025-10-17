@@ -32,6 +32,9 @@ export type Options = {
     category: {
       classes: string
     }
+    container: {
+      classes: string
+    }
   }
 }
 
@@ -55,6 +58,10 @@ export const defaultOptions: Options = {
     },
     category: {
       classes: buttonVariants({ variant: 'outline', class: 'text-base whitespace-wrap' }),
+    },
+    container: {
+      classes:
+        'inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium outline-none transition-all [&_svg]:shrink-0 bg-background shadow-xs dark:bg-input/30 dark:border-input border',
     },
   },
 }

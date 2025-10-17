@@ -178,7 +178,7 @@
   {...useSwipe(handleSwipe, () => ({ timeframe: 300, minSwipeDistance: 30, touchAction: 'pan-y' }))}
 >
   <div
-    class="absolute flex h-full w-full flex-row gap-6 transition-all duration-300 ease-in-out"
+    class="absolute flex h-full w-full shrink-0 flex-row gap-6 transition-all duration-300 ease-in-out"
     bind:this={scrollContainer}
   >
     {#each pages as settingsPage, i (settingsPage.id)}

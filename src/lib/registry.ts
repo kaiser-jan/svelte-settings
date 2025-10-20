@@ -5,6 +5,7 @@ import type { SettingsBlueprintItem, SettingsInput, SettingsItem, SettingsPage, 
 import BasicPageRenderer from './components/pages/BasicPageRenderer.svelte'
 import ChangelogPage from './components/pages/ChangelogPage.svelte'
 import ListSettingPage from './components/pages/ListSettingPage.svelte'
+import ListSubPage from './components/pages/ListSubPage.svelte'
 import VariantListSettingPage from './components/pages/VariantListSettingPage.svelte'
 import VariantListSubPage from './components/pages/VariantListSubPage.svelte'
 
@@ -80,6 +81,7 @@ export function isPage(item: SettingsBlueprintItem): item is SettingsPage {
 }
 
 const subpages: Record<string, SettingComponent> = {
+  list: ListSubPage,
   'variant-list': VariantListSubPage,
 }
 export function getSubpageComponent(type: SettingsPage['type']): SettingComponentInput {

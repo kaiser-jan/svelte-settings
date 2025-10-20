@@ -27,6 +27,7 @@
 
   onMount(() => {
     // HACK: write the defaults to the settings so editing one does not remove the other defaults
+    // TODO: if the user navigates directly to a subpage, this is skipped
     if (!wasChanged) {
       onchange(itemRecord)
     }

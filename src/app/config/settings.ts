@@ -284,6 +284,20 @@ export const settingsConfig = [
         default: 'en',
       },
       {
+        id: 'list',
+        type: 'list',
+        label: 'List',
+        nameProperty: 'label',
+        default: [],
+        children: [
+          {
+            id: 'label',
+            type: 'text',
+            label: 'Label',
+          },
+        ],
+      },
+      {
         id: 'multiselect',
         type: 'multiselect',
         label: 'multiselect',

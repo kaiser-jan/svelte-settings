@@ -3,7 +3,8 @@
   import type { ListSettingPage } from '$lib/types.js'
   import { cn } from '$lib/utils.js'
   import { createUUID } from '$lib/utils/common.js'
-  import { ChevronRightIcon, GripHorizontalIcon } from '@lucide/svelte'
+  import { ChevronRightIcon, GripHorizontalIcon, PlusIcon } from '@lucide/svelte'
+  import { onMount } from 'svelte'
   import { dragHandle, dragHandleZone } from 'svelte-dnd-action'
 
   interface Props {
@@ -11,12 +12,24 @@
     value: Record<string, unknown>[]
     onchange: (v: unknown[]) => void
     onnavigate: (target: string[]) => void
+    onchildchange: (key: string, v: unknown[]) => void
   }
 
-  let { item, value, onchange, onnavigate }: Props = $props()
+  let { item, value, onchange, onnavigate, onchildchange = $bindable() }: Props = $props()
   const options = getOptionsContext()
 
   const { Button } = options.components
+
+  onMount(() => {
+    onchildchange = (key, v) => {
+      const filtered = value.filter((v) => v)
+      console.warn('child changed', key, v, value, filtered)
+      if (filtered.length !== value.length) {
+        onchange(filtered)
+        value = filtered
+      }
+    }
+  })
 </script>
 
 <div class="flex flex-col gap-4">
@@ -24,15 +37,13 @@
     class="flex grow flex-col flex-nowrap gap-2 py-1"
     data-vaul-no-drag
     use:dragHandleZone={{
-      items: value ?? [],
+      items: value?.filter((v) => v) ?? [],
       flipDurationMs: 300,
     }}
     onconsider={(e) => {
       value = e.detail.items
     }}
     onfinalize={(e) => {
-      console.log('finalize')
-      console.log(e.detail.items)
       value = e.detail.items
       onchange(value)
     }}
@@ -68,9 +79,10 @@
     onclick={() => {
       value = [...(value ?? []), { id: createUUID() }]
       onchange(value)
-      onnavigate([value.length - 1])
+      onnavigate([(value.length - 1).toString()])
     }}
   >
+    <PlusIcon />
     Add {item.itemLabel ?? 'Item'}
   </Button>
 </div>

@@ -56,7 +56,8 @@
           path: $settingsPath.slice(0, index + 1),
         }
 
-        const override = lastPage.childItemsCallback(lastPage, parentValue, key)
+        // TODO: add to types
+        const override = lastPage.childItemsCallback?.(lastPage, parentValue, key)
         if (override) {
           page = {
             ...page,
@@ -76,24 +77,6 @@
 
       // the childPage could also be part of a ListSetting, which has no children
       let childPage = lastPage.children.find((p) => p.id === key) as SettingsPage
-
-      // HACK: this is a child of a nested setting (e.g. ListSetting) so we make it a page so it displays its properties given by the parent
-      if (!childPage) {
-        const values = settings.readSetting($settingsPath.slice(0, index)).value as Record<string, unknown>[]
-        const hasName =
-          values &&
-          'nameProperty' in lastPage &&
-          lastPage.nameProperty &&
-          lastPage.nameProperty in values[parseInt(key)]
-        let label = hasName ? (values[parseInt(key)][lastPage.nameProperty] as string) : key
-
-        childPage = {
-          ...lastPage,
-          id: key,
-          label,
-          type: 'page',
-        } as SettingsPage
-      }
 
       _pages.push({ ...childPage, path: $settingsPath.slice(0, index + 1) })
     }
@@ -156,6 +139,8 @@
       window.removeEventListener('resize', updateScroll)
     }
   })
+
+  let childChangeHandlers: ((key: string, v: unknown) => void)[] = $state([])
 </script>
 
 <Breadcrumb.Root>
@@ -192,13 +177,17 @@
       >
         <PageComponent
           item={settingsPage}
-          path={(get(settingsPath) ?? []).slice(0, i)}
+          path={settingsPage.path}
           value={value.value}
           wasChanged={value.changed}
           onnavigate={openSubpathThrottled}
           onchange={(v) => {
-            if ($settingsPath) settings.writeSetting($settingsPath, v)
+            if ($settingsPath) {
+              settings.writeSetting(settingsPage.path, v)
+              if (childChangeHandlers[i - 1]) childChangeHandlers[i - 1]($settingsPath[i - 1], v)
+            }
           }}
+          bind:onchildchange={childChangeHandlers[i]}
         />
       </div>
     {/each}

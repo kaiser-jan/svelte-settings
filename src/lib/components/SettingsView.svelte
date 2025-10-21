@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { SettingsPage } from '$lib/types.js'
+  import type { SettingsPage, VariantListSettingPage } from '$lib/types.js'
   import { useSwipe, type SwipeCustomEvent } from 'svelte-gestures'
   import { SettingsIcon } from '@lucide/svelte'
   import { onMount } from 'svelte'
@@ -35,6 +35,13 @@
     path: [],
   } as const
 
+  function variantListChildItemsCallback(page: VariantListSettingPage, value: any, id: string) {
+    if (!value || !value[page.typeField]) return undefined
+    const option = page.options.find((i) => i.id === value[page.typeField])
+    const optionItems = option?.items.find((i) => i.id === id)
+    return optionItems
+  }
+
   let pages: Page[] = $derived.by(() => {
     let _pages: Page[] = [BASE_PAGE]
 
@@ -43,7 +50,6 @@
     for (const [index, key] of $settingsPath.entries()) {
       const lastPage = _pages[_pages.length - 1]
 
-      // TODO: unify with list setting; make more readable
       if (isSubpage(lastPage)) {
         const parentValue = settings.readSetting($settingsPath.slice(0, index)).value as Record<string, unknown>
         if (!parentValue) return _pages
@@ -56,8 +62,10 @@
           path: $settingsPath.slice(0, index + 1),
         }
 
-        // TODO: add to types
-        const override = lastPage.childItemsCallback?.(lastPage, parentValue, key)
+        // TODO: extract to registry
+        const override =
+          lastPage.type === 'variant-list' ? variantListChildItemsCallback(lastPage, parentValue, key) : undefined
+
         if (override) {
           page = {
             ...page,

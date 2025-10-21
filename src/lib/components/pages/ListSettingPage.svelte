@@ -39,6 +39,7 @@
     use:dragHandleZone={{
       items: value?.filter((v) => v) ?? [],
       flipDurationMs: 300,
+      dropTargetStyle: {},
     }}
     onconsider={(e) => {
       value = e.detail.items

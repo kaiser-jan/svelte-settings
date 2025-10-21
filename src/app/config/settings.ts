@@ -102,12 +102,6 @@ export const settingsConfig = [
         icon: SmileIcon,
       },
     ],
-    childItemsCallback: (page: VariantListSettingPage, value: any, id: string) => {
-      if (!value || !value[page.typeField]) return undefined
-      const option = page.options.find((i) => i.id === value[page.typeField])
-      const optionItems = option?.items.find((i) => i.id === id)
-      return optionItems
-    },
     options: [
       {
         id: 'text',

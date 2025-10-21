@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { SelectSetting, VariantListSettingPage } from '$lib/types.js'
+  import type { SelectSetting, SettingsBlueprintItem, VariantListSettingPage } from '$lib/types.js'
   import { toReadable } from '$lib/utils/stores.js'
   import { getOptionsContext, getSettingsContext } from '$lib/context.js'
   import { getItemComponent } from '$lib/registry.js'
@@ -7,6 +7,7 @@
   import { ComponentIcon, Trash2Icon } from '@lucide/svelte'
   import type { ItemSerialized } from '$lib/types/ui.js'
   import SettingsItemContainer from '$lib/components/ui/SettingsItemContainer.svelte'
+  import AutoSelect from '../ui/AutoSelect.svelte'
 
   interface Props {
     path: string[]
@@ -28,19 +29,16 @@
   let subItems = $derived(item.options.find((i) => i.id === type?.id)?.items ?? [])
 
   // TODO: hide change indicator for list items, it makes no sense here
-
-  const TYPE_ITEM: SelectSetting = {
-    type: 'select',
-    id: item.typeField,
-    label: 'Type',
-    icon: ComponentIcon,
-    options: item.options,
-    default: undefined as any,
-  }
 </script>
 
-<SettingsItemContainer item={TYPE_ITEM} changed={false}>
-  <SelectInput
+<SettingsItemContainer
+  item={{
+    label: 'Type',
+    icon: ComponentIcon,
+  } as SettingsBlueprintItem}
+  changed={false}
+>
+  <AutoSelect
     value={item.options.find((i) => i.id === value?.[item.typeField])?.id}
     onchange={(v) => {
       const type = v
@@ -49,7 +47,7 @@
       console.log('new', value)
       onchange(value)
     }}
-    item={TYPE_ITEM}
+    options={item.options}
   />
 </SettingsItemContainer>
 

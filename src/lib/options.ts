@@ -4,6 +4,7 @@ import Input from '$lib/components/ui/input/input.svelte'
 import Switch from '$lib/components/ui/switch/switch.svelte'
 import LoaderPulsatingRing from '$lib/components/ui/LoaderPulsatingRing.svelte'
 import { Checkbox } from '$lib/components/ui/checkbox/index.js'
+import * as Command from '$lib/components/ui/command/index.js'
 import * as Popover from '$lib/components/ui/popover/index.js'
 import * as Accordion from '$lib/components/ui/accordion/index.js'
 import * as Select from '$lib/components/ui/select/index.js'
@@ -14,6 +15,7 @@ import { mergeDeep } from './deep.js'
 export type Options = {
   components: {
     Accordion: typeof Accordion
+    Command: typeof Command
     Breadcrumb: typeof Breadcrumb
     Button: typeof Button
     Checkbox: typeof Checkbox
@@ -44,6 +46,7 @@ export const defaultOptions: Options = {
     Breadcrumb,
     Button,
     Checkbox,
+    Command,
     Input,
     Label,
     Popover,

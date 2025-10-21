@@ -4,6 +4,7 @@
   import { getOptionsContext } from '$lib/context.js'
   import SelectInput from './SelectInput.svelte'
   import { lucideIcons } from '$lib/icons.js'
+  import AutoCombobox from '../ui/AutoCombobox.svelte'
 
   interface Props {
     item: IconSetting
@@ -22,14 +23,9 @@
   }
 </script>
 
-<SelectInput
-  item={{
-    ...item,
-    type: 'select',
-    searchable: true,
-    options: Object.entries(lucideIcons).map(([key, icon]) => ({ id: key, label: kebabCaseToPascalCase(key), icon })),
-    default: undefined,
-  }}
+<AutoCombobox
+  options={Object.entries(lucideIcons).map(([key, icon]) => ({ id: key, label: kebabCaseToPascalCase(key), icon }))}
+  itemLabel={'Icon'}
   {value}
   {onchange}
 />

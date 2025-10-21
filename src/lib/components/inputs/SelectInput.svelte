@@ -16,7 +16,7 @@
 </script>
 
 {#if item.searchable}
-  <AutoCombobox options={item.options} {value} itemLabel={item.label} {onchange} disabled={$disabled} />
+  <AutoCombobox options={item.options} {value} itemLabel={item.itemLabel} {onchange} disabled={$disabled} />
 {:else}
   <AutoSelect options={item.options} {value} {onchange} disabled={$disabled} />
 {/if}

@@ -145,6 +145,7 @@ export const settingsConfig = [
             icon: ListIcon,
             type: 'list',
             nameProperty: 'label',
+            iconProperty: 'icon',
             itemLabel: 'Option',
             default: [],
             children: [

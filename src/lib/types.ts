@@ -25,6 +25,7 @@ export type TextSetting = BaseConfigItem & {
 export type SelectSetting = BaseConfigItem & {
   type: 'select'
   searchable?: boolean
+  itemLabel?: string
   options: readonly {
     id: string
     label: string
@@ -99,6 +100,7 @@ export type ListSettingPage = BaseConfigItem & {
   itemLabel?: string
   default: Array<unknown>
   nameProperty: string
+  iconProperty?: string
   children: OptionalProp<SettingsBlueprintItem, 'default'>[]
 }
 export type VariantListSettingPage = BaseConfigItem & {

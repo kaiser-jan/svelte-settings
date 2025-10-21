@@ -7,6 +7,7 @@
   import { getOptionsContext } from '$lib/context.js'
   import { onMount } from 'svelte'
   import { createUUID } from '$lib/utils/common.js'
+  import { lucideIcons } from '$lib/icons.js'
 
   type Item = { id: string; label?: string; icon?: string }
 
@@ -80,6 +81,11 @@
         <GripHorizontalIcon data-vaul-no-drag />
       </div>
 
+      {#if listItem.icon}
+        {@const Icon = lucideIcons[listItem.icon]}
+        <Icon class="stroke opacity-80" />
+      {/if}
+
       <Label for={listItem?.id} class="text-left leading-4">
         {listItem?.label ?? listItem?.id}
       </Label>
@@ -104,5 +110,5 @@
   }}
 >
   <PlusIcon />
-  Add {item.itemLabel}
+  Add {item.itemLabel ?? 'Item'}
 </Button>

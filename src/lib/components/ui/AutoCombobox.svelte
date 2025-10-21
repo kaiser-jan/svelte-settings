@@ -8,7 +8,7 @@
   interface Props {
     options: readonly Item[]
     value: string | undefined
-    itemLabel: string
+    itemLabel?: string
     disabled?: boolean
     onchange: (v: string) => void
   }
@@ -17,6 +17,7 @@
   const options = getOptionsContext()
   const { Popover, Button, Command } = options.components
 
+  const ensuredItemLabel = itemLabel?.toLowerCase() ?? 'item'
   let selectedOption = $derived(itemOptions.find((o) => o.id === value))
 
   let open = $state(false)
@@ -50,7 +51,7 @@
           {/if}
           {selectedOption.label ?? selectedOption.id}
         {:else}
-          Select {itemLabel.toLowerCase()}...
+          Select {ensuredItemLabel}...
         {/if}
         <ChevronsUpDownIcon class="ml-auto opacity-50" />
       </Button>
@@ -58,9 +59,9 @@
   </Popover.Trigger>
   <Popover.Content class="w-[200px] p-0">
     <Command.Root>
-      <Command.Input placeholder={`Search for ${itemLabel.toLowerCase()}...`} />
+      <Command.Input placeholder={`Search for ${ensuredItemLabel}...`} />
       <Command.List>
-        <Command.Empty>No {itemLabel.toLowerCase()} found.</Command.Empty>
+        <Command.Empty>No {ensuredItemLabel} found.</Command.Empty>
         <Command.Group value="frameworks">
           {#each itemOptions as option (option.id)}
             <Command.Item

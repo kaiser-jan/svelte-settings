@@ -1,5 +1,6 @@
 <script lang="ts">
   import { getOptionsContext } from '$lib/context.js'
+  import { lucideIcons } from '$lib/icons.js'
   import type { ListSettingPage } from '$lib/types.js'
   import { cn } from '$lib/utils.js'
   import { createUUID } from '$lib/utils/common.js'
@@ -65,6 +66,12 @@
         <div use:dragHandle onclick={(e) => e.stopPropagation()} data-vaul-no-drag>
           <GripHorizontalIcon data-vaul-no-drag />
         </div>
+
+        {#if item.iconProperty && item.iconProperty in listItem}
+          {@const Icon = lucideIcons[listItem[item.iconProperty] as string]}
+          <Icon class="opacity-80" />
+        {/if}
+
         {#if item.nameProperty && item.nameProperty in listItem}
           {listItem[item.nameProperty]}
         {/if}

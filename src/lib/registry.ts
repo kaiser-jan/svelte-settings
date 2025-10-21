@@ -19,6 +19,7 @@ import ValueDisplayItem from './components/items/ValueDisplayItem.svelte'
 import GroupWrapper from './components/wrappers/GroupWrapper.svelte'
 
 import BooleanInput from './components/inputs/BooleanInput.svelte'
+import IconInput from './components/inputs/IconInput.svelte'
 import SelectInput from './components/inputs/SelectInput.svelte'
 import NumberInput from './components/inputs/NumberInput.svelte'
 import MultiSelectInput from './components/inputs/MultiSelectInput.svelte'
@@ -53,6 +54,7 @@ type SettingComponentInput = Component<
 // { key: 'changelog', type: 'page', component: ChangelogPage }
 
 const inputs: Record<SettingsInput['type'], SettingComponent> = {
+  icon: IconInput,
   select: SelectInput,
   multiselect: MultiSelectInput,
   'multiselect-reorder': MultiSelectReorderInput,

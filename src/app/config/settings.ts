@@ -98,7 +98,7 @@ export const settingsConfig = [
       {
         id: 'icon',
         label: 'Icon',
-        type: 'text',
+        type: 'icon',
         icon: SmileIcon,
       },
     ],
@@ -157,7 +157,7 @@ export const settingsConfig = [
               {
                 id: 'icon',
                 label: 'icon',
-                type: 'text',
+                type: 'icon',
                 icon: SmileIcon,
               },
             ],

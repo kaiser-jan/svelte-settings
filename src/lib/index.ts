@@ -6,6 +6,7 @@ import { writable, get } from 'svelte/store'
 import { persisted } from 'svelte-persisted-store'
 import { mergeOptions, type Options } from './options.js'
 import type { DeepPartial } from './utils.js'
+import { lucideIcons } from './icons.js'
 
 export type { SettingsFromBlueprint, SettingsBlueprint } from './types.js'
 
@@ -43,6 +44,7 @@ export function useSettings<T extends SettingsBlueprint>(blueprint: T, options: 
     defaults: settingsDefaults,
     blueprint,
     options: mergeOptions(options),
+    icons: lucideIcons,
   }
 
   return settings

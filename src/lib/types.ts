@@ -24,6 +24,7 @@ export type TextSetting = BaseConfigItem & {
 
 export type SelectSetting = BaseConfigItem & {
   type: 'select'
+  searchable?: boolean
   options: readonly {
     id: string
     label: string
@@ -52,6 +53,10 @@ export type NumberSetting = BaseConfigItem & {
   max?: number
   step?: number
   unit?: string
+}
+
+export type IconSetting = BaseConfigItem & {
+  type: 'icon'
 }
 
 export type DescriptionItem = BaseConfigItem & {
@@ -112,7 +117,13 @@ export type ChangelogPage = BaseConfigItem & {
 export type SettingsPage = BasePage | ListSettingPage | VariantListSettingPage | ChangelogPage
 export type SettingsWrapper = GroupWrapper
 export type SettingsItem = DescriptionItem | ValueDisplayItem | ActionItem | NotImplementedSetting
-export type SettingsInput = TextSetting | SelectSetting | MultiSelectSetting | BooleanSetting | NumberSetting
+export type SettingsInput =
+  | TextSetting
+  | SelectSetting
+  | MultiSelectSetting
+  | BooleanSetting
+  | NumberSetting
+  | IconSetting
 
 export type SettingsNested = BasePage | SettingsWrapper
 

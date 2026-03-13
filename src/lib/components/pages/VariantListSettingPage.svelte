@@ -46,7 +46,7 @@
 </script>
 
 <div
-  class={cn('flex w-full flex-col gap-2', $disabled ? 'opacity-50' : '')}
+  class={cn('flex w-full flex-col', $disabled ? 'opacity-50' : '')}
   data-vaul-no-drag
   use:dragHandleZone={{
     items: Object.values(itemRecord),
@@ -71,7 +71,11 @@
     <!-- svelte-ignore a11y_click_events_have_key_events -->
     <!-- svelte-ignore a11y_no_static_element_interactions -->
     <div
-      class={cn('flex flex-row items-center gap-2', options.style.category.classes, 'justify-start')}
+      class={cn(
+        'flex min-h-12 w-full flex-row items-center gap-2  px-3 py-2 first:rounded-t-md last:rounded-b-md',
+        options.style.category.classes,
+        'justify-start rounded-none',
+      )}
       onclick={() => onnavigate([listItemKey])}
       data-vaul-no-drag
     >

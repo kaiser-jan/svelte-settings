@@ -35,7 +35,7 @@
 
 <div class="flex flex-col gap-4">
   <div
-    class="flex grow flex-col flex-nowrap gap-2 py-1"
+    class="flex grow flex-col flex-nowrap"
     data-vaul-no-drag
     use:dragHandleZone={{
       items: value?.filter((v) => v) ?? [],
@@ -54,7 +54,7 @@
       <button
         class={cn(
           options.style.category.classes,
-          'flex w-full flex-row items-center gap-2 px-3 py-2 not-last:border-b-2 first:rounded-t-md last:rounded-b-md',
+          'flex min-h-12 w-full flex-row items-center gap-2 rounded-none px-3 py-2 first:rounded-t-md last:rounded-b-md',
         )}
         onclick={() => {
           onnavigate([listIndex.toString()])
@@ -69,7 +69,9 @@
 
         {#if item.iconProperty && item.iconProperty in listItem}
           {@const Icon = lucideIcons[listItem[item.iconProperty] as string]}
-          <Icon class="opacity-80" />
+          {#if Icon}
+            <Icon class="opacity-80" />
+          {/if}
         {/if}
 
         {#if item.nameProperty && item.nameProperty in listItem}

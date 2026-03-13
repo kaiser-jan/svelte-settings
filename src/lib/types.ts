@@ -145,7 +145,9 @@ export type SettingsFromBlueprint<T extends readonly SettingsBlueprintItem[]> = 
         ? O extends readonly { id: infer I }[]
           ? I[]
           : never
-        : K extends { default: infer D }
-          ? D
-          : never
+        : K extends { type: 'variant-list' }
+          ? Record<string, unknown>
+          : K extends { default: infer D }
+            ? D
+            : never
 }

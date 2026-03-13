@@ -2,6 +2,7 @@
   import { getOptionsContext } from '$lib/context.js'
   import type { BasePage } from '$lib/types.js'
   import { ChevronRightIcon } from '@lucide/svelte'
+  import SettingsItemContainer from '../ui/SettingsItemContainer.svelte'
 
   interface Props {
     path: string[]
@@ -12,15 +13,8 @@
   let { path, item, onnavigate }: Props = $props()
 
   const options = getOptionsContext()
-  const { Button } = options.components
 </script>
 
-<Button
-  variant={options.style.button.category}
-  onclick={() => onnavigate([item.id])}
-  class="min-h-12 justify-between gap-3 text-base! font-medium"
->
-  <item.icon />
-  {item.label}
+<SettingsItemContainer variant={options.style.button.category} onclick={() => onnavigate([item.id])} {item}>
   <ChevronRightIcon class="ml-auto" />
-</Button>
+</SettingsItemContainer>

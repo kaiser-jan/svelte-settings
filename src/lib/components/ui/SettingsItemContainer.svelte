@@ -27,12 +27,12 @@
   class={cn(
     !clickable && options.style.container.classes,
     // 'relative flex h-fit min-h-12 shrink-0 flex-wrap items-center justify-between gap-x-3 gap-y-1 overflow-hidden rounded-md px-4 py-2 whitespace-normal',
-    'relative h-fit flex-wrap justify-between overflow-hidden px-4 py-2 whitespace-normal',
+    'px-auto relative h-fit min-h-14 flex-wrap justify-between overflow-hidden p-2 pl-4 text-base whitespace-normal',
     restProps.class,
   )}
 >
   {#if !hideLabel}
-    <span class="flex flex-row items-center gap-3 font-medium">
+    <span class="flex shrink-0 flex-row items-center gap-3 font-medium">
       {#if item.icon}
         <item.icon class="text-text" />
       {/if}
@@ -43,7 +43,7 @@
   {@render children()}
 
   {#if item.description}
-    <p class="text-text-muted text-left text-sm opacity-80">
+    <p class="text-text-muted w-full text-left text-sm opacity-80">
       {item.description}
     </p>
   {/if}

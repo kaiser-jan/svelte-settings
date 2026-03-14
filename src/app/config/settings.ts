@@ -299,10 +299,10 @@ export const settingsConfig = [
         ],
       },
       {
-        id: 'multiselect-reorder',
+        id: 'list',
         label: 'List',
         description: 'Select multiple options on a subpage.',
-        type: 'multiselect-reorder',
+        type: 'list',
         icon: ListIcon,
         options: ['feature-a', 'feature-b', 'feature-c'],
         labels: {
@@ -313,10 +313,10 @@ export const settingsConfig = [
         default: ['feature-a', 'feature-c'],
       },
       {
-        id: 'multiselect-reorder-inline',
+        id: 'list-inline',
         label: 'List inline',
         description: 'Select multiple options inline.',
-        type: 'multiselect-reorder',
+        type: 'list',
         inline: true,
         icon: ListIcon,
         options: ['feature-a', 'feature-b', 'feature-c'],

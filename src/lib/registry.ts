@@ -4,7 +4,7 @@ import type { SettingsBlueprintItem, SettingsInput, SettingsItem, SettingsPage, 
 
 import PageRenderer from './components/pages/PageRenderer.svelte'
 import ChangelogPage from './components/pages/ChangelogPage.svelte'
-import MultiselectReorderSettingPage from './components/pages/MultiselectReorderSettingPage.svelte'
+import ListPage from './components/pages/ListPage.svelte'
 import ItemListSettingPage from './components/pages/ItemListPage.svelte'
 import ItemListSubPage from './components/pages/ItemListSubPage.svelte'
 import VariantListSubPage from './components/pages/VariantListSubPage.svelte'
@@ -23,7 +23,7 @@ import IconInput from './components/inputs/IconInput.svelte'
 import SelectInput from './components/inputs/SelectInput.svelte'
 import NumberInput from './components/inputs/NumberInput.svelte'
 import BooleanGroupInput from './components/inputs/BooleanGroupInput.svelte'
-import MultiSelectReorderInput from './components/inputs/MultiSelectReorderInput.svelte'
+import ListInput from './components/inputs/ListInput.svelte'
 import TextInput from './components/inputs/TextInput.svelte'
 
 // TODO: refine this type; derive from the settings types
@@ -59,7 +59,7 @@ const inputs: Record<SettingsInput['type'], SettingComponentInput> = {
   number: NumberInput,
   text: TextInput,
   select: SelectInput,
-  'multiselect-reorder': MultiSelectReorderInput,
+  list: ListInput,
 }
 export function getInputComponent(type: SettingsInput['type']): SettingComponentInput {
   return inputs[type]
@@ -72,7 +72,7 @@ const pages: Record<SettingsPage['type'], SettingComponentPage> = {
   changelog: ChangelogPage,
   'item-list': ItemListSettingPage,
   'variant-list': ItemListSettingPage,
-  'multiselect-reorder': MultiselectReorderSettingPage,
+  list: ListPage,
   page: PageRenderer,
 }
 export function getPageComponent(type: SettingsPage['type']): SettingComponentPage {

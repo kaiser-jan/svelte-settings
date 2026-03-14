@@ -16,7 +16,14 @@
 </script>
 
 {#if item.inline}
-  <ReorderableList allOptions={item.options} selectedOptions={value} {onchange} {disabled} labels={item.labels} />
+  <ReorderableList
+    allOptions={item.options}
+    selectedOptions={value}
+    {onchange}
+    {disabled}
+    labels={item.labels}
+    inline
+  />
 {:else}
   <span class="text-text-muted ml-auto">{value.length} / {item.options.length}</span>
   <ChevronRightIcon />

@@ -10,10 +10,11 @@
     allOptions: readonly string[]
     labels?: Record<string, string>
     selectedOptions: string[]
+    inline?: boolean
     onchange: (v: string[]) => void
   }
 
-  let { disabled, selectedOptions, allOptions, labels, onchange }: Props = $props()
+  let { disabled, selectedOptions, allOptions, labels, inline, onchange }: Props = $props()
 
   const options = getOptionsContext()
   const { Label, Button, Popover } = options.components
@@ -29,8 +30,42 @@
   })
 </script>
 
+{#if !$disabled && availableOptions.length}
+  <Popover.Root>
+    <Popover.Trigger>
+      <Button
+        class="min-size-8 size-8 min-w-fit"
+        variant={options.style.button.action}
+        size={inline ? 'icon' : 'default'}
+      >
+        <PlusIcon />
+        {#if !inline}
+          Select more
+        {/if}
+      </Button>
+    </Popover.Trigger>
+    <Popover.Content class="flex max-h-[50dvh] w-fit max-w-[90dvw] flex-col gap-1 overflow-y-scroll p-2">
+      {#each availableOptions as option (option)}
+        <Button
+          variant={options.style.button.category}
+          onclick={() => {
+            items.push({ id: option })
+            onchange(items.map((i) => i.id))
+          }}
+          class="justify-start px-3"
+        >
+          {option}
+          <PlusIcon class="ml-auto" />
+        </Button>
+      {:else}
+        No more options available!
+      {/each}
+    </Popover.Content>
+  </Popover.Root>
+{/if}
+
 <div
-  class={cn('flex w-full flex-col', $disabled ? 'opacity-50' : '')}
+  class={cn('flex w-full flex-col gap-1', $disabled ? 'opacity-50' : '')}
   data-vaul-no-drag
   use:dragHandleZone={{
     items: items,
@@ -73,31 +108,3 @@
     </div>
   {/each}
 </div>
-
-{#if !$disabled && availableOptions.length}
-  <Popover.Root>
-    <Popover.Trigger>
-      <Button class="h-8 min-h-6 px-3 py-2" variant={options.style.button.action}>
-        <PlusIcon />
-        Select more
-      </Button>
-    </Popover.Trigger>
-    <Popover.Content class="flex max-h-[50dvh] w-fit max-w-[90dvw] flex-col gap-1 overflow-y-scroll p-2">
-      {#each availableOptions as option (option)}
-        <Button
-          variant={options.style.button.category}
-          onclick={() => {
-            items.push({ id: option })
-            onchange(items.map((i) => i.id))
-          }}
-          class="justify-start px-3"
-        >
-          {option}
-          <PlusIcon class="ml-auto" />
-        </Button>
-      {:else}
-        No more options available!
-      {/each}
-    </Popover.Content>
-  </Popover.Root>
-{/if}

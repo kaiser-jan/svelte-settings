@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type { MultiSelectSetting } from '$lib/types.js'
+  import type { BooleanGroupSetting } from '$lib/types.js'
   import { toReadable } from '$lib/utils/stores.js'
   import { getOptionsContext } from '$lib/context.js'
 
   interface Props {
-    item: MultiSelectSetting
+    item: BooleanGroupSetting
     value: string[]
     onchange: (v: string[]) => void
   }

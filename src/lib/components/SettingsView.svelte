@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { SettingsPage, VariantListSettingPage } from '$lib/types.js'
+  import type { SettingsPage } from '$lib/types.js'
   import { useSwipe, type SwipeCustomEvent } from 'svelte-gestures'
   import { SettingsIcon } from '@lucide/svelte'
   import { onMount } from 'svelte'

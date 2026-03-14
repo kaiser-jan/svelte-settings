@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { SelectSetting, SettingsBlueprintItem, VariantListSettingPage } from '$lib/types.js'
+  import type { SettingsBlueprintItem, VariantListSetting } from '$lib/types.js'
   import { toReadable } from '$lib/utils/stores.js'
   import { getOptionsContext, getSettingsContext } from '$lib/context.js'
   import { getItemComponent } from '$lib/registry.js'
@@ -11,7 +11,7 @@
 
   interface Props {
     path: string[]
-    item: VariantListSettingPage
+    item: VariantListSetting
     value: any
     onchange: (v: ItemSerialized) => void
     onnavigate: (target: string[]) => void

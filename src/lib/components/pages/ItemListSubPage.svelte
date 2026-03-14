@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type { ItemListSettingPage, SettingsNested } from '$lib/types.js'
   import { getItemComponent } from '$lib/registry.js'
   import { getOptionsContext, getSettingsContext } from '$lib/context.js'
   import { Trash2Icon } from '@lucide/svelte'
+  import type { ItemListSetting } from '$lib/types.js'
 
   interface Props {
     path: string[]
-    item: ItemListSettingPage
+    item: ItemListSetting
     onnavigate: (target: string[], replace?: boolean) => void
     onchange: (v: unknown) => void
   }

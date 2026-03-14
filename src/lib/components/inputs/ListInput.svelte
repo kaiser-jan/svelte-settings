@@ -1,11 +1,11 @@
 <script lang="ts">
-  import type { MultiSelectSetting } from '$lib/types.js'
+  import type { ListSetting } from '$lib/types.js'
   import { toReadable } from '$lib/utils/stores.js'
   import ReorderableList from '$lib/components/ui/ReorderableList.svelte'
   import { ChevronRightIcon } from '@lucide/svelte'
 
   interface Props {
-    item: MultiSelectSetting
+    item: ListSetting
     value: string[]
     onchange: (v: string[]) => void
   }

@@ -34,14 +34,14 @@ export type SelectSetting = BaseConfigItem & {
   default: string
 }
 
-export type MultiSelectSetting = BaseConfigItem & {
+export type BooleanGroupSetting = BaseConfigItem & {
   type: 'boolean-group'
   options: readonly string[]
   labels?: Record<string, string>
   default: string[]
 }
 
-export type MultiSelectReorderSetting = BaseConfigItem & {
+export type ListSetting = BaseConfigItem & {
   type: 'list'
   options: readonly string[]
   labels?: Record<string, string>
@@ -101,7 +101,7 @@ export type BasePage = BaseConfigItem & {
   type: 'page'
   children: SettingsBlueprintItem[]
 }
-export type ItemListPage = BaseConfigItem & {
+export type ItemListSetting = BaseConfigItem & {
   type: 'item-list'
   itemLabel?: string
   defaultToCopy?: Record<string, Record<string, unknown>>
@@ -109,7 +109,7 @@ export type ItemListPage = BaseConfigItem & {
   iconProperty?: string
   children: OptionalProp<SettingsBlueprintItem, 'default'>[]
 }
-export type VariantListSettingPage = BaseConfigItem & {
+export type VariantListSetting = BaseConfigItem & {
   type: 'variant-list'
   // having a default value leads to problems when merging with the overrides
   // e.g. items cannot be reordered
@@ -127,10 +127,10 @@ export type ChangelogPage = BaseConfigItem & {
 // TODO: combine with registry
 export type SettingsPage =
   | BasePage //
-  | ItemListPage
-  | VariantListSettingPage
+  | ListSetting
+  | ItemListSetting
+  | VariantListSetting
   | ChangelogPage
-  | MultiSelectReorderSetting
 export type SettingsItem =
   | DescriptionItem //
   | ValueDisplayItem
@@ -139,8 +139,8 @@ export type SettingsItem =
 export type SettingsInput =
   | TextSetting //
   | SelectSetting
-  | MultiSelectSetting
-  | MultiSelectReorderSetting
+  | BooleanGroupSetting
+  | ListSetting
   | BooleanSetting
   | NumberSetting
   | IconSetting

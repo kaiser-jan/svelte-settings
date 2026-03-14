@@ -2,9 +2,7 @@
   import { getInputComponent, isPage } from '$lib/registry.js'
   import type { SettingsInput } from '$lib/types.js'
   import { getSettingsContext } from '$lib/context.js'
-  import { cn } from '$lib/utils.js'
-  import { getOptionsContext } from '$lib/context.js'
-  import SettingsItemContainer from '../ui/SettingsItemContainer.svelte'
+  import SettingsItemContainer from '$lib/components/ui/SettingsItemContainer.svelte'
 
   interface Props {
     path: string[]

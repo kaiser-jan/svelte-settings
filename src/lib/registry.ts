@@ -2,14 +2,15 @@ import type { Component } from 'svelte'
 
 import type { SettingsBlueprintItem, SettingsInput, SettingsItem, SettingsPage, SettingsWrapper } from './types.js'
 
-import PageRenderer from './components/pages/PageRenderer.svelte'
+import BasicItemRenderer from './components/Item.svelte'
+import PageRenderer from './components/Page.svelte'
+
 import ChangelogPage from './components/pages/ChangelogPage.svelte'
 import ListPage from './components/pages/ListPage.svelte'
 import ItemListSettingPage from './components/pages/ItemListPage.svelte'
 import ItemListSubPage from './components/pages/ItemListSubPage.svelte'
 import VariantListSubPage from './components/pages/VariantListSubPage.svelte'
 
-import BasicItemRenderer from './components/items/BasicItemRenderer.svelte'
 import ActionItem from './components/items/ActionItem.svelte'
 import DescriptionItem from './components/items/DescriptionItem.svelte'
 import PageItem from './components/items/PageItem.svelte'

@@ -5,7 +5,6 @@
   import { onMount } from 'svelte'
   import { getPageComponent, getSubpageComponent, isSubpage as hasSubpage, isWrapper } from '$lib/registry.js'
   import { throttle } from '$lib/utils/common.js'
-  import ItemPageRenderer from './pages/ItemPageRenderer.svelte'
   import type { InitializedSettings } from '$lib/index.js'
   import { setSettingsContext } from '$lib/context.js'
   import { get } from 'svelte/store'

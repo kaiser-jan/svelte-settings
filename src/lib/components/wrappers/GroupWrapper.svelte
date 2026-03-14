@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { GroupWrapper } from '$lib/types.js'
-  import PageRenderer from '../pages/PageRenderer.svelte'
+  import PageRenderer from '../Page.svelte'
 
   interface Props {
     path: string[]

@@ -6,7 +6,7 @@
   import { ChevronRightIcon, GripHorizontalIcon, PlusIcon, RefreshCcwDotIcon, type SettingsIcon } from '@lucide/svelte'
   import { getOptionsContext } from '$lib/context.js'
   import { createUUID } from '$lib/utils/common.js'
-  import { lucideIcons } from '$lib/icons.js'
+  import { lucideIcons } from '$lib/utils/icons.js'
 
   type Item = { label?: string; icon?: string }
   type ItemWithId = Item & { id: string }

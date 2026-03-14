@@ -1,6 +1,5 @@
 <script lang="ts">
   import { SettingsView } from '$lib/index.js'
-  import { queryParam, ssp } from 'sveltekit-search-params'
   import { settings } from '../app/stores/settings.js'
   import { onMount } from 'svelte'
   import { page } from '$app/state'

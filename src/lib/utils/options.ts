@@ -1,4 +1,4 @@
-import { Button, buttonVariants } from './components/ui/button/index.js'
+import { Button, buttonVariants } from '$lib/components/ui/button/index.js'
 import Label from '$lib/components/ui/label/label.svelte'
 import Input from '$lib/components/ui/input/input.svelte'
 import Switch from '$lib/components/ui/switch/switch.svelte'
@@ -9,7 +9,7 @@ import * as Popover from '$lib/components/ui/popover/index.js'
 import * as Accordion from '$lib/components/ui/accordion/index.js'
 import * as Select from '$lib/components/ui/select/index.js'
 import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js'
-import type { DeepPartial } from './utils.js'
+import type { DeepPartial } from '../utils.js'
 import { mergeDeep } from './deep.js'
 
 export type Options = {

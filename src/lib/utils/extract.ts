@@ -1,4 +1,4 @@
-import type { SettingsBlueprintItem } from './types.js'
+import type { SettingsBlueprintItem } from '../types.js'
 
 function assign(obj: Record<string, any>, path: string[], value: unknown) {
   for (let i = 0; i < path.length - 1; i++) {

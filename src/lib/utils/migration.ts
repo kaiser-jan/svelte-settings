@@ -1,4 +1,4 @@
-import { setDeep } from '../deep.js'
+import { setDeep } from './deep.js'
 
 type Settings = Record<string, unknown>
 

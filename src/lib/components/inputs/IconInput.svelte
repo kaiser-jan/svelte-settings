@@ -2,8 +2,7 @@
   import type { IconSetting } from '$lib/types.js'
   import { toReadable } from '$lib/utils/stores.js'
   import { getOptionsContext } from '$lib/context.js'
-  import SelectInput from './SelectInput.svelte'
-  import { lucideIcons } from '$lib/icons.js'
+  import { lucideIcons } from '$lib/utils/icons.js'
   import AutoCombobox from '../ui/AutoCombobox.svelte'
 
   interface Props {

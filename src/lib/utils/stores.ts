@@ -1,7 +1,5 @@
-
-import { deepEqual } from '$lib/deep.js'
+import { deepEqual } from './deep.js'
 import { readable, writable, type Readable, type Writable } from 'svelte/store'
-import { browser } from '$app/environment'
 
 /**
  * Creates a subscription to a nested part of the store according to the selector.

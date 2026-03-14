@@ -12,7 +12,7 @@ import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js'
 import type { DeepPartial } from '../utils.js'
 import { mergeDeep } from './deep.js'
 
-export type Options = {
+export type Options<ButtonVariantT extends string> = {
   components: {
     Accordion: typeof Accordion
     Command: typeof Command
@@ -28,8 +28,8 @@ export type Options = {
   }
   style: {
     button: {
-      category: string
-      action: string
+      category: ButtonVariantT
+      action: ButtonVariantT
     }
     category: {
       classes: string
@@ -40,7 +40,7 @@ export type Options = {
   }
 }
 
-export const defaultOptions: Options = {
+export const defaultOptions: Options<buttonVariants> = {
   components: {
     Accordion,
     Breadcrumb,
@@ -71,16 +71,16 @@ export const defaultOptions: Options = {
 
 // HACK: deep merge the options but not the components
 // TODO: consider splitting components off of options
-export function mergeOptions(userOptions: DeepPartial<Options> | undefined) {
+export function mergeOptions<T extends string>(userOptions: DeepPartial<Options<T>> | undefined) {
   const userComponents = userOptions?.components
   if (userOptions?.components) delete userOptions.components
-  const options = mergeDeep(defaultOptions, userOptions) as Options
+  const options = mergeDeep(defaultOptions, userOptions) as Options<T>
   // Error: type instantiation is excessively deep and possibly infinite. typescript (2589)
   // options.components = { ...defaultOptions.components, ...userComponents } as Options['components']
   options.components = { ...defaultOptions.components }
 
   if (userComponents) {
-    for (const [componentKey, component] of Object.entries(userComponents as Partial<Options['components']>)) {
+    for (const [componentKey, component] of Object.entries(userComponents as Partial<Options<T>['components']>)) {
       options.components[componentKey as keyof typeof options.components] = component as any
     }
   }

@@ -61,18 +61,18 @@ const components = {
   wrapper: {
     group: GroupWrapper,
   },
-} as const satisfies Record<string, Partial<Record<SettingType, SettingComponentInput>>>
+} as const satisfies Record<string, Partial<Record<SettingType, SettingComponent>>>
 
-export function getInputComponent(type: keyof (typeof components)['input']): SettingComponentInput {
+export function getInputComponent(type: keyof (typeof components)['input']): SettingComponent {
   return components.input[type]
 }
-export function getPageComponent(type: keyof (typeof components)['page']): SettingComponentPage {
+export function getPageComponent(type: keyof (typeof components)['page']): SettingComponent {
   return components.page[type]
 }
-export function getSubpageComponent(type: keyof (typeof components)['subpage']): SettingComponentPage {
+export function getSubpageComponent(type: keyof (typeof components)['subpage']): SettingComponent {
   return components.subpage[type]
 }
-export function getItemComponent(item: SettingsBlueprintItem): SettingComponentInput | SettingComponentPage {
+export function getItemComponent(item: SettingsBlueprintItem): SettingComponent {
   if (item.type in components.input) return InputItem
   if (item.type in components.item) return components.item[item.type as keyof typeof components.item]
   if (isWrapper(item)) return components.wrapper[item.type as keyof typeof components.wrapper]
@@ -89,30 +89,18 @@ export function isWrapper(item: SettingsBlueprintItem): boolean {
   return item.type in components.wrapper
 }
 
-// TODO: refine this type; derive from the settings types
-type SettingComponentPage = Component<
-  {
-    item: any
-    onnavigate: (path: string[]) => void
-    path: readonly string[]
-  },
-  {},
-  ''
->
-type SettingComponentInput = Component<
-  {
-    item: any
-    value: any
-    wasChanged: boolean
-    onchange: (v: any) => void
-    onnavigate: (path: string[]) => void
-    path: readonly string[]
-  },
-  {},
-  ''
->
+type SettingComponent = Component<PropsFor<Setting<any>>, {}, ''>
 
-type SettingHaving<K extends keyof typeof components> = keyof (typeof components)[K] & SettingType
+export type SettingHaving<K extends keyof typeof components> = keyof (typeof components)[K] & SettingType
 
 export type SettingWith<K extends keyof typeof components> =
   SettingHaving<K> extends infer T ? (T extends SettingType ? Setting<T> : never) : never
+
+export type PropsFor<S extends Setting<SettingType>, F = unknown> = {
+  item: S
+  value: S extends { default: infer D } ? D : F
+  wasChanged: boolean
+  onchange: (v: S extends { default: infer D } ? D : F) => void
+  onnavigate: (path: string[]) => void
+  path: readonly string[]
+}

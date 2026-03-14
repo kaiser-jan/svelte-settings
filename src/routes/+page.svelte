@@ -13,8 +13,12 @@
       goto(target.toString())
     }
   })
+
+  // const test = get(settings).advanced['item-list']
+  // const b = test['a' as keyof typeof test]
 </script>
 
 <div class="flex h-dvh min-h-0 grow flex-col gap-4 overflow-x-visible p-4">
+  <!-- {JSON.stringify(get(settings).advanced['item-list'])} -->
   <SettingsView {settings} />
 </div>

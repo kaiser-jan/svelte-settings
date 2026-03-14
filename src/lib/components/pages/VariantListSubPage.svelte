@@ -2,21 +2,12 @@
   import type { Setting, SettingsBlueprintItem } from '$lib/types.js'
   import { toReadable } from '$lib/utils/stores.js'
   import { getOptionsContext, getSettingsContext } from '$lib/context.js'
-  import { getItemComponent } from '$lib/registry.js'
+  import { getItemComponent, type PropsFor } from '$lib/registry.js'
   import { ComponentIcon, Trash2Icon } from '@lucide/svelte'
-  import type { ItemSerialized } from '$lib/types/ui.js'
   import SettingsItemContainer from '$lib/components/ui/SettingsItemContainer.svelte'
   import AutoSelect from '../ui/AutoSelect.svelte'
 
-  interface Props {
-    path: string[]
-    item: Setting<'variant-list'>
-    value: any
-    onchange: (v: ItemSerialized) => void
-    onnavigate: (target: string[]) => void
-  }
-
-  let { item, value, path, onchange, onnavigate }: Props = $props()
+  let { item, value, path, onchange, ...props }: PropsFor<Setting<'variant-list'>, any> = $props()
 
   const settings = getSettingsContext()
   const options = getOptionsContext()
@@ -51,9 +42,9 @@
 </SettingsItemContainer>
 
 {#each [...item.base, ...subItems] as child (child.id)}
-  {@const ItemComponent = getItemComponent(child)}
+  {@const ItemComponent = getItemComponent(child as SettingsBlueprintItem)}
   {#if !child.visible || child.visible($settings)}
-    <ItemComponent path={[...path, child.id]} item={child} {onnavigate} />
+    <ItemComponent path={[...path, child.id]} item={child} {value} {onchange} {...props} />
   {/if}
 {/each}
 

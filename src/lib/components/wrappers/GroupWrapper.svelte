@@ -1,14 +1,9 @@
 <script lang="ts">
+  import type { PropsFor } from '$lib/registry.js'
   import type { Setting } from '$lib/types.js'
   import PageRenderer from '../Page.svelte'
 
-  interface Props {
-    path: string[]
-    item: Setting<'group'>
-    onnavigate: (target: string[]) => void
-  }
-
-  let { path, item, onnavigate }: Props = $props()
+  let { onnavigate, item, ...props }: PropsFor<Setting<'page'>> = $props()
 </script>
 
 <section class="flex flex-col gap-2">
@@ -17,8 +12,8 @@
     {item.label}
   </h2>
   <PageRenderer
+    {...props}
     {item}
-    {path}
     onnavigate={(target) => {
       onnavigate([item.id, ...target])
     }}

@@ -3,14 +3,9 @@
   import { ChevronRightIcon } from '@lucide/svelte'
   import SettingsItemContainer from '../ui/SettingsItemContainer.svelte'
   import type { Setting } from '$lib/types.js'
+  import type { PropsFor } from '$lib/registry.js'
 
-  interface Props {
-    path: string[]
-    item: Setting<'page'>
-    onnavigate: (target: string[]) => void
-  }
-
-  let { path, item, onnavigate }: Props = $props()
+  let { path, item, onnavigate }: PropsFor<Setting<'page'>> = $props()
 
   const options = getOptionsContext()
 </script>

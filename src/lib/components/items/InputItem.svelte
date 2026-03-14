@@ -1,15 +1,9 @@
 <script lang="ts">
-  import { getInputComponent, isPage, type SettingWith } from '$lib/registry.js'
+  import { getInputComponent, isPage, type PropsFor, type SettingHaving, type SettingWith } from '$lib/registry.js'
   import { getSettingsContext } from '$lib/context.js'
   import SettingsItemContainer from '$lib/components/ui/SettingsItemContainer.svelte'
 
-  interface Props {
-    path: string[]
-    item: SettingWith<'input'>
-    onnavigate: (target: string[]) => void
-  }
-
-  let { path, item, onnavigate }: Props = $props()
+  let { path, item, onnavigate }: PropsFor<SettingWith<'input'>> = $props()
 
   const settings = getSettingsContext()
 

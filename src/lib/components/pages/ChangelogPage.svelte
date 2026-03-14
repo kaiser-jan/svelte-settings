@@ -1,14 +1,11 @@
 <script lang="ts">
   import { getOptionsContext } from '$lib/context.js'
+  import type { PropsFor } from '$lib/registry.js'
   import type { Setting } from '$lib/types.js'
   import { toReadable } from '$lib/utils/stores.js'
   import { DateTime } from 'luxon'
 
-  interface Props {
-    item: Setting<'changelog'>
-  }
-
-  let { item }: Props = $props()
+  let { item }: PropsFor<Setting<'changelog'>> = $props()
 
   const options = getOptionsContext()
   const { Accordion } = options.components

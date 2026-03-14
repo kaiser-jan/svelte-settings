@@ -1,14 +1,9 @@
 <script lang="ts">
   import { getOptionsContext } from '$lib/context.js'
   import type { Setting } from '$lib/types.js'
+  import type { PropsFor } from '$lib/registry.js'
 
-  interface Props {
-    item: Setting<'number'>
-    value: number
-    onchange: (v: number) => void
-  }
-
-  let { item, value, onchange }: Props = $props()
+  let { item, value, onchange }: PropsFor<Setting<'number'>> = $props()
   const options = getOptionsContext()
   const { Input } = options.components
 </script>

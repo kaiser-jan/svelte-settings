@@ -20,7 +20,10 @@ export * as migration from './utils/migration.js'
  * Having multiple instances would break reactivity.
  * You can re-export the initialized settings for use in your app.
  */
-export function useSettings<T extends SettingsBlueprint>(blueprint: T, options: DeepPartial<Options>) {
+export function useSettings<T extends SettingsBlueprint, ButtonVariantT extends string>(
+  blueprint: T,
+  options: DeepPartial<Options<ButtonVariantT>>,
+) {
   type Settings = SettingsFromBlueprint<T>
 
   // TODO: the defaults for added settings will not be copied -> migration
@@ -87,7 +90,7 @@ export function useSettings<T extends SettingsBlueprint>(blueprint: T, options: 
     return { value: valueDefault, changed: false }
   }
 
-  function resetSetting(path: string[]) {
+  function resetSetting(path: readonly string[]) {
     console.debug(`Resetting setting: ${path}`)
 
     const defaultValue = getDeep(settingsDefaults, path)

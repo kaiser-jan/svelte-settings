@@ -1,5 +1,4 @@
 import type { SettingsBlueprint } from '$lib/index.js'
-import type { VariantListSetting } from '$lib/types.js'
 import {
   CheckSquareIcon,
   DatabaseIcon,

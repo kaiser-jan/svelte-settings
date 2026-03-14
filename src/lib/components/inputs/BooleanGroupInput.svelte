@@ -2,14 +2,9 @@
   import { toReadable } from '$lib/utils/stores.js'
   import { getOptionsContext } from '$lib/context.js'
   import type { Setting } from '$lib/types.js'
+  import type { PropsFor } from '$lib/registry.js'
 
-  interface Props {
-    item: Setting<'boolean-group'>
-    value: string[]
-    onchange: (v: string[]) => void
-  }
-
-  let { item, value, onchange }: Props = $props()
+  let { item, value, onchange }: PropsFor<Setting<'boolean-group'>> = $props()
   const options = getOptionsContext()
   const { Checkbox, Label } = options.components
 

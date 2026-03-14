@@ -1,13 +1,10 @@
 <script lang="ts">
   import { getOptionsContext } from '$lib/context.js'
-  import type { Setting } from '$lib/types.js'
   import SettingsItemContainer from '../ui/SettingsItemContainer.svelte'
+  import type { Setting } from '$lib/types.js'
+  import type { PropsFor } from '$lib/registry.js'
 
-  interface Props {
-    item: Setting<'description'>
-  }
-
-  let { item }: Props = $props()
+  let { item }: PropsFor<Setting<'description'>> = $props()
   const options = getOptionsContext()
 </script>
 

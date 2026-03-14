@@ -3,15 +3,10 @@
   import { getOptionsContext } from '$lib/context.js'
   import { lucideIcons } from '$lib/utils/icons.js'
   import AutoCombobox from '../ui/AutoCombobox.svelte'
+  import type { PropsFor } from '$lib/registry.js'
   import type { Setting } from '$lib/types.js'
 
-  interface Props {
-    item: Setting<'icon'>
-    value: string | undefined
-    onchange: (v: string) => void
-  }
-
-  let { item, value, onchange }: Props = $props()
+  let { item, value, onchange }: PropsFor<Setting<'icon'>> = $props()
   const options = getOptionsContext()
   const { Select } = options.components
 

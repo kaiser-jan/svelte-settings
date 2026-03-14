@@ -2,14 +2,9 @@
   import { toReadable } from '$lib/utils/stores.js'
   import ReorderableList from '$lib/components/ui/ReorderableList.svelte'
   import type { Setting } from '$lib/types.js'
+  import type { PropsFor } from '$lib/registry.js'
 
-  interface Props {
-    item: Setting<'list'>
-    value: string[]
-    onchange: (v: string[]) => void
-  }
-
-  let { item, value, onchange }: Props = $props()
+  let { item, value, onchange }: PropsFor<Setting<'list'>> = $props()
 
   let disabled = toReadable(item.disabled)
 </script>

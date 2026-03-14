@@ -1,14 +1,9 @@
 <script lang="ts">
   import { getOptionsContext } from '$lib/context.js'
   import type { Setting } from '$lib/types.js'
+  import type { PropsFor } from '$lib/registry.js'
 
-  interface Props {
-    item: Setting<'text'>
-    value: string
-    onchange: (v: string) => void
-  }
-
-  let { item, value, onchange }: Props = $props()
+  let { item, value, onchange }: PropsFor<Setting<'text'>> = $props()
 
   const options = getOptionsContext()
   const { Input } = options.components
@@ -17,6 +12,6 @@
 <Input
   bind:value
   placeholder={item.placeholder}
-  onblur={(e) => onchange((e.target as HTMLInputElement).value)}
+  onblur={(e: Event) => onchange((e.target as HTMLInputElement).value)}
   class="w-fit min-w-30"
 />

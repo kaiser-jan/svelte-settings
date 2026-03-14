@@ -7,19 +7,12 @@
   import { createUUID } from '$lib/utils/common.js'
   import { lucideIcons } from '$lib/utils/icons.js'
   import type { Setting } from '$lib/types.js'
+  import type { PropsFor } from '$lib/registry.js'
 
   type Item = { label?: string; icon?: string }
   type ItemWithId = Item & { id: string }
 
-  interface Props {
-    item: Setting<'item-list'>
-    value: Record<string, Item>
-    wasChanged: boolean
-    onchange: (v: Record<string, Item>) => void
-    onnavigate: (target: string[]) => void
-  }
-
-  let { item, value: _value, wasChanged, onchange, onnavigate }: Props = $props()
+  let { item, value: _value, wasChanged, onchange, onnavigate }: PropsFor<Setting<'item-list'>> = $props()
 
   const options = getOptionsContext()
   const { Label, Button, Popover } = options.components
@@ -30,9 +23,9 @@
   Keep an internal copy of the value prop, so changing it in the parent still leads to updates.
   Otherwise, if we reassign to value, the reactivity is broken.
   */
-  let items: Record<string, Item> = $state(filterUndefined(_value))
+  let items: Record<string, Item> = $state(filterUndefined(_value as Record<string, Item>))
   $effect(() => {
-    items = filterUndefined(_value)
+    items = filterUndefined(_value as Record<string, Item>)
   })
 
   function filterUndefined(items: Record<string, Item>) {

@@ -1,16 +1,11 @@
 <script lang="ts">
-  import type { Setting } from '$lib/types.js'
   import { toReadable } from '$lib/utils/stores.js'
   import AutoCombobox from '../ui/AutoCombobox.svelte'
   import AutoSelect from '../ui/AutoSelect.svelte'
+  import type { Setting } from '$lib/types.js'
+  import type { PropsFor } from '$lib/registry.js'
 
-  interface Props {
-    item: Setting<'select'>
-    value: string | undefined
-    onchange: (v: string) => void
-  }
-
-  let { item, value, onchange }: Props = $props()
+  let { item, value, onchange }: PropsFor<Setting<'select'>> = $props()
 
   let disabled = toReadable(item.disabled)
 </script>

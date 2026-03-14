@@ -57,7 +57,9 @@ type SettingRegistry = {
     unit?: string
   }
 
-  icon: {}
+  icon: {
+    default: string
+  }
 
   description: {
     text: string

@@ -4,12 +4,9 @@
   import { getOptionsContext } from '$lib/context.js'
   import SettingsItemContainer from '../ui/SettingsItemContainer.svelte'
   import type { Setting } from '$lib/types.js'
+  import type { PropsFor } from '$lib/registry.js'
 
-  interface Props {
-    item: Setting<'action'>
-  }
-
-  let { item }: Props = $props()
+  let { item }: PropsFor<Setting<'action'>> = $props()
 
   const options = getOptionsContext()
   const { Button, LoaderPulsatingRing } = options.components

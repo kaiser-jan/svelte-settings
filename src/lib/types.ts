@@ -101,8 +101,8 @@ export type BasePage = BaseConfigItem & {
   type: 'page'
   children: SettingsBlueprintItem[]
 }
-export type ListSettingPage = BaseConfigItem & {
-  type: 'list'
+export type ItemListPage = BaseConfigItem & {
+  type: 'item-list'
   itemLabel?: string
   defaultToCopy?: Record<string, Record<string, unknown>>
   nameProperty: string
@@ -127,7 +127,7 @@ export type ChangelogPage = BaseConfigItem & {
 // TODO: combine with registry
 export type SettingsPage =
   | BasePage //
-  | ListSettingPage
+  | ItemListPage
   | VariantListSettingPage
   | ChangelogPage
   | MultiSelectReorderSetting

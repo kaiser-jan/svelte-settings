@@ -137,7 +137,7 @@ export const settingsConfig = [
             id: 'options',
             label: 'Options',
             icon: ListIcon,
-            type: 'list',
+            type: 'item-list',
             nameProperty: 'label',
             iconProperty: 'icon',
             itemLabel: 'Option',
@@ -280,9 +280,9 @@ export const settingsConfig = [
         default: 'en',
       },
       {
-        id: 'list',
-        type: 'list',
-        label: 'List',
+        id: 'item-list',
+        type: 'item-list',
+        label: 'Item List',
         nameProperty: 'label',
         defaultToCopy: {
           '17eff463-93eb-4c84-a1f3-a1db1f359137': {

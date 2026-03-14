@@ -5,9 +5,8 @@ import type { SettingsBlueprintItem, SettingsInput, SettingsItem, SettingsPage, 
 import PageRenderer from './components/pages/PageRenderer.svelte'
 import ChangelogPage from './components/pages/ChangelogPage.svelte'
 import MultiselectReorderSettingPage from './components/pages/MultiselectReorderSettingPage.svelte'
-import ListSettingPage from './components/pages/ListSettingPage.svelte'
-import ListSubPage from './components/pages/ListSubPage.svelte'
-// import VariantListSettingPage from './components/pages/VariantListSettingPage.svelte'
+import ItemListSettingPage from './components/pages/ItemListPage.svelte'
+import ItemListSubPage from './components/pages/ItemListSubPage.svelte'
 import VariantListSubPage from './components/pages/VariantListSubPage.svelte'
 
 import BasicItemRenderer from './components/items/BasicItemRenderer.svelte'
@@ -71,8 +70,8 @@ export function isInput(item: SettingsBlueprintItem): item is SettingsInput {
 
 const pages: Record<SettingsPage['type'], SettingComponentPage> = {
   changelog: ChangelogPage,
-  list: ListSettingPage,
-  'variant-list': ListSettingPage,
+  'item-list': ItemListSettingPage,
+  'variant-list': ItemListSettingPage,
   'multiselect-reorder': MultiselectReorderSettingPage,
   page: PageRenderer,
 }
@@ -84,7 +83,7 @@ export function isPage(item: SettingsBlueprintItem): item is SettingsPage {
 }
 
 const subpages: Record<string, SettingComponentPage> = {
-  list: ListSubPage,
+  'item-list': ItemListSubPage,
   'variant-list': VariantListSubPage,
 }
 export function getSubpageComponent(type: SettingsPage['type']): SettingComponentPage {

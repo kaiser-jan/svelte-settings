@@ -1,7 +1,7 @@
 <script lang="ts">
   import { dragHandle, dragHandleZone } from 'svelte-dnd-action'
   import { cn } from '$lib/utils.js'
-  import type { ListSettingPage } from '$lib/types.js'
+  import type { ItemListSettingPage } from '$lib/types.js'
   import { toReadable } from '$lib/utils/stores.js'
   import { ChevronRightIcon, GripHorizontalIcon, PlusIcon, RefreshCcwDotIcon, type SettingsIcon } from '@lucide/svelte'
   import { getOptionsContext } from '$lib/context.js'
@@ -12,7 +12,7 @@
   type ItemWithId = Item & { id: string }
 
   interface Props {
-    item: ListSettingPage
+    item: ItemListSettingPage
     value: Record<string, Item>
     wasChanged: boolean
     onchange: (v: Record<string, Item>) => void

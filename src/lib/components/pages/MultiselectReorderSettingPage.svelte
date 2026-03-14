@@ -14,4 +14,6 @@
   let disabled = toReadable(item.disabled)
 </script>
 
-<ReorderableList allOptions={item.options} selectedOptions={value} {onchange} {disabled} labels={item.labels} />
+<div class="flex flex-col items-start gap-2">
+  <ReorderableList allOptions={item.options} selectedOptions={value} {onchange} {disabled} labels={item.labels} />
+</div>

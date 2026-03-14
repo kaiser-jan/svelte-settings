@@ -12,7 +12,7 @@ type BaseConfigItem = {
   icon?: typeof Icon
   visible?: VisibilityCallback
   disabled?: boolean | Readable<boolean>
-  allowsFullscreen?: boolean
+  inline?: boolean
   action?: () => any
 }
 
@@ -35,11 +35,17 @@ export type SelectSetting = BaseConfigItem & {
 }
 
 export type MultiSelectSetting = BaseConfigItem & {
-  type: 'multiselect' | 'multiselect-reorder'
+  type: 'multiselect'
   options: readonly string[]
   labels?: Record<string, string>
   default: string[]
-  requiresFullscreen?: boolean
+}
+
+export type MultiSelectReorderSetting = BaseConfigItem & {
+  type: 'multiselect-reorder'
+  options: readonly string[]
+  labels?: Record<string, string>
+  default: string[]
 }
 
 export type BooleanSetting = BaseConfigItem & {
@@ -118,16 +124,28 @@ export type ChangelogPage = BaseConfigItem & {
   changelog: Changelog | Readable<Changelog> | (() => Promise<Changelog>)
 }
 
-export type SettingsPage = BasePage | ListSettingPage | VariantListSettingPage | ChangelogPage
-export type SettingsWrapper = GroupWrapper
-export type SettingsItem = DescriptionItem | ValueDisplayItem | ActionItem | NotImplementedSetting
+// TODO: combine with registry
+export type SettingsPage =
+  | BasePage //
+  | ListSettingPage
+  | VariantListSettingPage
+  | ChangelogPage
+  | MultiSelectReorderSetting
+export type SettingsItem =
+  | DescriptionItem //
+  | ValueDisplayItem
+  | ActionItem
+  | NotImplementedSetting
 export type SettingsInput =
-  | TextSetting
+  | TextSetting //
   | SelectSetting
   | MultiSelectSetting
+  | MultiSelectReorderSetting
   | BooleanSetting
   | NumberSetting
   | IconSetting
+
+export type SettingsWrapper = GroupWrapper
 
 export type SettingsNested = BasePage | SettingsWrapper
 

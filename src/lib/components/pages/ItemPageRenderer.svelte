@@ -13,4 +13,4 @@
   const ItemComponent = getItemComponent(item)
 </script>
 
-<ItemComponent {path} {item} {onnavigate} fullscreen={true} />
+<ItemComponent {path} {item} {onnavigate} />

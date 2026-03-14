@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { GroupWrapper } from '$lib/types.js'
-  import BasicPageRenderer from '../pages/BasicPageRenderer.svelte'
+  import PageRenderer from '../pages/PageRenderer.svelte'
 
   interface Props {
     path: string[]
@@ -16,7 +16,7 @@
     <item.icon />
     {item.label}
   </h2>
-  <BasicPageRenderer
+  <PageRenderer
     {item}
     {path}
     onnavigate={(target) => {

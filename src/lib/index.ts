@@ -49,6 +49,10 @@ export function useSettings<T extends SettingsBlueprint>(blueprint: T, options: 
 
   return settings
 
+  // NOTE: building an object where every setting is a Writable would not help:
+  // it can neither be accessed as $settings.a nor as settings.$a,
+  // so creating a variable for it is necessary anyways
+
   function writeSetting(path: readonly string[], value: unknown) {
     console.info(`Writing setting: ${path} = ${JSON.stringify(value)}`)
     settingsStore.update((s) => {
@@ -109,8 +113,4 @@ export function useSettings<T extends SettingsBlueprint>(blueprint: T, options: 
 
     return defaultValue
   }
-
-  // NOTE: building an object where every setting is a Writable would not help:
-  // it can neither be accessed as $settings.a nor as settings.$a,
-  // so creating a variable for it is necessary anyways
 }

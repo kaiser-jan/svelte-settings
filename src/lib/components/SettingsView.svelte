@@ -95,12 +95,12 @@
         continue
       }
 
+      // this should not happen, as items without children should be handled above
       if (!('children' in parentPage)) {
         settingsPath.set($settingsPath.slice(0, index))
         return _pages
       }
 
-      // the childPage could also be part of a ListSetting, which has no children
       let childPage = parentPage.children.find((p) => p.id === key) as SettingsPage
 
       _pages.push({ ...childPage, path: $settingsPath.slice(0, index + 1) })
@@ -191,9 +191,9 @@
   >
     {#each pages as settingsPage, i (settingsPage.id)}
       {@const value = settings.readSetting(settingsPage.path)}
-      {@const PageComponent =
-        (settingsPage.isSubpage ? getSubpageComponent(settingsPage.type) : getPageComponent(settingsPage.type)) ??
-        ItemPageRenderer}
+      {@const PageComponent = settingsPage.isSubpage
+        ? getSubpageComponent(settingsPage.type)
+        : getPageComponent(settingsPage.type)}
       <div
         class="flex h-full w-full shrink-0 flex-col gap-2 overflow-hidden overflow-y-auto"
         class:pointer-events-none={i !== pages.length - 1}

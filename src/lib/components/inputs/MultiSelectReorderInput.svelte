@@ -7,18 +7,17 @@
   interface Props {
     item: MultiSelectSetting
     value: string[]
-    fullscreen?: boolean
     onchange: (v: string[]) => void
   }
 
-  let { item, value, fullscreen, onchange }: Props = $props()
+  let { item, value, onchange }: Props = $props()
 
   let disabled = toReadable(item.disabled)
 </script>
 
-{#if item.requiresFullscreen && !fullscreen}
+{#if item.inline}
+  <ReorderableList allOptions={item.options} selectedOptions={value} {onchange} {disabled} labels={item.labels} />
+{:else}
   <span class="text-text-muted ml-auto">{value.length} / {item.options.length}</span>
   <ChevronRightIcon />
-{:else}
-  <ReorderableList allOptions={item.options} selectedOptions={value} {onchange} {disabled} labels={item.labels} />
 {/if}

@@ -2,7 +2,6 @@ import type { Component } from 'svelte'
 
 import type { SettingsBlueprintItem, SettingsInput, SettingsItem, SettingsPage, SettingsWrapper } from './types.js'
 
-import Item from './components/Item.svelte'
 import Page from './components/Page.svelte'
 
 import ChangelogPage from './components/pages/ChangelogPage.svelte'
@@ -11,6 +10,7 @@ import ItemListSettingPage from './components/pages/ItemListPage.svelte'
 import ItemListSubPage from './components/pages/ItemListSubPage.svelte'
 import VariantListSubPage from './components/pages/VariantListSubPage.svelte'
 
+import InputItem from './components/items/InputItem.svelte'
 import ActionItem from './components/items/ActionItem.svelte'
 import DescriptionItem from './components/items/DescriptionItem.svelte'
 import PageItem from './components/items/PageItem.svelte'
@@ -101,7 +101,7 @@ const items: Record<SettingsItem['type'], SettingComponentInput> = {
   'not-implemented': NotImplementedItem,
 }
 export function getItemComponent(item: SettingsBlueprintItem): SettingComponentInput | SettingComponentPage {
-  if (isInput(item)) return Item
+  if (isInput(item)) return InputItem
   if (isItem(item)) return items[item.type]
   if (isWrapper(item)) return wrappers[item.type]
   return PageItem

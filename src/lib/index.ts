@@ -1,4 +1,4 @@
-import { extractDefaults } from './extractDefaults.js'
+import { extractDefaults, extractDefaultsToCopy } from './extractDefaults.js'
 import type { SettingsBlueprint, SettingsFromBlueprint } from './types.js'
 import { select } from '$lib/utils/stores.js'
 import { getDeep, mergeDeep, setDeep } from './deep.js'
@@ -8,7 +8,7 @@ import { mergeOptions, type Options } from './options.js'
 import type { DeepPartial } from './utils.js'
 import { lucideIcons } from './icons.js'
 
-export type { SettingsFromBlueprint, SettingsBlueprint } from './types.js'
+export type { SettingsFromBlueprint, SettingsBlueprint, SettingsBlueprintItem } from './types.js'
 
 export type InitializedSettings = ReturnType<typeof useSettings>
 
@@ -27,7 +27,8 @@ export { performMigrations } from './migrate.js'
 export function useSettings<T extends SettingsBlueprint>(blueprint: T, options: DeepPartial<Options>) {
   type Settings = SettingsFromBlueprint<T>
 
-  const settingsOverrides = persisted('settings', {})
+  // TODO: the defaults for added settings will not be copied -> migration
+  const settingsOverrides = persisted('settings', extractDefaultsToCopy(blueprint))
 
   const settingsDefaults = extractDefaults(blueprint) as Settings
   const settingsStore = writable<Settings>(mergeDeep(structuredClone(settingsDefaults), get(settingsOverrides)))
@@ -42,6 +43,9 @@ export function useSettings<T extends SettingsBlueprint>(blueprint: T, options: 
     writeSetting,
     resetSetting,
     defaults: settingsDefaults,
+    // TODO: store version in overrides, apply necessary migrations
+    export: () => get(settingsOverrides),
+    import: (o: object) => settingsOverrides.set(o),
     blueprint,
     options: mergeOptions(options),
     icons: lucideIcons,
@@ -67,21 +71,32 @@ export function useSettings<T extends SettingsBlueprint>(blueprint: T, options: 
   function readSetting(path: readonly string[]) {
     console.debug(`Reading setting: ${path}`)
     const valueOverride = getDeep(get(settingsOverrides), path)
+    const valueDefault = getDeep(settingsDefaults, path)
+
     if (valueOverride !== undefined) {
-      console.debug(`Read changed setting: ${path} = ${JSON.stringify(valueOverride)}`)
-      return { value: valueOverride, changed: true }
+      // get from the merged settings
+      // NOTE: this might only be required because item lists are not handled properly (merging default and overrides)
+      const value = getDeep(get(settingsStore), path)
+      console.debug(`Read changed setting: ${path} = ${JSON.stringify(value)}`)
+      // only mark as changed if it exists in the default config (do not mark for lists etc.)
+      return { value, changed: valueDefault !== undefined }
     }
 
-    const value = getDeep(get(settingsStore), path)
-    console.debug(`Read default setting: ${path} = ${JSON.stringify(value)}`)
+    console.debug(`Read default setting: ${path} = ${JSON.stringify(valueDefault)}`)
 
-    return { value: value, changed: false }
+    return { value: valueDefault, changed: false }
   }
 
   function resetSetting(path: string[]) {
     console.debug(`Resetting setting: ${path}`)
 
     const defaultValue = getDeep(settingsDefaults, path)
+
+    console.log(defaultValue)
+    if (defaultValue === undefined) {
+      console.debug(`No default setting, ignoring.`)
+      return
+    }
 
     settingsStore.update((s) => {
       setDeep(s, path, defaultValue)

@@ -3,7 +3,7 @@
   import { getItemComponent } from '$lib/registry.js'
 
   interface Props {
-    path: string[]
+    path: readonly string[]
     item: SettingsNested
     onnavigate: (target: string[], replace?: boolean) => void
   }

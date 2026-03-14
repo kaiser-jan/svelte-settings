@@ -1,22 +1,31 @@
 import type { SettingsBlueprintItem } from './types.js'
 
-export function extractDefaults(items: SettingsBlueprintItem[]): Record<string, unknown> {
-  const result: Record<string, any> = {}
-
-  function assign(path: string[], value: unknown) {
-    let obj = result
-    for (let i = 0; i < path.length - 1; i++) {
-      const key = path[i]
-      obj = obj[key] ??= {}
-    }
-    obj[path.at(-1)!] = value
+function assign(obj: Record<string, any>, path: string[], value: unknown) {
+  for (let i = 0; i < path.length - 1; i++) {
+    const key = path[i]
+    obj = obj[key] ??= {}
   }
+  obj[path.at(-1)!] = value
+}
+
+export function extractDefaults(items: SettingsBlueprintItem[]) {
+  return extractProperty(items, 'default')
+}
+
+export function extractDefaultsToCopy(items: SettingsBlueprintItem[]) {
+  return extractProperty(items, 'defaultToCopy')
+}
+
+function extractProperty(
+  items: SettingsBlueprintItem[],
+  property: keyof SettingsBlueprintItem,
+): Record<string, unknown> {
+  const result: Record<string, any> = {}
 
   function walk(config: SettingsBlueprintItem[], path: string[] = []) {
     for (const item of config) {
-      if ('visible' in item && item.visible) continue
-      if ('default' in item) {
-        assign([...path, item.id], item.default)
+      if (property in item) {
+        assign(result, [...path, item.id], item[property])
       }
       if ('children' in item) {
         walk(

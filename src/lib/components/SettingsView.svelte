@@ -3,7 +3,7 @@
   import { useSwipe, type SwipeCustomEvent } from 'svelte-gestures'
   import { SettingsIcon } from '@lucide/svelte'
   import { onMount } from 'svelte'
-  import { getPageComponent, getSubpageComponent, isSubpage, isWrapper } from '$lib/registry.js'
+  import { getPageComponent, getSubpageComponent, isSubpage as hasSubpage, isWrapper } from '$lib/registry.js'
   import { throttle } from '$lib/utils/common.js'
   import ItemPageRenderer from './pages/ItemPageRenderer.svelte'
   import type { InitializedSettings } from '$lib/index.js'
@@ -22,6 +22,7 @@
 
   setSettingsContext(settings)
   setOptionsContext(settings.options)
+
   const { Breadcrumb } = settings.options.components
 
   type Page = SettingsPage & { path: readonly string[]; isSubpage?: boolean }
@@ -35,56 +36,72 @@
     path: [],
   } as const
 
-  function variantListChildItemsCallback(page: VariantListSettingPage, value: any, id: string) {
-    if (!value || !value[page.typeField]) return undefined
-    const option = page.options.find((i) => i.id === value[page.typeField])
-    const optionItems = option?.items.find((i) => i.id === id)
-    return optionItems
+  /**
+   * For a variant-list, the subpage needs to be overridden.
+   * The items depend on the `type` selected in the parent.
+   * Based on that, the corresponding items are derived for the subpage.
+   */
+  function getVariantListSubpageOverride(parentPage: Page, path: string[]) {
+    const id = path[path.length - 1]
+    const parentPath = path.slice(0, -1)
+    const parentValue = settings.readSetting(parentPath).value as Record<string, unknown>
+
+    if (parentPage.type !== 'variant-list' || !parentValue || !parentValue[parentPage.typeField]) return {}
+
+    // find the item with the matching type
+    const item = parentPage.options.find((i) => i.id === parentValue[parentPage.typeField])
+
+    // from it, get the item we are looking for
+    const child = item?.items.find((i) => i.id === id)
+
+    return { ...child, isSubpage: false }
   }
 
   let pages: Page[] = $derived.by(() => {
     let _pages: Page[] = [BASE_PAGE]
 
+    // rerender on settings change
+    // TODO: this is meant for the breadcrumbs, should we split them from pages?
+    if (!$settings) return []
+
     if (!$settingsPath) return []
 
     for (const [index, key] of $settingsPath.entries()) {
-      const lastPage = _pages[_pages.length - 1]
+      const parentPage = _pages[_pages.length - 1]
+      const path = $settingsPath.slice(0, index + 1)
 
-      if (isSubpage(lastPage)) {
-        const parentValue = settings.readSetting($settingsPath.slice(0, index)).value as Record<string, unknown>
-        if (!parentValue) return _pages
-        const value = parentValue[$settingsPath[index]] as Record<string, unknown>
-        let page = {
-          ...lastPage,
+      /*
+       * Handle nested settings (like variant-list and list), which do not have a direct `items` property:
+       * The initial page is rendered just fine, but the child-pages need to be contructed manually.
+       * The child page derives e.g. its label from the value (list item "ABC" should have this as its title).
+       * For a list, no further intervention is required.
+       * For a variant-list, even the items of the subpage deped on the value (on the selected type).
+       */
+      if (hasSubpage(parentPage)) {
+        // the page partially depends on the value
+        const value = settings.readSetting(path).value
+
+        const page = {
+          ...parentPage,
           id: key,
           label: value?.['label'] ?? key,
           isSubpage: true,
-          path: $settingsPath.slice(0, index + 1),
+          defaultToCopy: undefined,
+          ...getVariantListSubpageOverride(parentPage, path),
+          path,
         }
 
-        // TODO: extract to registry
-        const override =
-          lastPage.type === 'variant-list' ? variantListChildItemsCallback(lastPage, parentValue, key) : undefined
-
-        if (override) {
-          page = {
-            ...page,
-            ...override,
-            // type: 'page',
-            isSubpage: false,
-          }
-        }
         _pages.push(page)
         continue
       }
 
-      if (!('children' in lastPage)) {
+      if (!('children' in parentPage)) {
         settingsPath.set($settingsPath.slice(0, index))
         return _pages
       }
 
       // the childPage could also be part of a ListSetting, which has no children
-      let childPage = lastPage.children.find((p) => p.id === key) as SettingsPage
+      let childPage = parentPage.children.find((p) => p.id === key) as SettingsPage
 
       _pages.push({ ...childPage, path: $settingsPath.slice(0, index + 1) })
     }
@@ -147,8 +164,6 @@
       window.removeEventListener('resize', updateScroll)
     }
   })
-
-  let childChangeHandlers: ((key: string, v: unknown) => void)[] = $state([])
 </script>
 
 <Breadcrumb.Root>
@@ -192,10 +207,8 @@
           onchange={(v) => {
             if ($settingsPath) {
               settings.writeSetting(settingsPage.path, v)
-              if (childChangeHandlers[i - 1]) childChangeHandlers[i - 1]($settingsPath[i - 1], v)
             }
           }}
-          bind:onchildchange={childChangeHandlers[i]}
         />
       </div>
     {/each}

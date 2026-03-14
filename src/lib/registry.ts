@@ -6,7 +6,7 @@ import BasicPageRenderer from './components/pages/BasicPageRenderer.svelte'
 import ChangelogPage from './components/pages/ChangelogPage.svelte'
 import ListSettingPage from './components/pages/ListSettingPage.svelte'
 import ListSubPage from './components/pages/ListSubPage.svelte'
-import VariantListSettingPage from './components/pages/VariantListSettingPage.svelte'
+// import VariantListSettingPage from './components/pages/VariantListSettingPage.svelte'
 import VariantListSubPage from './components/pages/VariantListSubPage.svelte'
 
 import BasicItemRenderer from './components/items/BasicItemRenderer.svelte'
@@ -30,21 +30,12 @@ import TextInput from './components/inputs/TextInput.svelte'
 type SettingComponent = Component<
   {
     item: any
-    onnavigate: (path: string[]) => void
-    path: string[]
-  },
-  {},
-  ''
->
-type SettingComponentInput = Component<
-  {
-    item: any
     value: any
     wasChanged: boolean
     fullscreen?: boolean
     onchange: (v: any) => void
     onnavigate: (path: string[]) => void
-    path: string[]
+    path: readonly string[]
   },
   {},
   ''
@@ -62,7 +53,7 @@ const inputs: Record<SettingsInput['type'], SettingComponent> = {
   number: NumberInput,
   text: TextInput,
 }
-export function getInputComponent(type: SettingsInput['type']): SettingComponentInput {
+export function getInputComponent(type: SettingsInput['type']): SettingComponent {
   return inputs[type]
 }
 export function isInput(item: SettingsBlueprintItem): item is SettingsInput {
@@ -72,10 +63,10 @@ export function isInput(item: SettingsBlueprintItem): item is SettingsInput {
 const pages: Record<SettingsPage['type'], SettingComponent> = {
   changelog: ChangelogPage,
   list: ListSettingPage,
-  'variant-list': VariantListSettingPage,
+  'variant-list': ListSettingPage,
   page: BasicPageRenderer,
 }
-export function getPageComponent(type: SettingsPage['type']): SettingComponentInput {
+export function getPageComponent(type: SettingsPage['type']): SettingComponent {
   return pages[type]
 }
 export function isPage(item: SettingsBlueprintItem): item is SettingsPage {
@@ -86,7 +77,7 @@ const subpages: Record<string, SettingComponent> = {
   list: ListSubPage,
   'variant-list': VariantListSubPage,
 }
-export function getSubpageComponent(type: SettingsPage['type']): SettingComponentInput {
+export function getSubpageComponent(type: SettingsPage['type']): SettingComponent {
   return subpages[type]
 }
 export function isSubpage(item: SettingsBlueprintItem): boolean {

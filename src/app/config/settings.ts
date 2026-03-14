@@ -45,44 +45,38 @@ export const settingsConfig = [
     icon: TagIcon,
     typeField: 'type',
     itemLabel: 'Attribute',
-    default: {
+    // TODO: defaults breaking reorder
+    defaultToCopy: {
       '87da052f-5ed2-4199-8689-b819d903c407': {
-        id: '87da052f-5ed2-4199-8689-b819d903c407',
         label: 'Project',
         icon: 'folder',
         type: 'select',
-        options: [
-          {
-            id: '12137092-f527-4f65-b642-a0ff7d9bd489',
+        options: {
+          '12137092-f527-4f65-b642-a0ff7d9bd489': {
             label: 'Task Track',
             icon: 'chart-no-axes-gantt',
           },
-          {
-            id: '09cf1ba7-eb85-4f6a-b6c1-0bfebcbcb267',
+          '09cf1ba7-eb85-4f6a-b6c1-0bfebcbcb267': {
             label: 'Weather PWA',
             icon: 'cloud-sun',
           },
-          {
-            id: '2e7650a7-66ad-4841-8c98-1ce296f5c4ef',
+          '2e7650a7-66ad-4841-8c98-1ce296f5c4ef': {
             label: 'Svelte Settings',
             icon: 'settings',
           },
-        ],
+        },
       },
       '4164793a-8a75-4467-a2f5-a9bf500cf55b': {
-        id: '4164793a-8a75-4467-a2f5-a9bf500cf55b',
         label: 'With',
         icon: 'user',
         type: 'text',
       },
       '2b88a78c-aee6-49e5-8484-cef73b7c2b17': {
-        id: '2b88a78c-aee6-49e5-8484-cef73b7c2b17',
         label: 'At',
         icon: 'pin',
         type: 'text',
       },
       '20f3d304-3ad7-48cc-9db6-c7b75da56664': {
-        id: '20f3d304-3ad7-48cc-9db6-c7b75da56664',
         label: 'Mental Load',
         icon: 'brain',
         type: 'ordinal',
@@ -147,7 +141,6 @@ export const settingsConfig = [
             nameProperty: 'label',
             iconProperty: 'icon',
             itemLabel: 'Option',
-            default: [],
             children: [
               {
                 id: 'label',
@@ -283,7 +276,12 @@ export const settingsConfig = [
         type: 'list',
         label: 'List',
         nameProperty: 'label',
-        default: [],
+        defaultToCopy: {
+          '17eff463-93eb-4c84-a1f3-a1db1f359137': {
+            label: 'Label',
+            icon: 'smile',
+          },
+        },
         children: [
           {
             id: 'label',

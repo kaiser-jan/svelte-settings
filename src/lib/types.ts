@@ -98,14 +98,16 @@ export type BasePage = BaseConfigItem & {
 export type ListSettingPage = BaseConfigItem & {
   type: 'list'
   itemLabel?: string
-  default: Array<unknown>
+  defaultToCopy?: Record<string, Record<string, unknown>>
   nameProperty: string
   iconProperty?: string
   children: OptionalProp<SettingsBlueprintItem, 'default'>[]
 }
 export type VariantListSettingPage = BaseConfigItem & {
   type: 'variant-list'
-  default: Record<string, unknown>
+  // having a default value leads to problems when merging with the overrides
+  // e.g. items cannot be reordered
+  defaultToCopy?: Record<string, Record<string, unknown>>
   typeField: string
   itemLabel?: string
   base: Omit<SettingsBlueprintItem, 'default'>[]

@@ -35,7 +35,7 @@ export type SelectSetting = BaseConfigItem & {
 }
 
 export type MultiSelectSetting = BaseConfigItem & {
-  type: 'multiselect'
+  type: 'boolean-group'
   options: readonly string[]
   labels?: Record<string, string>
   default: string[]
@@ -161,7 +161,7 @@ export type SettingsFromBlueprint<T extends readonly SettingsBlueprintItem[]> = 
       ? O extends readonly { id: string }[]
         ? O[number]['id']
         : never
-      : K extends { type: 'multiselect'; options: infer O }
+      : K extends { type: 'boolean-group'; options: infer O }
         ? O extends readonly { id: infer I }[]
           ? I[]
           : never

@@ -175,6 +175,14 @@ export const settingsConfig = [
         description: 'Lorem ipsum dolor sit amet, just a loooong description',
       },
       {
+        id: 'boolean-group',
+        type: 'boolean-group',
+        label: 'Boolean Group',
+        icon: CheckSquareIcon,
+        options: ['email', 'push', 'sms'],
+        default: ['email', 'push'],
+      },
+      {
         id: 'number_step',
         type: 'number',
         label: 'number_step',
@@ -291,16 +299,8 @@ export const settingsConfig = [
         ],
       },
       {
-        id: 'multiselect',
-        type: 'multiselect',
-        label: 'multiselect',
-        icon: CheckSquareIcon,
-        options: ['email', 'push', 'sms'],
-        default: ['email', 'push'],
-      },
-      {
         id: 'multiselect-reorder',
-        label: 'Multiselect',
+        label: 'List',
         description: 'Select multiple options on a subpage.',
         type: 'multiselect-reorder',
         icon: ListIcon,
@@ -314,7 +314,7 @@ export const settingsConfig = [
       },
       {
         id: 'multiselect-reorder-inline',
-        label: 'Multiselect',
+        label: 'List inline',
         description: 'Select multiple options inline.',
         type: 'multiselect-reorder',
         inline: true,

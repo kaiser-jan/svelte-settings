@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type { GroupWrapper } from '$lib/types.js'
+  import type { Setting } from '$lib/types.js'
   import PageRenderer from '../Page.svelte'
 
   interface Props {
     path: string[]
-    item: GroupWrapper
+    item: Setting<'group'>
     onnavigate: (target: string[]) => void
   }
 

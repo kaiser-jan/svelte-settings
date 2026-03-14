@@ -1,12 +1,12 @@
 <script lang="ts">
   import { getOptionsContext } from '$lib/context.js'
-  import type { BasePage } from '$lib/types.js'
   import { ChevronRightIcon } from '@lucide/svelte'
   import SettingsItemContainer from '../ui/SettingsItemContainer.svelte'
+  import type { Setting } from '$lib/types.js'
 
   interface Props {
     path: string[]
-    item: BasePage
+    item: Setting<'page'>
     onnavigate: (target: string[]) => void
   }
 

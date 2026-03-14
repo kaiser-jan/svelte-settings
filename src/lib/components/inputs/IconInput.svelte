@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type { IconSetting } from '$lib/types.js'
   import { toReadable } from '$lib/utils/stores.js'
   import { getOptionsContext } from '$lib/context.js'
   import { lucideIcons } from '$lib/utils/icons.js'
   import AutoCombobox from '../ui/AutoCombobox.svelte'
+  import type { Setting } from '$lib/types.js'
 
   interface Props {
-    item: IconSetting
+    item: Setting<'icon'>
     value: string | undefined
     onchange: (v: string) => void
   }

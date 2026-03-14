@@ -1,11 +1,11 @@
 <script lang="ts">
-  import type { ListSetting } from '$lib/types.js'
   import { toReadable } from '$lib/utils/stores.js'
   import ReorderableList from '$lib/components/ui/ReorderableList.svelte'
   import { ChevronRightIcon } from '@lucide/svelte'
+  import type { Setting } from '$lib/types.js'
 
   interface Props {
-    item: ListSetting
+    item: Setting<'list'>
     value: string[]
     onchange: (v: string[]) => void
   }

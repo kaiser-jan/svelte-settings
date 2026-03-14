@@ -1,18 +1,18 @@
 <script lang="ts">
   import { dragHandle, dragHandleZone } from 'svelte-dnd-action'
   import { cn } from '$lib/utils.js'
-  import type { ItemListSetting } from '$lib/types.js'
   import { toReadable } from '$lib/utils/stores.js'
   import { ChevronRightIcon, GripHorizontalIcon, PlusIcon, RefreshCcwDotIcon, type SettingsIcon } from '@lucide/svelte'
   import { getOptionsContext } from '$lib/context.js'
   import { createUUID } from '$lib/utils/common.js'
   import { lucideIcons } from '$lib/utils/icons.js'
+  import type { Setting } from '$lib/types.js'
 
   type Item = { label?: string; icon?: string }
   type ItemWithId = Item & { id: string }
 
   interface Props {
-    item: ItemListSetting
+    item: Setting<'item-list'>
     value: Record<string, Item>
     wasChanged: boolean
     onchange: (v: Record<string, Item>) => void

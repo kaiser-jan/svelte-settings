@@ -1,6 +1,6 @@
 import type { Component } from 'svelte'
 
-import type { SettingsBlueprintItem, SettingsInput, SettingsItem, SettingsPage, SettingsWrapper } from './types.js'
+import type { Setting, SettingsBlueprintItem, SettingType } from './types.js'
 
 import Page from './components/Page.svelte'
 
@@ -27,6 +27,68 @@ import BooleanGroupInput from './components/inputs/BooleanGroupInput.svelte'
 import ListInput from './components/inputs/ListInput.svelte'
 import TextInput from './components/inputs/TextInput.svelte'
 
+const components = {
+  input: {
+    icon: IconInput,
+    boolean: BooleanInput,
+    'boolean-group': BooleanGroupInput,
+    number: NumberInput,
+    text: TextInput,
+    select: SelectInput,
+    list: ListInput,
+  },
+
+  page: {
+    changelog: ChangelogPage,
+    list: ListPage,
+    'item-list': ItemListSettingPage,
+    'variant-list': ItemListSettingPage,
+    page: Page,
+  },
+
+  subpage: {
+    'item-list': ItemListSubPage,
+    'variant-list': VariantListSubPage,
+  },
+
+  item: {
+    action: ActionItem,
+    description: DescriptionItem,
+    value: ValueDisplayItem,
+    'not-implemented': NotImplementedItem,
+  },
+
+  wrapper: {
+    group: GroupWrapper,
+  },
+} as const satisfies Record<string, Partial<Record<SettingType, SettingComponentInput>>>
+
+export function getInputComponent(type: keyof (typeof components)['input']): SettingComponentInput {
+  return components.input[type]
+}
+export function getPageComponent(type: keyof (typeof components)['page']): SettingComponentPage {
+  return components.page[type]
+}
+export function getSubpageComponent(type: keyof (typeof components)['subpage']): SettingComponentPage {
+  return components.subpage[type]
+}
+export function getItemComponent(item: SettingsBlueprintItem): SettingComponentInput | SettingComponentPage {
+  if (item.type in components.input) return InputItem
+  if (item.type in components.item) return components.item[item.type as keyof typeof components.item]
+  if (isWrapper(item)) return components.wrapper[item.type as keyof typeof components.wrapper]
+  return PageItem
+}
+
+export function isPage(item: SettingsBlueprintItem): item is SettingWith<'page'> {
+  return item.type in components.page
+}
+export function isSubpage(item: SettingsBlueprintItem): item is SettingWith<'subpage'> {
+  return item.type in components.subpage
+}
+export function isWrapper(item: SettingsBlueprintItem): boolean {
+  return item.type in components.wrapper
+}
+
 // TODO: refine this type; derive from the settings types
 type SettingComponentPage = Component<
   {
@@ -50,72 +112,7 @@ type SettingComponentInput = Component<
   ''
 >
 
-// TODO: consider making this a real one-source-of-truth registry, where each component is registered, e.g.
-// { key: 'changelog', type: 'page', component: ChangelogPage }
+type SettingHaving<K extends keyof typeof components> = keyof (typeof components)[K] & SettingType
 
-const inputs: Record<SettingsInput['type'], SettingComponentInput> = {
-  icon: IconInput,
-  boolean: BooleanInput,
-  'boolean-group': BooleanGroupInput,
-  number: NumberInput,
-  text: TextInput,
-  select: SelectInput,
-  list: ListInput,
-}
-export function getInputComponent(type: SettingsInput['type']): SettingComponentInput {
-  return inputs[type]
-}
-export function isInput(item: SettingsBlueprintItem): item is SettingsInput {
-  return item.type in inputs
-}
-
-const pages: Record<SettingsPage['type'], SettingComponentPage> = {
-  changelog: ChangelogPage,
-  'item-list': ItemListSettingPage,
-  'variant-list': ItemListSettingPage,
-  list: ListPage,
-  page: Page,
-}
-export function getPageComponent(type: SettingsPage['type']): SettingComponentPage {
-  return pages[type]
-}
-export function isPage(item: SettingsBlueprintItem): item is SettingsPage {
-  return item.type in pages
-}
-
-const subpages: Record<string, SettingComponentPage> = {
-  'item-list': ItemListSubPage,
-  'variant-list': VariantListSubPage,
-}
-export function getSubpageComponent(type: SettingsPage['type']): SettingComponentPage {
-  return subpages[type]
-}
-export function isSubpage(item: SettingsBlueprintItem): boolean {
-  return item.type in subpages
-}
-
-const items: Record<SettingsItem['type'], SettingComponentInput> = {
-  action: ActionItem,
-  description: DescriptionItem,
-  value: ValueDisplayItem,
-  'not-implemented': NotImplementedItem,
-}
-export function getItemComponent(item: SettingsBlueprintItem): SettingComponentInput | SettingComponentPage {
-  if (isInput(item)) return InputItem
-  if (isItem(item)) return items[item.type]
-  if (isWrapper(item)) return wrappers[item.type]
-  return PageItem
-
-  console.error('Settings item with unknown type: ', item)
-  return NotImplementedItem
-}
-export function isItem(item: SettingsBlueprintItem): item is SettingsItem {
-  return item.type in items
-}
-
-const wrappers: Record<SettingsWrapper['type'], SettingComponentPage> = {
-  group: GroupWrapper,
-}
-export function isWrapper(item: SettingsBlueprintItem): item is SettingsWrapper {
-  return item.type in wrappers
-}
+export type SettingWith<K extends keyof typeof components> =
+  SettingHaving<K> extends infer T ? (T extends SettingType ? Setting<T> : never) : never

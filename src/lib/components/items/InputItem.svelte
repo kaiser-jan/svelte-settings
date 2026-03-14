@@ -1,12 +1,11 @@
 <script lang="ts">
-  import { getInputComponent, isPage } from '$lib/registry.js'
-  import type { SettingsInput } from '$lib/types.js'
+  import { getInputComponent, isPage, type SettingWith } from '$lib/registry.js'
   import { getSettingsContext } from '$lib/context.js'
   import SettingsItemContainer from '$lib/components/ui/SettingsItemContainer.svelte'
 
   interface Props {
     path: string[]
-    item: SettingsInput
+    item: SettingWith<'input'>
     onnavigate: (target: string[]) => void
   }
 

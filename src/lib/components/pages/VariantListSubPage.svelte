@@ -1,9 +1,8 @@
 <script lang="ts">
-  import type { SettingsBlueprintItem, VariantListSetting } from '$lib/types.js'
+  import type { Setting, SettingsBlueprintItem } from '$lib/types.js'
   import { toReadable } from '$lib/utils/stores.js'
   import { getOptionsContext, getSettingsContext } from '$lib/context.js'
   import { getItemComponent } from '$lib/registry.js'
-  import SelectInput from '$lib/components/inputs/SelectInput.svelte'
   import { ComponentIcon, Trash2Icon } from '@lucide/svelte'
   import type { ItemSerialized } from '$lib/types/ui.js'
   import SettingsItemContainer from '$lib/components/ui/SettingsItemContainer.svelte'
@@ -11,7 +10,7 @@
 
   interface Props {
     path: string[]
-    item: VariantListSetting
+    item: Setting<'variant-list'>
     value: any
     onchange: (v: ItemSerialized) => void
     onnavigate: (target: string[]) => void

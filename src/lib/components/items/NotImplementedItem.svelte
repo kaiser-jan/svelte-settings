@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type { DescriptionItem } from '$lib/types.js'
   import { LockIcon } from '@lucide/svelte'
   import SettingsItemContainer from '../ui/SettingsItemContainer.svelte'
+  import type { Setting } from '$lib/types.js'
 
   interface Props {
-    item: DescriptionItem
+    item: Setting<'not-implemented'>
   }
 
   let { item }: Props = $props()

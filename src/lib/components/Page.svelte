@@ -1,11 +1,11 @@
 <script lang="ts">
-  import type { SettingsNested } from '$lib/types.js'
-  import { getItemComponent } from '$lib/registry.js'
+  import { getItemComponent, type SettingWith } from '$lib/registry.js'
   import { getSettingsContext } from '$lib/context.js'
+  import type { Setting } from '$lib/types.js'
 
   interface Props {
     path: string[]
-    item: SettingsNested
+    item: Setting<'page'>
     onnavigate: (target: string[], replace?: boolean) => void
   }
 

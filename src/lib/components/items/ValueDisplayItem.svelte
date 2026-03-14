@@ -1,13 +1,12 @@
 <script lang="ts">
   import { getOptionsContext } from '$lib/context.js'
-  import { cn } from '$lib/utils.js'
   import { toReadable } from '$lib/utils/stores.js'
-  import type { ValueDisplayItem } from '$lib/types.js'
   import { ExternalLinkIcon } from '@lucide/svelte'
   import SettingsItemContainer from '../ui/SettingsItemContainer.svelte'
+  import type { Setting } from '$lib/types.js'
 
   interface Props {
-    item: ValueDisplayItem
+    item: Setting<'value'>
   }
 
   let { item }: Props = $props()

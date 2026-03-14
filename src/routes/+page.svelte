@@ -4,6 +4,7 @@
   import { onMount } from 'svelte'
   import { page } from '$app/state'
   import { goto } from '$app/navigation'
+  import { get } from 'svelte/store'
 
   onMount(() => {
     if (page.url.searchParams.get('settings-path') === null) {

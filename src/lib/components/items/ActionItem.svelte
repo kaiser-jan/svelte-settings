@@ -1,12 +1,12 @@
 <script lang="ts">
   import { CircleCheckIcon, CircleXIcon } from '@lucide/svelte'
-  import type { ActionItem } from '$lib/types.js'
   import { toReadable } from '$lib/utils/stores.js'
   import { getOptionsContext } from '$lib/context.js'
   import SettingsItemContainer from '../ui/SettingsItemContainer.svelte'
+  import type { Setting } from '$lib/types.js'
 
   interface Props {
-    item: ActionItem
+    item: Setting<'action'>
   }
 
   let { item }: Props = $props()

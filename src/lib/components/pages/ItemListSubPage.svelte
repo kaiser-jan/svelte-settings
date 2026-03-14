@@ -2,11 +2,11 @@
   import { getItemComponent } from '$lib/registry.js'
   import { getOptionsContext, getSettingsContext } from '$lib/context.js'
   import { Trash2Icon } from '@lucide/svelte'
-  import type { ItemListSetting } from '$lib/types.js'
+  import type { Setting } from '$lib/types.js'
 
   interface Props {
     path: string[]
-    item: ItemListSetting
+    item: Setting<'item-list'>
     onnavigate: (target: string[], replace?: boolean) => void
     onchange: (v: unknown) => void
   }

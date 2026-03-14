@@ -1,9 +1,9 @@
 <script lang="ts">
   import { getOptionsContext } from '$lib/context.js'
-  import type { TextSetting } from '$lib/types.js'
+  import type { Setting } from '$lib/types.js'
 
   interface Props {
-    item: TextSetting
+    item: Setting<'text'>
     value: string
     onchange: (v: string) => void
   }

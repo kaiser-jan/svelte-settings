@@ -1,11 +1,11 @@
 <script lang="ts">
   import { getOptionsContext } from '$lib/context.js'
-  import type { ChangelogPage } from '$lib/types.js'
+  import type { Setting } from '$lib/types.js'
   import { toReadable } from '$lib/utils/stores.js'
   import { DateTime } from 'luxon'
 
   interface Props {
-    item: ChangelogPage
+    item: Setting<'changelog'>
   }
 
   let { item }: Props = $props()

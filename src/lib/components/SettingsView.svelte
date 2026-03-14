@@ -1,15 +1,21 @@
 <script lang="ts">
-  import type { SettingsPage } from '$lib/types.js'
   import { useSwipe, type SwipeCustomEvent } from 'svelte-gestures'
   import { SettingsIcon } from '@lucide/svelte'
   import { onMount } from 'svelte'
-  import { getPageComponent, getSubpageComponent, isSubpage as hasSubpage, isWrapper } from '$lib/registry.js'
+  import {
+    getPageComponent,
+    getSubpageComponent,
+    isSubpage as hasSubpage,
+    isWrapper,
+    type SettingWith,
+  } from '$lib/registry.js'
   import { throttle } from '$lib/utils/common.js'
   import type { InitializedSettings } from '$lib/index.js'
   import { setSettingsContext } from '$lib/context.js'
   import { get } from 'svelte/store'
   import { queryParam, ssp } from 'sveltekit-search-params'
   import { setOptionsContext } from '$lib/context.js'
+  import type { Setting } from '$lib/types.js'
 
   interface Props {
     settings: InitializedSettings
@@ -24,7 +30,7 @@
 
   const { Breadcrumb } = settings.options.components
 
-  type Page = SettingsPage & { path: readonly string[]; isSubpage?: boolean }
+  type Page = SettingWith<'page'> & { path: readonly string[]; isSubpage?: boolean }
 
   const BASE_PAGE = {
     id: 'settings',
@@ -100,7 +106,7 @@
         return _pages
       }
 
-      let childPage = parentPage.children.find((p) => p.id === key) as SettingsPage
+      let childPage = parentPage.children.find((p) => p.id === key) as Setting<'page'>
 
       _pages.push({ ...childPage, path: $settingsPath.slice(0, index + 1) })
     }

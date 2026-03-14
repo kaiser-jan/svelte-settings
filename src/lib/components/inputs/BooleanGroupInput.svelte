@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type { BooleanGroupSetting } from '$lib/types.js'
   import { toReadable } from '$lib/utils/stores.js'
   import { getOptionsContext } from '$lib/context.js'
+  import type { Setting } from '$lib/types.js'
 
   interface Props {
-    item: BooleanGroupSetting
+    item: Setting<'boolean-group'>
     value: string[]
     onchange: (v: string[]) => void
   }

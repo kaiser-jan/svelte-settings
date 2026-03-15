@@ -1,4 +1,4 @@
-import { extractDefaults, extractDefaultsToCopy } from './utils/extract.js'
+import { copyDefaultsTo, extractDefaults } from './utils/extract.js'
 import type { SettingsBlueprint, SettingsFromBlueprint } from './types.js'
 import { select } from '$lib/utils/stores.js'
 import { getDeep, mergeDeep, setDeep } from './utils/deep.js'
@@ -26,8 +26,10 @@ export function useSettings<T extends SettingsBlueprint, ButtonVariantT extends 
 ) {
   type Settings = SettingsFromBlueprint<T>
 
-  // TODO: the defaults for added settings will not be copied -> migration
-  const settingsOverrides = persisted('settings', extractDefaultsToCopy(blueprint))
+  // do not set defaults here, they might be overridden by migrations
+  const settingsOverrides = persisted('settings', {})
+
+  settingsOverrides.set(copyDefaultsTo(blueprint, get(settingsOverrides)))
 
   const settingsDefaults = extractDefaults(blueprint) as Settings
   const settingsStore = writable<Settings>(mergeDeep(structuredClone(settingsDefaults), get(settingsOverrides)))

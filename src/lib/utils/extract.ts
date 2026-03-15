@@ -1,4 +1,5 @@
 import type { SettingsBlueprintItem } from '../types.js'
+import { getDeep } from './deep.js'
 
 function assign(obj: Record<string, any>, path: string[], value: unknown) {
   for (let i = 0; i < path.length - 1; i++) {
@@ -12,20 +13,21 @@ export function extractDefaults(items: SettingsBlueprintItem[]) {
   return extractProperty(items, 'default')
 }
 
-export function extractDefaultsToCopy(items: SettingsBlueprintItem[]) {
-  return extractProperty(items, 'defaultToCopy')
+export function copyDefaultsTo(config: SettingsBlueprintItem[], target: object) {
+  return extractProperty(config, 'defaultToCopy', target)
 }
 
 function extractProperty(
-  items: SettingsBlueprintItem[],
+  config: SettingsBlueprintItem[],
   property: keyof SettingsBlueprintItem,
+  target: Record<string, unknown> = {},
 ): Record<string, unknown> {
-  const result: Record<string, any> = {}
-
   function walk(config: SettingsBlueprintItem[], path: string[] = []) {
     for (const item of config) {
-      if (property in item) {
-        assign(result, [...path, item.id], item[property])
+      const fullPath = [...path, item.id]
+      const exists = getDeep(target, fullPath)
+      if (property in item && !exists) {
+        assign(target, fullPath, item[property])
       }
       if ('children' in item) {
         walk(
@@ -37,6 +39,6 @@ function extractProperty(
     }
   }
 
-  walk(items)
-  return result
+  walk(config)
+  return target
 }

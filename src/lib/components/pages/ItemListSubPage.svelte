@@ -17,16 +17,3 @@
     <ItemComponent path={[...parentPath, child.id]} item={child} {onchange} {...props} />
   {/if}
 {/each}
-
-<Button
-  variant="destructive"
-  class="mt-auto"
-  onclick={() => {
-    onchange(undefined)
-    // TODO: merge with other navigation
-    history.back()
-  }}
->
-  <Trash2Icon />
-  Delete {item.itemLabel ?? 'Item'}
-</Button>

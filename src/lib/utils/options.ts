@@ -30,6 +30,7 @@ export type Options<ButtonVariantT extends string> = {
     button: {
       category: ButtonVariantT
       action: ButtonVariantT
+      secondary: ButtonVariantT
     }
     category: {
       classes: string
@@ -58,6 +59,7 @@ export const defaultOptions: Options<buttonVariants> = {
     button: {
       category: 'outline',
       action: 'default',
+      secondary: 'secondary',
     },
     category: {
       classes: buttonVariants({ variant: 'outline', class: 'text-base whitespace-wrap' }),

@@ -1,8 +1,20 @@
 <script lang="ts">
-  import { dragHandle, dragHandleZone } from 'svelte-dnd-action'
+  import { dndzone, dragHandle, dragHandleZone } from 'svelte-dnd-action'
   import { cn } from '$lib/utils.js'
   import { toReadable } from '$lib/utils/stores.js'
-  import { ChevronRightIcon, GripHorizontalIcon, PlusIcon, RefreshCcwDotIcon, type SettingsIcon } from '@lucide/svelte'
+  import {
+    CheckIcon,
+    ChevronRightIcon,
+    EditIcon,
+    GripHorizontalIcon,
+    PenSquareIcon,
+    PlusIcon,
+    RefreshCcwDotIcon,
+    SquarePen,
+    SquarePenIcon,
+    Trash2Icon,
+    type SettingsIcon,
+  } from '@lucide/svelte'
   import { getOptionsContext } from '$lib/context.js'
   import { createUUID } from '$lib/utils/common.js'
   import { lucideIcons } from '$lib/utils/icons.js'
@@ -18,6 +30,8 @@
   const { Label, Button, Popover } = options.components
 
   let disabled = toReadable(item.disabled)
+
+  let edit = $state(false)
 
   /** 
   Keep an internal copy of the value prop, so changing it in the parent still leads to updates.
@@ -42,11 +56,13 @@
 <div
   class={cn('flex w-full flex-col', $disabled ? 'opacity-50' : '')}
   data-vaul-no-drag
-  use:dragHandleZone={{
+  use:dndzone={{
     items: Object.values(toDragListItems(items)),
     flipDurationMs: 300,
-    dragDisabled: $disabled,
+    dragDisabled: $disabled || !edit,
     dropTargetStyle: {},
+    // BUG: this causes flickering
+    morphDisabled: true,
   }}
   onconsider={(e) => {
     const updated: Record<string, ItemWithId> = {}
@@ -64,20 +80,20 @@
   {#each Object.entries(items) as [id, listItem] (id ?? 'in-deletion')}
     <!-- svelte-ignore a11y_click_events_have_key_events -->
     <!-- svelte-ignore a11y_no_static_element_interactions -->
-    <div
+    <button
       class={cn(
         'flex min-h-12 w-full flex-row items-center gap-2 px-3 py-2 not-last:border-b-2 first:rounded-t-md last:rounded-b-md',
         options.style.category.classes,
         'justify-start rounded-none',
       )}
-      onclick={() => onnavigate([id])}
+      onclick={() => !edit && onnavigate([id])}
       data-vaul-no-drag
     >
-      <!-- svelte-ignore a11y_click_events_have_key_events -->
-      <!-- svelte-ignore a11y_no_static_element_interactions -->
-      <div use:dragHandle onclick={(e) => e.stopPropagation()} data-vaul-no-drag>
-        <GripHorizontalIcon data-vaul-no-drag />
-      </div>
+      {#if edit}
+        <div data-vaul-no-drag>
+          <GripHorizontalIcon data-vaul-no-drag />
+        </div>
+      {/if}
 
       {#if listItem.icon}
         {@const Icon = lucideIcons[listItem.icon]}
@@ -88,10 +104,39 @@
         {listItem?.label ?? id}
       </Label>
 
-      <ChevronRightIcon class="ml-auto" />
-    </div>
+      <div class="ml-auto">
+        {#if edit}
+          <Button
+            variant="destructive"
+            size="icon"
+            onclick={() => {
+              delete items[id]
+              onchange(items)
+            }}
+          >
+            <Trash2Icon />
+          </Button>
+        {:else}
+          <ChevronRightIcon />
+        {/if}
+      </div>
+    </button>
   {/each}
 </div>
+
+<Button
+  class="mt-2"
+  variant={edit ? options.style.button.action : options.style.button.secondary}
+  onclick={() => (edit = !edit)}
+>
+  {#if edit}
+    <CheckIcon />
+    Done
+  {:else}
+    <SquarePenIcon />
+    Edit
+  {/if}
+</Button>
 
 {#if item.defaultToCopy && (items === undefined || Object.keys(items).length === 0)}
   <Button

@@ -5,13 +5,15 @@
   import { toReadable } from '$lib/utils/stores.js'
   import { DateTime } from 'luxon'
 
-  let { item }: PropsFor<Setting<'changelog'>> = $props()
+  let { item, header }: PropsFor<Setting<'changelog'>> = $props()
 
   const options = getOptionsContext()
   const { Accordion } = options.components
 
   const changelog = toReadable(item.changelog)
 </script>
+
+{@render header()}
 
 <Accordion.Root type="single">
   {#each $changelog?.releases ?? [] as release, index (index)}

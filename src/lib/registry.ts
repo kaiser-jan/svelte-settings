@@ -1,4 +1,4 @@
-import type { Component } from 'svelte'
+import type { Component, Snippet } from 'svelte'
 
 import type { Setting, SettingsBlueprintItem, SettingType } from './types.js'
 
@@ -100,6 +100,7 @@ export type PropsFor<S extends Setting<SettingType>, F = unknown> = {
   item: S
   value: S extends { default: infer D } ? D : F
   wasChanged: boolean
+  header: Snippet
   onchange: (v: S extends { default: infer D } ? D : F) => void
   onnavigate: (path: string[]) => void
   path: readonly string[]

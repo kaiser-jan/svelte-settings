@@ -50,23 +50,20 @@ export const settingsConfig = [
         label: 'Project',
         icon: 'folder',
         type: 'select',
-        options: [
-          {
-            id: '12137092-f527-4f65-b642-a0ff7d9bd489',
+        options: {
+          '12137092-f527-4f65-b642-a0ff7d9bd489': {
             label: 'Task Track',
             icon: 'chart-no-axes-gantt',
           },
-          {
-            id: '09cf1ba7-eb85-4f6a-b6c1-0bfebcbcb267',
+          '09cf1ba7-eb85-4f6a-b6c1-0bfebcbcb267': {
             label: 'Weather PWA',
             icon: 'cloud-sun',
           },
-          {
-            id: '2e7650a7-66ad-4841-8c98-1ce296f5c4ef',
+          '2e7650a7-66ad-4841-8c98-1ce296f5c4ef': {
             label: 'Svelte Settings',
             icon: 'settings',
           },
-        ],
+        },
       },
       '4164793a-8a75-4467-a2f5-a9bf500cf55b': {
         id: '4164793a-8a75-4467-a2f5-a9bf500cf55b',

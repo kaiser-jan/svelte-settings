@@ -9,7 +9,7 @@
 </script>
 
 <SettingsItemContainer {item}>
-  <p>
+  <p class="mx-2 text-start">
     {@html item.text}
   </p>
 </SettingsItemContainer>

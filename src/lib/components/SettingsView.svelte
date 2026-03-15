@@ -156,7 +156,7 @@
 
     // NOTE: wrappers are not added to history
     for (let i = targetLength - 1; i <= currentLength - 1; i++) {
-      if (pages[i] && isWrapper(pages[i]) && i !== targetLength) moveBackBy -= 1
+      if (pages[i] && (isWrapper(pages[i]) || pages[i].inline) && i !== targetLength) moveBackBy -= 1
     }
 
     // avoid reloading
@@ -174,7 +174,7 @@
 </script>
 
 <Breadcrumb.Root>
-  <Breadcrumb.List class="min-h-5">
+  <Breadcrumb.List class="-mb-2 min-h-5">
     {#each pages.slice(0, -1) as settingsPage, index (settingsPage.id)}
       {#if index !== 0}
         <Breadcrumb.Separator />
@@ -189,26 +189,28 @@
         </Breadcrumb.Link>
       </Breadcrumb.Item>
     {/each}
+    {#if pages.length > 1}
+      <Breadcrumb.Separator />
+    {/if}
   </Breadcrumb.List>
 </Breadcrumb.Root>
 
-<h3 class="-my-1 inline-flex items-center gap-2 text-lg font-bold">
-  {#if pages.length > 1}
-    <ChevronRightIcon class="text-muted-foreground" onclick={() => history.back()} />
-  {/if}
-  {#if pages[pages.length - 1].icon}
-    <!-- svelte-ignore svelte_component_deprecated -->
-    <svelte:component this={pages[pages.length - 1].icon} />
-  {/if}
-  {pages[pages.length - 1].label}
-</h3>
+{#snippet header()}
+  <h3 class="inline-flex items-center gap-2 text-lg font-bold">
+    {#if pages[pages.length - 1].icon}
+      <!-- svelte-ignore svelte_component_deprecated -->
+      <svelte:component this={pages[pages.length - 1].icon} />
+    {/if}
+    {pages[pages.length - 1].label}
+  </h3>
+{/snippet}
 
 <div
   class="relative grow"
   {...useSwipe(handleSwipe, () => ({ timeframe: 300, minSwipeDistance: 30, touchAction: 'pan-y' }))}
 >
   <div
-    class="absolute flex h-full w-full shrink-0 flex-row gap-6 transition-all duration-300 ease-in-out"
+    class="absolute flex h-full w-full shrink-0 flex-row gap-6 transition-all duration-250 ease-in-out"
     bind:this={scrollContainer}
   >
     {#each pages as settingsPage, i (settingsPage.id)}
@@ -231,6 +233,7 @@
               settings.writeSetting(settingsPage.path, v)
             }
           }}
+          {header}
         />
       </div>
     {/each}

@@ -43,7 +43,7 @@
     promise = Promise.resolve(item.action()) as Promise<unknown>
   }}
 >
-  <span class="flex flex-row items-center gap-3">
+  <span class="mx-1 flex flex-row items-center gap-3">
     {#if promise}
       {#await promise}
         <LoaderPulsatingRing className="size-4" />

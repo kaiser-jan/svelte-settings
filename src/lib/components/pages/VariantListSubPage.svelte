@@ -7,7 +7,9 @@
   import SettingsItemContainer from '$lib/components/ui/SettingsItemContainer.svelte'
   import AutoSelect from '../ui/AutoSelect.svelte'
 
-  let { item, value, path, onchange, ...props }: PropsFor<Setting<'variant-list'>, any> = $props()
+  let props: PropsFor<Setting<'variant-list'>, any> = $props()
+
+  let { item, value, path, onchange, header } = props
 
   const settings = getSettingsContext()
   const options = getOptionsContext()
@@ -20,6 +22,19 @@
 
   // TODO: hide change indicator for list items, it makes no sense here
 </script>
+
+{@render header()}
+
+{#snippet items(items: SettingsBlueprintItem[])}
+  {#each items as child (child.id)}
+    {@const ItemComponent = getItemComponent(child as SettingsBlueprintItem)}
+    {#if !child.visible || child.visible($settings)}
+      <ItemComponent {...props} path={[...path, child.id]} item={child} />
+    {/if}
+  {/each}
+{/snippet}
+
+{@render items(item.base as any)}
 
 <SettingsItemContainer
   item={{
@@ -41,9 +56,4 @@
   />
 </SettingsItemContainer>
 
-{#each [...item.base, ...subItems] as child (child.id)}
-  {@const ItemComponent = getItemComponent(child as SettingsBlueprintItem)}
-  {#if !child.visible || child.visible($settings)}
-    <ItemComponent path={[...path, child.id]} item={child} {value} {onchange} {...props} />
-  {/if}
-{/each}
+{@render items(subItems as any)}

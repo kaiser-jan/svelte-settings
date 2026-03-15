@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { PropsFor } from '$lib/registry.js'
   import type { Setting } from '$lib/types.js'
+  import { type Snippet } from 'svelte'
   import PageRenderer from '../Page.svelte'
 
   let { onnavigate, item, ...props }: PropsFor<Setting<'page'>> = $props()
@@ -17,5 +18,6 @@
     onnavigate={(target) => {
       onnavigate([item.id, ...target])
     }}
+    header={(() => {}) as Snippet}
   />
 </section>

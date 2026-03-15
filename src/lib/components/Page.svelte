@@ -3,14 +3,17 @@
   import { getSettingsContext } from '$lib/context.js'
   import type { Setting } from '$lib/types.js'
 
-  let { path: parentPath, item, onnavigate, ...props }: PropsFor<Setting<'page'>> = $props()
+  let props: PropsFor<Setting<'page'>> = $props()
+  let { path: parentPath, item, onnavigate, header } = props
 
   const settings = getSettingsContext()
 </script>
 
+{@render header()}
+
 {#each item.children as child (child.id)}
   {@const ItemComponent = getItemComponent(child)}
   {#if !child.visible || child.visible($settings)}
-    <ItemComponent path={[...parentPath, child.id]} item={child} {onnavigate} {...props} />
+    <ItemComponent {...props} path={[...parentPath, child.id]} item={child} />
   {/if}
 {/each}

@@ -5,15 +5,11 @@
   import {
     CheckIcon,
     ChevronRightIcon,
-    EditIcon,
     GripHorizontalIcon,
-    PenSquareIcon,
     PlusIcon,
     RefreshCcwDotIcon,
-    SquarePen,
     SquarePenIcon,
     Trash2Icon,
-    type SettingsIcon,
   } from '@lucide/svelte'
   import { getOptionsContext } from '$lib/context.js'
   import { createUUID } from '$lib/utils/common.js'
@@ -24,7 +20,8 @@
   type Item = { label?: string; icon?: string }
   type ItemWithId = Item & { id: string }
 
-  let { item, value: _value, wasChanged, onchange, onnavigate }: PropsFor<Setting<'item-list'>> = $props()
+  let props: PropsFor<Setting<'item-list'>> = $props()
+  const { item, value: _value, wasChanged, header, onchange, onnavigate } = props
 
   const options = getOptionsContext()
   const { Label, Button, Popover } = options.components
@@ -53,6 +50,40 @@
   }
 </script>
 
+<div class="flex w-full flex-row items-center gap-2">
+  <div class="mr-auto">
+    {@render header?.()}
+  </div>
+
+  <Button
+    variant={edit ? options.style.button.action : options.style.button.secondary}
+    size="icon"
+    onclick={() => (edit = !edit)}
+  >
+    {#if edit}
+      <CheckIcon />
+    {:else}
+      <SquarePenIcon />
+    {/if}
+  </Button>
+
+  <Button
+    disabled={edit}
+    variant={options.style.button.action}
+    onclick={() => {
+      const uuid = createUUID()
+      onchange({
+        ...items,
+        [uuid]: {},
+      })
+      onnavigate([uuid])
+    }}
+  >
+    <PlusIcon />
+    Add
+  </Button>
+</div>
+
 <div
   class={cn('flex w-full flex-col', $disabled ? 'opacity-50' : '')}
   data-vaul-no-drag
@@ -72,7 +103,6 @@
     items = updated
   }}
   onfinalize={(e) => {
-    // TODO: only after reordering does the SettingsView (incl. Breadcrumbs) get reactive to e.g. label changes of the items
     const updated: Record<string, ItemWithId> = {}
     e.detail.items.forEach((i) => (updated[i.id] = i))
     items = updated
@@ -80,12 +110,14 @@
   }}
 >
   {#each Object.entries(items) as [id, listItem] (id ?? 'in-deletion')}
+    {@const Icon = listItem.icon ? lucideIcons[listItem.icon] : undefined}
+
     <!-- svelte-ignore a11y_click_events_have_key_events -->
     <!-- svelte-ignore a11y_no_static_element_interactions -->
     <button
       class={cn(
-        'flex min-h-12 w-full flex-row items-center gap-2 px-3 py-2 not-last:border-b-2 first:rounded-t-md last:rounded-b-md',
         options.style.category.classes,
+        'flex min-h-12 w-full flex-row items-center gap-2 px-3 py-2 not-last:border-b-2 first:rounded-t-md last:rounded-b-md',
         'justify-start rounded-none',
       )}
       onclick={() => !edit && onnavigate([id])}
@@ -97,12 +129,11 @@
         </div>
       {/if}
 
-      {#if listItem.icon}
-        {@const Icon = lucideIcons[listItem.icon]}
+      {#if Icon}
         <Icon class="stroke opacity-80" />
       {/if}
 
-      <Label for={id} class="text-left leading-4">
+      <Label for={id} class="block w-0 grow overflow-hidden text-left leading-4 text-nowrap text-ellipsis">
         {listItem?.label ?? id}
       </Label>
 
@@ -126,23 +157,9 @@
   {/each}
 </div>
 
-<Button
-  class="mt-2"
-  variant={edit ? options.style.button.action : options.style.button.secondary}
-  onclick={() => (edit = !edit)}
->
-  {#if edit}
-    <CheckIcon />
-    Done
-  {:else}
-    <SquarePenIcon />
-    Edit
-  {/if}
-</Button>
-
 {#if item.defaultToCopy && (items === undefined || Object.keys(items).length === 0)}
   <Button
-    class="mt-2"
+    disabled={edit}
     variant={options.style.button.action}
     onclick={() => {
       if (!item.defaultToCopy) return
@@ -154,19 +171,3 @@
     Recreate defaults
   </Button>
 {/if}
-
-<Button
-  class="mt-2"
-  variant={options.style.button.action}
-  onclick={() => {
-    const uuid = createUUID()
-    onchange({
-      ...items,
-      [uuid]: {},
-    })
-    onnavigate([uuid])
-  }}
->
-  <PlusIcon />
-  Add {item.itemLabel ?? 'Item'}
-</Button>

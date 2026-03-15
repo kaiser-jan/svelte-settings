@@ -10,6 +10,6 @@
   const options = getOptionsContext()
 </script>
 
-<SettingsItemContainer variant={options.style.button.category} onclick={() => onnavigate([item.id])} {item} clickable>
+<SettingsItemContainer variant={options.style.button.category} onclick={() => onnavigate([item.id])} {item}>
   <ChevronRightIcon class="ml-auto" />
 </SettingsItemContainer>

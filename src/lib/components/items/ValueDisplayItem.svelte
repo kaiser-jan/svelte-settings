@@ -12,7 +12,7 @@
   let value = $derived(toReadable(item.value))
 </script>
 
-<SettingsItemContainer {item} href={item.url} target="_blank" clickable variant={options.style.button.category}>
+<SettingsItemContainer {item} href={item.url} target="_blank" variant={options.style.button.category}>
   <span class="ml-auto">{$value}</span>
 
   {#if item.url}

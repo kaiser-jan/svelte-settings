@@ -4,29 +4,24 @@
   import { cn } from '$lib/utils.js'
   import type { Snippet } from 'svelte'
   import type { ButtonProps } from './button/button.svelte'
-  import Div from './Div.svelte'
 
   interface Props extends ButtonProps {
     item: SettingsBlueprintItem
     changed?: boolean
-    clickable?: boolean
     hideLabel?: boolean
     children: Snippet
   }
 
-  const { item, changed, clickable, hideLabel, children, ...restProps }: Props = $props()
+  const { item, changed, hideLabel, children, ...restProps }: Props = $props()
 
   const options = getOptionsContext()
   const { Button } = options.components
-
-  const Component = $derived(clickable ? Button : (Div as typeof Button))
 </script>
 
-<Component
+<Button
   {...restProps}
+  variant={options.style.button.category}
   class={cn(
-    !clickable && options.style.container.classes,
-    // 'relative flex h-fit min-h-12 shrink-0 flex-wrap items-center justify-between gap-x-3 gap-y-1 overflow-hidden rounded-md px-4 py-2 whitespace-normal',
     'px-auto relative h-fit min-h-14 flex-wrap justify-between overflow-hidden p-2 pl-4 text-base whitespace-normal',
     restProps.class,
   )}
@@ -51,4 +46,4 @@
   {#if changed}
     <span class="absolute top-0 bottom-0 left-0 h-full w-0.5 bg-primary"></span>
   {/if}
-</Component>
+</Button>

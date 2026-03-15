@@ -66,7 +66,7 @@
     <!-- svelte-ignore a11y_no_static_element_interactions -->
     <div
       class={cn(
-        'flex min-h-12 w-full flex-row items-center gap-2  px-3 py-2 first:rounded-t-md last:rounded-b-md',
+        'flex min-h-12 w-full flex-row items-center gap-2 px-3 py-2 not-last:border-b-2 first:rounded-t-md last:rounded-b-md',
         options.style.category.classes,
         'justify-start rounded-none',
       )}

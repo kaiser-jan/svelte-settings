@@ -63,6 +63,8 @@
     dropTargetStyle: {},
     // BUG: this causes flickering
     morphDisabled: true,
+    dropAnimationDisabled: true,
+    dropFromOthersDisabled: true,
   }}
   onconsider={(e) => {
     const updated: Record<string, ItemWithId> = {}

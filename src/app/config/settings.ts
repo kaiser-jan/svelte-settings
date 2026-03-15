@@ -176,6 +176,7 @@ export const settingsConfig = [
             nameProperty: 'label',
             iconProperty: 'icon',
             itemLabel: 'Option',
+            inline: true,
             children: [
               {
                 id: 'label',
@@ -185,7 +186,7 @@ export const settingsConfig = [
               },
               {
                 id: 'icon',
-                label: 'icon',
+                label: 'Icon',
                 type: 'icon',
                 icon: SmileIcon,
               },

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { useSwipe, type SwipeCustomEvent } from 'svelte-gestures'
-  import { SettingsIcon } from '@lucide/svelte'
+  import { ChevronRightIcon, SettingsIcon } from '@lucide/svelte'
   import { onMount } from 'svelte'
   import {
     getPageComponent,
@@ -16,6 +16,7 @@
   import { queryParam, ssp } from 'sveltekit-search-params'
   import { setOptionsContext } from '$lib/context.js'
   import type { Setting } from '$lib/types.js'
+  import { lucideIcons } from '$lib/utils/icons.js'
 
   interface Props {
     settings: InitializedSettings
@@ -90,6 +91,7 @@
           ...parentPage,
           id: key,
           label: value?.['label'] ?? key,
+          icon: value?.['icon'] ? lucideIcons[value.icon] : parentPage.icon,
           isSubpage: true,
           defaultToCopy: undefined,
           ...getVariantListSubpageOverride(parentPage, path),
@@ -172,19 +174,34 @@
 </script>
 
 <Breadcrumb.Root>
-  <Breadcrumb.List>
-    {#each pages as settingsPage, index (settingsPage.id)}
+  <Breadcrumb.List class="min-h-5">
+    {#each pages.slice(0, -1) as settingsPage, index (settingsPage.id)}
       {#if index !== 0}
         <Breadcrumb.Separator />
       {/if}
       <Breadcrumb.Item>
-        <Breadcrumb.Link onclick={() => navigateToPage(settingsPage)}>
+        <Breadcrumb.Link onclick={() => navigateToPage(settingsPage)} class="inline-flex items-center gap-1">
+          {#if settingsPage.icon}
+            <!-- svelte-ignore svelte_component_deprecated -->
+            <svelte:component this={settingsPage.icon} />
+          {/if}
           {settingsPage.label}
         </Breadcrumb.Link>
       </Breadcrumb.Item>
     {/each}
   </Breadcrumb.List>
 </Breadcrumb.Root>
+
+<h3 class="-my-1 inline-flex items-center gap-2 text-lg font-bold">
+  {#if pages.length > 1}
+    <ChevronRightIcon class="text-muted-foreground" onclick={() => history.back()} />
+  {/if}
+  {#if pages[pages.length - 1].icon}
+    <!-- svelte-ignore svelte_component_deprecated -->
+    <svelte:component this={pages[pages.length - 1].icon} />
+  {/if}
+  {pages[pages.length - 1].label}
+</h3>
 
 <div
   class="relative grow"

@@ -21,6 +21,7 @@ import GroupWrapper from './components/wrappers/GroupWrapper.svelte'
 
 import BooleanInput from './components/inputs/BooleanInput.svelte'
 import IconInput from './components/inputs/IconInput.svelte'
+import ColorInput from './components/inputs/ColorInput.svelte'
 import SelectInput from './components/inputs/SelectInput.svelte'
 import NumberInput from './components/inputs/NumberInput.svelte'
 import BooleanGroupInput from './components/inputs/BooleanGroupInput.svelte'
@@ -29,11 +30,12 @@ import TextInput from './components/inputs/TextInput.svelte'
 
 const components = {
   input: {
-    icon: IconInput,
     boolean: BooleanInput,
     'boolean-group': BooleanGroupInput,
     number: NumberInput,
     text: TextInput,
+    icon: IconInput,
+    color: ColorInput,
     select: SelectInput,
     list: ListInput,
   },

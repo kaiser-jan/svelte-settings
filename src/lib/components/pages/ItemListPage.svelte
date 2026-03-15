@@ -17,7 +17,7 @@
   import type { Setting } from '$lib/types.js'
   import type { PropsFor } from '$lib/registry.js'
 
-  type Item = { label?: string; icon?: string }
+  type Item = { label?: string; icon?: string; color?: string }
   type ItemWithId = Item & { id: string }
 
   let props: PropsFor<Setting<'item-list'>> = $props()
@@ -117,9 +117,10 @@
     <button
       class={cn(
         options.style.category.classes,
-        'flex min-h-12 w-full flex-row items-center gap-2 px-3 py-2 not-last:border-b-2 first:rounded-t-md last:rounded-b-md',
+        'relative flex min-h-12 w-full flex-row items-center gap-2 p-2! not-last:border-b-2 first:rounded-t-md last:rounded-b-md',
         'justify-start rounded-none',
       )}
+      style={listItem.color ? `background: color-mix(in oklab, ${listItem.color} 30%, var(--background));` : ''}
       onclick={() => !edit && onnavigate([id])}
       data-vaul-no-drag
     >
@@ -128,6 +129,10 @@
           <GripHorizontalIcon data-vaul-no-drag />
         </div>
       {/if}
+
+      <!-- {#if listItem.color} -->
+      <!--   <div class="size-8 rounded-sm" style={`background: ${listItem.color};`}></div> -->
+      <!-- {/if} -->
 
       {#if Icon}
         <Icon class="stroke opacity-80" />

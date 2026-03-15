@@ -61,6 +61,10 @@ type SettingRegistry = {
     default: string
   }
 
+  color: {
+    default: string
+  }
+
   description: {
     text: string
   }

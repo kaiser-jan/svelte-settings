@@ -27,12 +27,12 @@
   )}
 >
   {#if !hideLabel}
-    <span class="ml-1 flex shrink-0 flex-row items-center gap-3 font-medium">
+    <label class="ml-1 flex shrink-0 flex-row items-center gap-3 font-medium" for={item.id}>
       {#if item.icon}
         <item.icon class="text-text" />
       {/if}
       {item.label}
-    </span>
+    </label>
   {/if}
 
   {@render children()}

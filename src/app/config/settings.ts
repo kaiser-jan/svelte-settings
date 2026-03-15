@@ -34,6 +34,7 @@ import {
   BrainIcon,
   KeyIcon,
   XIcon,
+  PaletteIcon,
 } from '@lucide/svelte'
 
 export const settingsConfig = [
@@ -127,6 +128,12 @@ export const settingsConfig = [
         type: 'icon',
         icon: SmileIcon,
       },
+      {
+        id: 'color',
+        label: 'Color',
+        type: 'color',
+        icon: PaletteIcon,
+      },
     ],
     options: [
       {
@@ -186,6 +193,12 @@ export const settingsConfig = [
                 label: 'Icon',
                 type: 'icon',
                 icon: SmileIcon,
+              },
+              {
+                id: 'color',
+                label: 'Color',
+                type: 'color',
+                icon: PaletteIcon,
               },
             ],
           },

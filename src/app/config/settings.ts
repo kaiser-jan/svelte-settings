@@ -47,72 +47,31 @@ export const settingsConfig = [
     itemLabel: 'Attribute',
     defaultToCopy: {
       '87da052f-5ed2-4199-8689-b819d903c407': {
-        id: '87da052f-5ed2-4199-8689-b819d903c407',
         label: 'Project',
         icon: 'folder',
         type: 'select',
         options: {
-          '12137092-f527-4f65-b642-a0ff7d9bd489': {
-            label: 'Task Track',
-            icon: 'chart-no-axes-gantt',
-          },
-          '09cf1ba7-eb85-4f6a-b6c1-0bfebcbcb267': {
-            label: 'Weather PWA',
-            icon: 'cloud-sun',
-          },
-          '2e7650a7-66ad-4841-8c98-1ce296f5c4ef': {
-            label: 'Svelte Settings',
-            icon: 'settings',
-          },
+          '12137092-f527-4f65-b642-a0ff7d9bd489': { label: 'Task Track', icon: 'timer', color: '#c061cb' },
+          '09cf1ba7-eb85-4f6a-b6c1-0bfebcbcb267': { label: 'Weather PWA', icon: 'sun', color: '#62a0ea' },
+          '2e7650a7-66ad-4841-8c98-1ce296f5c4ef': { label: 'Svelte Settings', icon: 'settings', color: '#ffa348' },
         },
       },
       '4164793a-8a75-4467-a2f5-a9bf500cf55b': {
-        id: '4164793a-8a75-4467-a2f5-a9bf500cf55b',
         label: 'With',
         icon: 'user',
         type: 'text',
       },
-      '2b88a78c-aee6-49e5-8484-cef73b7c2b17': {
-        id: '2b88a78c-aee6-49e5-8484-cef73b7c2b17',
-        label: 'At',
-        icon: 'map',
-        type: 'text',
-      },
       '20f3d304-3ad7-48cc-9db6-c7b75da56664': {
-        id: '20f3d304-3ad7-48cc-9db6-c7b75da56664',
         label: 'Focus',
         icon: 'target',
         type: 'ordinal',
         min: 0,
         max: 10,
       },
-      '167fc973-73c0-4b30-93f9-d944a4c2822e': {
-        id: '167fc973-73c0-4b30-93f9-d944a4c2822e',
-        label: 'Dev Type',
-        icon: 'code',
-        type: 'select',
-        options: [
-          {
-            id: 'b35db8a7-d0c5-47f2-bdec-d81f3712b360',
-            label: 'Feature',
-            icon: 'star',
-          },
-          {
-            id: '716e74e6-26de-44a1-9ca8-ba514b196de0',
-            label: 'Bug Fix',
-            icon: 'circle-alert',
-          },
-          {
-            id: 'fa983217-1670-4651-bbc8-2ca36dc3e33e',
-            label: 'Improvement',
-            icon: 'trending-up',
-          },
-          {
-            id: '64a7270a-3064-4fd6-9a6b-8fafdcdf1fb0',
-            label: 'Refactor',
-            icon: 'repeat',
-          },
-        ],
+      'f974244d-d9be-40cc-b570-517a97bf99aa': {
+        label: 'Number',
+        icon: 'calculator',
+        type: 'scalar',
       },
     },
     base: [

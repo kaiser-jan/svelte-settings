@@ -155,7 +155,6 @@ As the name `Variant List` implies, the settings is visually represented by a re
 But using an array internally has a few drawbacks:
 Nearly all settings are stored in a Record format, which makes the (partial) actual values easily traversable. Introducing an array would mean either accessing by index (which gets mixed up by reordering) or using `.find` on the `id` field, which would require adaptation of the deep read and write.
 In the long run this calls for trouble, as the value-accessing methods do not know if they are accessing a record or an array. E.g. when writing a property for a list item which is not yet written to the settings.
-TODO: should the same logic be applied to the regular List Setting?
 
 However, this means that we need to store items under a key, which makes it hard to make this key/id user-configurable.
 This leads to the next question: Should the unique id be user-editable?

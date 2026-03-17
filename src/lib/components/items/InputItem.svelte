@@ -3,7 +3,7 @@
   import { getSettingsContext } from '$lib/context.js'
   import SettingsItemContainer from '$lib/components/ui/SettingsItemContainer.svelte'
 
-  let { ...props }: PropsFor<SettingWith<'input'>> = $props()
+  let { onchange, ...props }: PropsFor<SettingWith<'input'>> = $props()
   let { path, item, onnavigate } = props
 
   const settings = getSettingsContext()

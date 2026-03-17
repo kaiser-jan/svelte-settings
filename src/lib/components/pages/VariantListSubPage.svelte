@@ -37,6 +37,7 @@
 {@render items(item.base as any)}
 
 <SettingsItemContainer
+  {path}
   item={{
     label: 'Type',
     icon: ComponentIcon,

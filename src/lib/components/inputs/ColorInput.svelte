@@ -24,7 +24,7 @@
   id={props.path.join('_')}
   {value}
   oninput={(e) => {
-    e.currentTarget.value && onchange(e.currentTarget.value)
+    if (e.currentTarget.value) onchange(e.currentTarget.value)
   }}
   class="sr-only"
 />

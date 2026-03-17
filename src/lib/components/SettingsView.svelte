@@ -93,6 +93,7 @@
           label: value?.['label'] ?? key,
           icon: value?.['icon'] ? lucideIcons[value.icon] : parentPage.icon,
           isSubpage: true,
+          inline: false,
           defaultToCopy: undefined,
           ...getVariantListSubpageOverride(parentPage, path),
           path,
@@ -116,6 +117,10 @@
     return _pages
   })
 
+  // some pages are relevant for the path and breadcrumbs, but do not need to be displayed separately
+  // e.g. when a page is rendered inline, it does not need to be shown standalone as well
+  let renderedPages = $derived(pages.filter((p) => !isWrapper(p) && !p.inline))
+
   function openSubpath(additionalPath: string[]) {
     const newPath = [...(get(settingsPath) ?? []), ...additionalPath]
     settingsPath.set(newPath)
@@ -127,7 +132,7 @@
   let scrollContainer: HTMLDivElement
 
   $effect(() => {
-    if (pages.length) {
+    if (renderedPages.length) {
       updateScroll()
     }
   })
@@ -135,7 +140,7 @@
   function updateScroll() {
     const gap = parseInt(getComputedStyle(scrollContainer).gap, 10) || 0
     const pageWidth = scrollContainer.parentElement!.getBoundingClientRect().width + gap
-    scrollContainer.style.left = `${-1 * (pages.length - 1) * pageWidth}px`
+    scrollContainer.style.left = `${-1 * (renderedPages.length - 1) * pageWidth}px`
   }
 
   function handleSwipe(event: SwipeCustomEvent) {
@@ -213,14 +218,14 @@
     class="absolute flex h-full w-full shrink-0 flex-row gap-6 transition-all duration-250 ease-in-out"
     bind:this={scrollContainer}
   >
-    {#each pages as settingsPage, i (settingsPage.id)}
+    {#each renderedPages as settingsPage, i (settingsPage.id)}
       {@const value = settings.readSetting(settingsPage.path)}
       {@const PageComponent = settingsPage.isSubpage
         ? getSubpageComponent(settingsPage.type)
         : getPageComponent(settingsPage.type)}
       <div
         class="flex h-full w-full shrink-0 flex-col gap-2 overflow-hidden overflow-y-auto"
-        class:pointer-events-none={i !== pages.length - 1}
+        class:pointer-events-none={i !== renderedPages.length - 1}
       >
         <PageComponent
           item={settingsPage}

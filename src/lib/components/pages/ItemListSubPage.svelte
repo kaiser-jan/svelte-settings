@@ -4,8 +4,7 @@
   import { Trash2Icon } from '@lucide/svelte'
   import type { Setting, SettingsBlueprintItem } from '$lib/types.js'
 
-  let props: PropsFor<Setting<'item-list'>> = $props()
-  const { path: parentPath, item, onchange, header } = props
+  let { path: parentPath, item, header, ...props }: PropsFor<Setting<'item-list'>> = $props()
 
   const settings = getSettingsContext()
   const options = getOptionsContext()
@@ -17,6 +16,6 @@
 {#each item.children as child (child.id)}
   {@const ItemComponent = getItemComponent(child as SettingsBlueprintItem)}
   {#if !child.visible || child.visible($settings)}
-    <ItemComponent {...props} path={[...parentPath, child.id]} item={child} />
+    <ItemComponent path={[...parentPath, child.id]} item={child} />
   {/if}
 {/each}

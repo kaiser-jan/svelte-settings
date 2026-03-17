@@ -97,11 +97,11 @@ export function useSettings<T extends SettingsBlueprint, ButtonVariantT extends 
 
     const defaultValue = getDeep(settingsDefaults, path)
 
-    console.log(defaultValue)
-    if (defaultValue === undefined) {
-      console.debug(`No default setting, ignoring.`)
-      return
-    }
+    // console.log(defaultValue)
+    // if (defaultValue === undefined) {
+    //   console.debug(`No default setting, ignoring.`)
+    //   return
+    // }
 
     settingsStore.update((s) => {
       setDeep(s, path, defaultValue)

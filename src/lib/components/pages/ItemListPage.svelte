@@ -20,8 +20,7 @@
   type Item = { label?: string; icon?: string; color?: string }
   type ItemWithId = Item & { id: string }
 
-  let props: PropsFor<Setting<'item-list'>> = $props()
-  const { item, value: _value, wasChanged, header, onchange, onnavigate } = props
+  let { item, value: _value, header, onchange, onnavigate }: PropsFor<Setting<'item-list'>> = $props()
 
   const options = getOptionsContext()
   const { Label, Button, Popover } = options.components

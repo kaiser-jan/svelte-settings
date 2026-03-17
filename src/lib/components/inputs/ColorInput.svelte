@@ -3,12 +3,11 @@
   import type { PropsFor } from '$lib/registry.js'
   import { PlusIcon } from '@lucide/svelte'
 
-  let props: PropsFor<Setting<'color'>> = $props()
-  let { value, onchange } = props
+  let { value, path, onchange }: PropsFor<Setting<'color'>> = $props()
 </script>
 
 <label
-  for={props.path.join('_')}
+  for={path.join('_')}
   class="flex h-8 w-8 items-center justify-center rounded-sm border border-input"
   class:bg-transparent={value === undefined}
   style="background-color: {value}"
@@ -21,7 +20,7 @@
 
 <input
   type="color"
-  id={props.path.join('_')}
+  id={path.join('_')}
   {value}
   oninput={(e) => {
     if (e.currentTarget.value) onchange(e.currentTarget.value)

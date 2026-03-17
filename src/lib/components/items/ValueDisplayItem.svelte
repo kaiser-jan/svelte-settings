@@ -6,15 +6,14 @@
   import type { Setting } from '$lib/types.js'
   import type { PropsFor } from '$lib/registry.js'
 
-  let props: PropsFor<Setting<'value'>> = $props()
-  let { item } = props
+  let { item, path }: PropsFor<Setting<'value'>> = $props()
 
   const options = getOptionsContext()
 
   let value = $derived(toReadable(item.value))
 </script>
 
-<SettingsItemContainer {...props} {item} href={item.url} target="_blank" variant={options.style.button.category}>
+<SettingsItemContainer {item} {path} href={item.url} target="_blank" variant={options.style.button.category}>
   <span class="ml-auto">{$value}</span>
 
   {#if item.url}

@@ -7,9 +7,7 @@
   import SettingsItemContainer from '$lib/components/ui/SettingsItemContainer.svelte'
   import AutoSelect from '../ui/AutoSelect.svelte'
 
-  let props: PropsFor<Setting<'variant-list'>, any> = $props()
-
-  let { item, value, path, onchange, header } = props
+  let { item, value, path, onchange, header, ...props }: PropsFor<Setting<'variant-list'>, any> = $props()
 
   const settings = getSettingsContext()
   const options = getOptionsContext()

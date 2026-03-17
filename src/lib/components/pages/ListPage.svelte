@@ -4,8 +4,7 @@
   import type { Setting } from '$lib/types.js'
   import type { PropsFor } from '$lib/registry.js'
 
-  let props: PropsFor<Setting<'list'>> = $props()
-  const { item, value, onchange, header } = props
+  let { item, value, onchange, header }: PropsFor<Setting<'list'>> = $props()
 
   let disabled = toReadable(item.disabled)
 </script>

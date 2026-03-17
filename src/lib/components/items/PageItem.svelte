@@ -6,8 +6,7 @@
   import { getPageComponent, type PropsFor } from '$lib/registry.js'
   import { getDeep } from '$lib/utils/deep.js'
 
-  let props: PropsFor<Setting<'page'>> = $props()
-  let { item, onnavigate } = props
+  let { item, path, onnavigate, ...props }: PropsFor<Setting<'page'>> = $props()
 
   const options = getOptionsContext()
   const settings = getSettingsContext()
@@ -25,19 +24,20 @@
 {#if item.inline && getPageComponent(item.type)}
   {@const PageComponent = getPageComponent(item.type)}
 
-  <SettingsItemContainer variant={options.style.button.category} {item} hideLabel>
+  <SettingsItemContainer {path} {item} variant={options.style.button.category} hideLabel>
     <PageComponent
       {...props}
       {item}
+      {path}
       onnavigate={(p) => {
         // TODO: this breaks breadcrumb nav
         onnavigate([item.id, ...p])
       }}
       onchange={(v) => {
         // NOTE: this does not help, its not the child which is writing
-        settings.writeSetting(props.path, v)
+        settings.writeSetting(path, v)
       }}
-      value={settings.readSetting(props.path).value}
+      value={settings.readSetting(path).value}
     >
       {#snippet header()}
         <span class="ml-1 flex shrink-0 flex-row items-center gap-3 font-medium">
@@ -50,7 +50,7 @@
     </PageComponent>
   </SettingsItemContainer>
 {:else}
-  <SettingsItemContainer {props} variant={options.style.button.category} onclick={() => onnavigate([item.id])} {item}>
+  <SettingsItemContainer {path} {item} variant={options.style.button.category} onclick={() => onnavigate([item.id])}>
     <ChevronRightIcon class="ml-auto" />
   </SettingsItemContainer>
 {/if}

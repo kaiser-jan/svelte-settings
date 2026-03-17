@@ -7,12 +7,11 @@
   import type { PropsFor } from '$lib/registry.js'
 
   let props: PropsFor<Setting<'action'>> = $props()
-  let { item } = props
 
   const options = getOptionsContext()
   const { Button, LoaderPulsatingRing } = options.components
 
-  let disabled = $derived(toReadable(item.disabled))
+  let disabled = $derived(toReadable(props.item.disabled))
 
   let promise = $state<Promise<unknown>>()
   let loading = $state(false)
@@ -36,12 +35,11 @@
 
 <SettingsItemContainer
   {...props}
-  clickable
   hideLabel
-  variant={item.variant ?? options.style.button.action}
+  variant={props.item.variant ?? options.style.button.action}
   disabled={loading || $disabled}
   onclick={() => {
-    promise = Promise.resolve(item.action()) as Promise<unknown>
+    promise = Promise.resolve(props.item.action()) as Promise<unknown>
   }}
 >
   <span class="mx-1 flex flex-row items-center gap-3">
@@ -54,9 +52,9 @@
         <CircleXIcon />
       {/await}
     {:else}
-      <item.icon />
+      <props.item.icon />
     {/if}
 
-    {item.label}
+    {props.item.label}
   </span>
 </SettingsItemContainer>

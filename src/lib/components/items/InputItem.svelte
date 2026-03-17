@@ -3,8 +3,7 @@
   import { getSettingsContext } from '$lib/context.js'
   import SettingsItemContainer from '$lib/components/ui/SettingsItemContainer.svelte'
 
-  let { onchange, ...props }: PropsFor<SettingWith<'input'>> = $props()
-  let { path, item, onnavigate } = props
+  let { path, item, onnavigate, onchange, ...props }: PropsFor<SettingWith<'input'>> = $props()
 
   const settings = getSettingsContext()
 
@@ -17,6 +16,8 @@
 
 <SettingsItemContainer
   {...props}
+  {item}
+  {path}
   onclick={() => {
     if (item.action) return item.action
     if (isPage(item) && !item.inline) onnavigate([item.id])
@@ -29,7 +30,10 @@
   {#if Component}
     <Component
       {...props}
+      {item}
+      {path}
       {value}
+      {onnavigate}
       wasChanged={changed}
       onchange={(v: unknown) => {
         console.log('in input')

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getOptionsContext } from '$lib/context.js'
-  import type { SettingsBlueprintItem } from '$lib/types.js'
+  import type { Setting, SettingsBlueprintItem } from '$lib/types.js'
   import { cn } from '$lib/utils.js'
   import type { Snippet } from 'svelte'
   import type { ButtonProps } from './button/button.svelte'
@@ -13,22 +13,22 @@
     children: Snippet
   }
 
-  const { item, changed, hideLabel, children, ...restProps }: Props = $props()
+  const { item, changed, hideLabel, children, path, class: className, ...props }: Props = $props()
 
   const options = getOptionsContext()
   const { Button } = options.components
 </script>
 
 <Button
-  {...restProps}
+  {...props}
   variant={options.style.button.category}
   class={cn(
     'px-auto relative h-fit min-h-14 flex-wrap justify-between overflow-hidden p-2 text-base whitespace-normal',
-    restProps.class,
+    className,
   )}
 >
   {#if !hideLabel}
-    <label class="ml-1 flex shrink-0 flex-row items-center gap-3 font-medium" for={restProps.path?.join('_')}>
+    <label class="ml-1 flex shrink-0 flex-row items-center gap-3 font-medium" for={path?.join('_')}>
       {#if item.icon}
         <item.icon class="text-text" />
       {/if}

@@ -5,12 +5,11 @@
   import type { PropsFor } from '$lib/registry.js'
 
   let props: PropsFor<Setting<'description'>> = $props()
-  let { item } = props
   const options = getOptionsContext()
 </script>
 
 <SettingsItemContainer {...props}>
   <p class="mx-2 text-start">
-    {@html item.text}
+    {@html props.item.text}
   </p>
 </SettingsItemContainer>

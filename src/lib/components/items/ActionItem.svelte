@@ -6,7 +6,8 @@
   import type { Setting } from '$lib/types.js'
   import type { PropsFor } from '$lib/registry.js'
 
-  let { item }: PropsFor<Setting<'action'>> = $props()
+  let props: PropsFor<Setting<'action'>> = $props()
+  let { item } = props
 
   const options = getOptionsContext()
   const { Button, LoaderPulsatingRing } = options.components
@@ -34,7 +35,7 @@
 </script>
 
 <SettingsItemContainer
-  {item}
+  {...props}
   clickable
   hideLabel
   variant={item.variant ?? options.style.button.action}

@@ -4,9 +4,10 @@
   import type { Setting } from '$lib/types.js'
   import type { PropsFor } from '$lib/registry.js'
 
-  let { item }: PropsFor<Setting<'not-implemented'>> = $props()
+  let props: PropsFor<Setting<'not-implemented'>> = $props()
+  let { item } = props
 </script>
 
-<SettingsItemContainer {item} class="text-muted-foreground">
+<SettingsItemContainer {...props} class="text-muted-foreground">
   <LockIcon />
 </SettingsItemContainer>

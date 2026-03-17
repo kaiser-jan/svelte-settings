@@ -117,7 +117,7 @@
     <button
       class={cn(
         options.style.category.classes,
-        'relative flex min-h-12 w-full flex-row items-center gap-2 p-2! not-last:border-b-2 first:rounded-t-md last:rounded-b-md',
+        'relative flex min-h-12 w-full flex-row items-center gap-2 p-2! pl-4! not-last:border-b-2 first:rounded-t-md last:rounded-b-md',
         'justify-start rounded-none',
       )}
       style={listItem.color ? `background: color-mix(in oklab, ${listItem.color} 30%, var(--background));` : ''}

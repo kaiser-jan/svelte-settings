@@ -6,6 +6,7 @@
   import type { ButtonProps } from './button/button.svelte'
 
   interface Props extends ButtonProps {
+    path: readonly string[]
     item: SettingsBlueprintItem
     changed?: boolean
     hideLabel?: boolean
@@ -27,7 +28,7 @@
   )}
 >
   {#if !hideLabel}
-    <label class="ml-1 flex shrink-0 flex-row items-center gap-3 font-medium" for={item.id}>
+    <label class="ml-1 flex shrink-0 flex-row items-center gap-3 font-medium" for={restProps.path?.join('_')}>
       {#if item.icon}
         <item.icon class="text-text" />
       {/if}

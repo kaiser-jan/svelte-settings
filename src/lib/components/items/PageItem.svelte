@@ -6,10 +6,20 @@
   import { getPageComponent, type PropsFor } from '$lib/registry.js'
   import { getDeep } from '$lib/utils/deep.js'
 
-  let { item, onnavigate, ...props }: PropsFor<Setting<'page'>> = $props()
+  let props: PropsFor<Setting<'page'>> = $props()
+  let { item, onnavigate } = props
 
   const options = getOptionsContext()
   const settings = getSettingsContext()
+
+  // TODO: reactivity
+  // let value = settings.select((s) => {
+  //   let _s = s
+  //   console.log(props.path)
+  //   props.path.forEach((p) => (_s = _s[p]))
+  //   console.log(_s)
+  //   return _s
+  // })
 </script>
 
 {#if item.inline && getPageComponent(item.type)}
@@ -23,7 +33,10 @@
         // TODO: this breaks breadcrumb nav
         onnavigate([item.id, ...p])
       }}
-      onchange={(v) => settings.writeSetting(props.path, v)}
+      onchange={(v) => {
+        // NOTE: this does not help, its not the child which is writing
+        settings.writeSetting(props.path, v)
+      }}
       value={settings.readSetting(props.path).value}
     >
       {#snippet header()}
@@ -37,7 +50,7 @@
     </PageComponent>
   </SettingsItemContainer>
 {:else}
-  <SettingsItemContainer variant={options.style.button.category} onclick={() => onnavigate([item.id])} {item}>
+  <SettingsItemContainer {props} variant={options.style.button.category} onclick={() => onnavigate([item.id])} {item}>
     <ChevronRightIcon class="ml-auto" />
   </SettingsItemContainer>
 {/if}

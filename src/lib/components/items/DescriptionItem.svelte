@@ -4,11 +4,12 @@
   import type { Setting } from '$lib/types.js'
   import type { PropsFor } from '$lib/registry.js'
 
-  let { item }: PropsFor<Setting<'description'>> = $props()
+  let props: PropsFor<Setting<'description'>> = $props()
+  let { item } = props
   const options = getOptionsContext()
 </script>
 
-<SettingsItemContainer {item}>
+<SettingsItemContainer {...props}>
   <p class="mx-2 text-start">
     {@html item.text}
   </p>
